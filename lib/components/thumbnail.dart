@@ -5,16 +5,17 @@ import 'package:rallyreader/components/progressIndicator.dart';
 import 'bookImage.dart';
 
 class ThumbNail extends StatelessWidget {
-  const ThumbNail({
-    Key key,
-    @required this.heightT,
-    @required this.widthT,
-    @required this.color,
-  }) : super(key: key);
+  const ThumbNail(
+      {Key key,
+      @required this.heightT,
+      @required this.widthT,
+      @required this.image})
+      : super(key: key);
 
   final double heightT;
   final double widthT;
-  final Color color;
+
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,11 @@ class ThumbNail extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
       child: Column(
         children: <Widget>[
-          BookImage(heightT: heightT, widthT: widthT, color: color),
+          BookImage(
+            heightT: heightT,
+            widthT: widthT,
+            image: image,
+          ),
           SizedBox(
             height: heightT * .014,
           ),
@@ -43,6 +48,7 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.author,
       @required this.pages,
       @required this.rating,
+      @required this.image,
       @required this.favorite,
       @required this.completion})
       : super(key: key);
@@ -55,6 +61,7 @@ class ExpandedThumbnail extends StatelessWidget {
   final double rating;
   final int favorite;
   final double completion;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +70,11 @@ class ExpandedThumbnail extends StatelessWidget {
       child: Container(
         child: Row(
           children: <Widget>[
-            BookImage(heightT: heightT, widthT: widthT, color: Colors.blueGrey),
+            BookImage(
+              heightT: heightT,
+              widthT: widthT,
+              image: image,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
@@ -121,8 +132,8 @@ class ExpandedThumbnail extends StatelessWidget {
                           child: Row(
                             children: <Widget>[
                               Icon(
-                                Icons.ac_unit,
-                                color: Colors.lightBlueAccent,
+                                Icons.favorite,
+                                color: Colors.redAccent
                               ),
                               Text(
                                 '$favorite',

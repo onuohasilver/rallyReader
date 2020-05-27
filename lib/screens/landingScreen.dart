@@ -23,9 +23,10 @@ class _LandingScreenState extends State<LandingScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: heightT * .12,
+                height: heightT * .09,
               ),
               Text(
                 'Recent Books.',
@@ -39,9 +40,10 @@ class _LandingScreenState extends State<LandingScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
-                        heightT: heightT,
-                        widthT: widthT,
-                        color: bookList[index]);
+                      image: bookList[index].image,
+                      heightT: heightT,
+                      widthT: widthT,
+                    );
                   },
                 ),
               ),
@@ -54,18 +56,21 @@ class _LandingScreenState extends State<LandingScreen> {
                     fontSize: heightT * .025, fontWeight: FontWeight.w600),
               ),
               Expanded(
-                child: ListView(
-                  children: <Widget>[
-                    ExpandedThumbnail(
+                child: ListView.builder(
+                  itemCount: bookList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var book=bookList[index];
+                    return ExpandedThumbnail(
                         heightT: heightT,
                         widthT: widthT,
-                        title: 'The Book of Chronicles',
-                        author: 'Jeremiah Hudons',
-                        pages: 560,
-                        rating: 4,
-                        favorite: 67,
-                        completion: .45)
-                  ],
+                        title: book.title,
+                        author: book.author,
+                        pages: book.pages,
+                        rating: book.rating,
+                        image: book.image,
+                        favorite: book.favorite,
+                        completion: book.completion);
+                  },
                 ),
               )
             ],
