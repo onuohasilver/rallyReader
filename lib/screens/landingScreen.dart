@@ -34,7 +34,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     fontSize: heightT * .04, fontWeight: FontWeight.w600),
               ),
               Container(
-                height: heightT * .28,
+                height: heightT * .26,
                 child: ListView.builder(
                   itemCount: bookList.length,
                   scrollDirection: Axis.horizontal,

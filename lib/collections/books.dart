@@ -16,7 +16,23 @@ final List<BookItem> bookList = [
       favorite: 35,
       author: 'Jeremiah Hudson',
       rating: 3,
-      completion: .78)
+      completion: .45),
+  BookItem(
+      image: 'assets/demoCover.jpg',
+      title: 'The Return of the Stars',
+      pages: 700,
+      author: 'Onuoha Silver',
+      rating: 5,
+      favorite: 57,
+      completion: .99),
+  BookItem(
+      image: 'assets/demoCoverr.jpg',
+      title: 'Killing Eve',
+      pages: 440,
+      favorite: 75,
+      author: 'Idika Otum',
+      rating: 4,
+      completion: .90)
 ];
 
 class BookItem {

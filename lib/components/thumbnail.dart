@@ -118,7 +118,7 @@ class ExpandedThumbnail extends StatelessWidget {
                             children: <Widget>[
                               Icon(
                                 Icons.star,
-                                color: Colors.orangeAccent,
+                                color: Colors.deepOrange,
                               ),
                               Text(
                                 '$rating',
