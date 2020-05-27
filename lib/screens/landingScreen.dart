@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/bottomBar.dart';
 
 import 'package:rallyreader/components/thumbnail.dart';
+import 'package:rallyreader/collections/books.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -32,26 +33,16 @@ class _LandingScreenState extends State<LandingScreen> {
                     fontSize: heightT * .04, fontWeight: FontWeight.w600),
               ),
               Container(
-                height: heightT * .24,
-                child: ListView(
+                height: heightT * .28,
+                child: ListView.builder(
+                  itemCount: bookList.length,
                   scrollDirection: Axis.horizontal,
-                  children: [
-                    ThumbNail(
-                        heightT: heightT, widthT: widthT, color: Colors.pink),
-                    ThumbNail(
-                        heightT: heightT, widthT: widthT, color: Colors.orange),
-                    ThumbNail(
-                        heightT: heightT, widthT: widthT, color: Colors.purple),
-                    ThumbNail(
+                  itemBuilder: (BuildContext context, int index) {
+                    return ThumbNail(
                         heightT: heightT,
                         widthT: widthT,
-                        color: Colors.greenAccent),
-                    ThumbNail(
-                      heightT: heightT,
-                      widthT: widthT,
-                      color: Colors.grey,
-                    ),
-                  ],
+                        color: bookList[index]);
+                  },
                 ),
               ),
               SizedBox(
@@ -65,10 +56,15 @@ class _LandingScreenState extends State<LandingScreen> {
               Expanded(
                 child: ListView(
                   children: <Widget>[
-                    ExpandedThumbnail(heightT: heightT, widthT: widthT),
-                    ExpandedThumbnail(heightT: heightT, widthT: widthT),
-                    ExpandedThumbnail(heightT: heightT, widthT: widthT),
-                    ExpandedThumbnail(heightT: heightT, widthT: widthT)
+                    ExpandedThumbnail(
+                        heightT: heightT,
+                        widthT: widthT,
+                        title: 'The Book of Chronicles',
+                        author: 'Jeremiah Hudons',
+                        pages: 560,
+                        rating: 4,
+                        favorite: 67,
+                        completion: .45)
                   ],
                 ),
               )
@@ -80,4 +76,3 @@ class _LandingScreenState extends State<LandingScreen> {
     );
   }
 }
-

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 
-
 import 'bookImage.dart';
 
 class ThumbNail extends StatelessWidget {
@@ -27,35 +26,44 @@ class ThumbNail extends StatelessWidget {
           SizedBox(
             height: heightT * .014,
           ),
-          CurvedLinearProgressIndicator(widthT: widthT,heightT: heightT,)
+          CurvedLinearProgressIndicator(
+              widthT: widthT * .6, heightT: heightT, value: .45)
         ],
       ),
     );
   }
 }
 
-
 class ExpandedThumbnail extends StatelessWidget {
-  const ExpandedThumbnail({
-    Key key,
-    @required this.heightT,
-    @required this.widthT,
-  }) : super(key: key);
+  const ExpandedThumbnail(
+      {Key key,
+      @required this.heightT,
+      @required this.widthT,
+      @required this.title,
+      @required this.author,
+      @required this.pages,
+      @required this.rating,
+      @required this.favorite,
+      @required this.completion})
+      : super(key: key);
 
   final double heightT;
   final double widthT;
+  final String title;
+  final String author;
+  final int pages;
+  final double rating;
+  final int favorite;
+  final double completion;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0,0,0,20),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       child: Container(
         child: Row(
           children: <Widget>[
-            BookImage(
-                heightT: heightT,
-                widthT: widthT,
-                color: Colors.blueGrey),
+            BookImage(heightT: heightT, widthT: widthT, color: Colors.blueGrey),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
@@ -63,13 +71,12 @@ class ExpandedThumbnail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'The Book of Bera',
+                    title,
                     style: GoogleFonts.poppins(
-                        fontSize: heightT * .022,
-                        fontWeight: FontWeight.w600),
+                        fontSize: heightT * .022, fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    'Suzie Wilde',
+                    author,
                     style: GoogleFonts.poppins(
                         fontSize: heightT * .022,
                         fontWeight: FontWeight.w600,
@@ -86,7 +93,7 @@ class ExpandedThumbnail extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             child: Center(
                                 child: Text(
-                              '1200L',
+                              '$pages L',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500),
@@ -95,8 +102,7 @@ class ExpandedThumbnail extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 18.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -104,23 +110,22 @@ class ExpandedThumbnail extends StatelessWidget {
                                 color: Colors.orangeAccent,
                               ),
                               Text(
-                                '5.0',
+                                '$rating',
                                 style: TextStyle(color: Colors.black87),
                               )
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: Row(
                             children: <Widget>[
                               Icon(
                                 Icons.ac_unit,
-                                color: Colors.blueAccent,
+                                color: Colors.lightBlueAccent,
                               ),
                               Text(
-                                '89',
+                                '$favorite',
                                 style: TextStyle(color: Colors.black87),
                               )
                             ],
@@ -131,8 +136,8 @@ class ExpandedThumbnail extends StatelessWidget {
                   ),
                   Container(
                     width: widthT * .5,
-                    child:
-                        CurvedLinearProgressIndicator(widthT: widthT),
+                    child: CurvedLinearProgressIndicator(
+                        widthT: widthT, value: completion),
                   )
                 ],
               ),

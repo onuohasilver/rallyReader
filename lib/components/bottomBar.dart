@@ -8,7 +8,11 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(items: [
+    return BottomNavigationBar(
+      elevation: 0,
+      selectedItemColor: Colors.black,
+      currentIndex:1,
+      items: [
       BottomNavigationBarItem(
         icon: Icon(MaterialCommunityIcons.book_open_variant),
         title: Text(''),
