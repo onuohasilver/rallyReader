@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rallyreader/components/bottomBar.dart';
 
 import 'package:rallyreader/components/thumbnail.dart';
 
@@ -75,11 +76,8 @@ class _LandingScreenState extends State<LandingScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(icon: Icon(Icons.ac_unit),title: Text('a')),
-        BottomNavigationBarItem(icon: Icon(Icons.ac_unit),title:Text('a')),
-        BottomNavigationBarItem(icon: Icon(Icons.ac_unit),title: Text('a'))
-      ]),
+      bottomNavigationBar: BottomBar(),
     );
   }
 }
+
