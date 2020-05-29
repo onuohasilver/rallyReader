@@ -87,66 +87,70 @@ class ExpandedThumbnail extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.hindMadurai(
                         fontSize: heightT * .022, fontWeight: FontWeight.w600),
                   ),
                   Text(
                     author,
                     style: GoogleFonts.poppins(
-                        fontSize: heightT * .022,
+                        fontSize: heightT * .016,
                         fontWeight: FontWeight.w600,
                         color: Colors.grey[400]),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          height: heightT * .04,
-                          width: widthT * .15,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Center(
-                                child: Text(
-                              '$pages L',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            )),
-                            color: Colors.lightGreen,
+                    child: Container(
+                      width: widthT*.54,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            height: heightT * .04,
+                            width: widthT * .16,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Center(
+                                  child: Text(
+                                '$pages L',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                              color: Colors.lightGreen,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.star,
-                                color: Colors.deepOrange,
-                              ),
-                              Text(
-                                '$rating',
-                                style: TextStyle(color: Colors.black87),
-                              )
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.deepOrange,
+                                ),
+                                Text(
+                                  '$rating',
+                                  style: TextStyle(color: Colors.black87),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.favorite,
-                                color: Colors.redAccent
-                              ),
-                              Text(
-                                '$favorite',
-                                style: TextStyle(color: Colors.black87),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.favorite,
+                                  color: Colors.redAccent
+                                ),
+                                Text(
+                                  '$favorite',
+                                  style: TextStyle(color: Colors.black87),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Container(

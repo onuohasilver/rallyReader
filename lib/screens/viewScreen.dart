@@ -106,7 +106,7 @@ class _BookScreenState extends State<BookScreen> {
                             ),
                           ),
                           SizedBox(height: 15),
-                          Text('Pages', style: TextStyle(color: Colors.grey))
+                          
                         ],
                       ),
                       Padding(
@@ -126,8 +126,7 @@ class _BookScreenState extends State<BookScreen> {
                               ],
                             ),
                             SizedBox(height: 15),
-                            Text('Average Rating',
-                                style: TextStyle(color: Colors.grey))
+                          
                           ],
                         ),
                       ),
@@ -145,15 +144,14 @@ class _BookScreenState extends State<BookScreen> {
                               ],
                             ),
                             SizedBox(height: 15),
-                            Text('Favorites',
-                                style: TextStyle(color: Colors.grey))
+                          
                           ],
                         ),
                       )
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 40, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
                     child: Container(
                       height: heightT * .18,
                       child: Row(
@@ -181,11 +179,10 @@ class _BookScreenState extends State<BookScreen> {
                               Container(
                                 width: widthT * .75,
                                 child: Text(
-                                  '''There is a way that seemeaaaaaaaaaaaa 
-                               textAlign:TtextAlign:TtextAlign:TtextaaaAlign:T
-                               aa
+                                  '''The American Abstract Artists herewith present a fourth in the series of books...
                                 ''',
                                   textAlign: TextAlign.justify,
+                                  style:TextStyle(fontSize: 20)
                                 ),
                               )
                             ],

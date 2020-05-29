@@ -32,7 +32,7 @@ class _LandingScreenState extends State<LandingScreen> {
               Text(
                 'Recent Books.',
                 style: GoogleFonts.poppins(
-                    fontSize: heightT * .04, fontWeight: FontWeight.w600),
+                    fontSize: heightT * .034, fontWeight: FontWeight.w600),
               ),
               Container(
                 height: heightT * .26,
