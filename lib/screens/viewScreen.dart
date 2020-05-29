@@ -19,7 +19,7 @@ class _BookScreenState extends State<BookScreen> {
         child: Stack(
           children: <Widget>[
             Container(
-              height: heightT * .75,
+              height: heightT * .70,
               width: widthT,
               color: Color(0xFF574497),
             ),
@@ -50,74 +50,144 @@ class _BookScreenState extends State<BookScreen> {
                         fontSize: 30,
                         fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(height:3),
+                  SizedBox(height: 3),
                   Text(
                     'Susan Wildes',
                     style: GoogleFonts.jura(
                         color: Colors.grey[400],
-                        fontSize: 20,
+                        fontSize: 15,
                         fontWeight: FontWeight.w600),
                   ),
-                  
-
-
-
-Row(
-   mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          height: heightT * .04,
-                          width: widthT * .15,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Center(
+                  SizedBox(height: heightT * .06),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            height: heightT * .04,
+                            width: widthT * .15,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Center(
+                                  child: Text(
+                                '120L',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                              color: Colors.lightGreen,
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                          Text('Pages', style: TextStyle(color: Colors.grey))
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                ),
+                                Text(
+                                  '5.0',
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Text('Average Rating',
+                                style: TextStyle(color: Colors.grey))
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.favorite, color: Colors.redAccent),
+                                Text(
+                                  '20',
+                                  style: TextStyle(color: Colors.white),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 15),
+                            Text('Favorites',
+                                style: TextStyle(color: Colors.grey))
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 40, 0, 0),
+                    child: Container(
+                      height: heightT * .18,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            height: heightT * .15,
+                            width: widthT * .01,
+                            child: Material(
+                              color: Colors.black26,
+                            ),
+                          ),
+                          SizedBox(width: heightT * .03),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Description',
+                                style: GoogleFonts.muli(
+                                    fontSize: 20, fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.start,
+                              ),
+                              SizedBox(height: heightT * .01),
+                              Container(
+                                width: widthT * .75,
                                 child: Text(
-                              '120',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
-                            )),
-                            color: Colors.lightGreen,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                          child: Row(
-                           
-                            children: <Widget>[
-                              
-                              Icon(
-                                Icons.star,
-                                color: Colors.deepOrange,
-                              ),
-                              Text(
-                                '5',
-                                style: TextStyle(color: Colors.white),
+                                  '''There is a way that seemeaaaaaaaaaaaa 
+                               textAlign:TtextAlign:TtextAlign:TtextaaaAlign:T
+                               aa
+                                ''',
+                                  textAlign: TextAlign.justify,
+                                ),
                               )
                             ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.favorite,
-                                color: Colors.redAccent
-                              ),
-                              Text(
-                                '20',
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-
-
-
-                  
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      width: widthT * .7,
+                      height: heightT * .05,
+                      child: Material(
+                          child: InkWell(
+                            onTap: () {},
+                            splashColor: Colors.pink,
+                            child: Center(
+                              child: Text(
+                                'Read More',
+                                style: TextStyle(color: Colors.pink[400]),
+                              ),
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.pink.withOpacity(.3)),
+                    ),
+                  )
                 ],
               ),
             )
