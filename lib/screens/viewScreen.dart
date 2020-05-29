@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/bookImage.dart';
+import 'package:rallyreader/screens/readScreen.dart';
 
 class BookScreen extends StatefulWidget {
   final String image;
@@ -200,7 +201,16 @@ class _BookScreenState extends State<BookScreen> {
                       height: heightT * .05,
                       child: Material(
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ReadScreen();
+                                  },
+                                ),
+                              );
+                            },
                             splashColor: Colors.pink,
                             child: Center(
                               child: Text(
