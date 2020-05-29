@@ -4,6 +4,7 @@ import 'package:rallyreader/components/bottomBar.dart';
 
 import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
+import 'package:rallyreader/screens/viewScreen.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -59,17 +60,31 @@ class _LandingScreenState extends State<LandingScreen> {
                 child: ListView.builder(
                   itemCount: bookList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    var book=bookList[index];
+                    var book = bookList[index];
                     return ExpandedThumbnail(
-                        heightT: heightT,
-                        widthT: widthT,
-                        title: book.title,
-                        author: book.author,
-                        pages: book.pages,
-                        rating: book.rating,
-                        image: book.image,
-                        favorite: book.favorite,
-                        completion: book.completion);
+                      heightT: heightT,
+                      widthT: widthT,
+                      title: book.title,
+                      author: book.author,
+                      pages: book.pages,
+                      rating: book.rating,
+                      image: book.image,
+                      favorite: book.favorite,
+                      completion: book.completion,
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return BookScreen(
+                            author: book.author,
+                            title: book.title,
+                            rating:book.rating,
+                            image:book.image,
+                            favorites: book.favorite,
+
+                          );
+                        }));
+                      },
+                    );
                   },
                 ),
               )

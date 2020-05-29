@@ -5,7 +5,7 @@ import 'package:rallyreader/screens/viewScreen.dart';
 void main() {
   runApp(
     MaterialApp(
-      home: BookScreen(),
+      home: LandingScreen(),
     ),
   );
 }

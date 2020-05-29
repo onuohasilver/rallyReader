@@ -11,7 +11,7 @@ final List<BookItem> bookList = [
       completion: .78),
   BookItem(
       image: 'assets/demoCoverr.jpg',
-      title: 'Smart People die too',
+      title: 'The Return of the Stars',
       pages: 340,
       favorite: 35,
       author: 'Jeremiah Hudson',

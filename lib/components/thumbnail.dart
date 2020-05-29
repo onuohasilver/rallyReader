@@ -24,6 +24,7 @@ class ThumbNail extends StatelessWidget {
       child: Column(
         children: <Widget>[
           BookImage(
+            shadow: false,
             heightT: heightT,
             widthT: widthT,
             image: image,
@@ -50,7 +51,7 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.rating,
       @required this.image,
       @required this.favorite,
-      @required this.completion})
+      @required this.completion, this.onTap})
       : super(key: key);
 
   final double heightT;
@@ -62,6 +63,7 @@ class ExpandedThumbnail extends StatelessWidget {
   final int favorite;
   final double completion;
   final String image;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +73,11 @@ class ExpandedThumbnail extends StatelessWidget {
         child: Row(
           children: <Widget>[
             BookImage(
+              shadow: false,
               heightT: heightT,
               widthT: widthT,
               image: image,
+              onTap: onTap,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),

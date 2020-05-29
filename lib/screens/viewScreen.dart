@@ -3,6 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/bookImage.dart';
 
 class BookScreen extends StatefulWidget {
+  final String image;
+  final String title;
+  final String author;
+  final int favorites;
+  final double rating;
+
+  const BookScreen(
+      {Key key,
+      @required this.image,
+      @required this.title,
+      @required this.author,
+      @required this.favorites,
+      @required this.rating})
+      : super(key: key);
   @override
   _BookScreenState createState() => _BookScreenState();
 }
@@ -28,31 +42,42 @@ class _BookScreenState extends State<BookScreen> {
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    height: heightT * .10,
+                    height: heightT * .09,
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.arrow_back, color: Colors.white, size: 30),
-                        Icon(Icons.more_horiz, color: Colors.white, size: 30),
+                        IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          color: Colors.white,
+                          iconSize: 30,
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.more_horiz),
+                          color: Colors.white,
+                          iconSize: 30,
+                          onPressed: () {},
+                        ),
                       ]),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: BookImage(
+                        shadow: true,
                         heightT: heightT + (heightT * .4),
                         widthT: widthT + (widthT * .4),
-                        image: 'assets/demoCoverr.jpg'),
+                        image: widget.image),
                   ),
                   Text(
-                    'The Midnight War',
+                    widget.title,
                     style: GoogleFonts.jura(
                         color: Colors.white,
-                        fontSize: 30,
+                        fontSize: 25,
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 3),
                   Text(
-                    'Susan Wildes',
+                    widget.author,
                     style: GoogleFonts.jura(
                         color: Colors.grey[400],
                         fontSize: 15,
@@ -94,7 +119,7 @@ class _BookScreenState extends State<BookScreen> {
                                   color: Colors.yellow,
                                 ),
                                 Text(
-                                  '5.0',
+                                  widget.rating.toString(),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ],
@@ -113,7 +138,7 @@ class _BookScreenState extends State<BookScreen> {
                               children: <Widget>[
                                 Icon(Icons.favorite, color: Colors.redAccent),
                                 Text(
-                                  '20',
+                                  widget.favorites.toString(),
                                   style: TextStyle(color: Colors.white),
                                 )
                               ],
