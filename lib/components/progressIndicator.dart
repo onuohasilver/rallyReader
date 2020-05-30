@@ -5,12 +5,14 @@ class CurvedLinearProgressIndicator extends StatelessWidget {
     Key key,
     @required this.widthT,
     this.heightT,
-    @required this.value,
+    @required this.value, @required this.read, this.readColor,
   }) : super(key: key);
 
   final double widthT;
   final double heightT;
   final double value;
+  final bool read;
+  final Color readColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +25,12 @@ class CurvedLinearProgressIndicator extends StatelessWidget {
             height: 8,
             child: LinearProgressIndicator(
               value: value,
-              valueColor: AlwaysStoppedAnimation(Colors.orange),
+              valueColor: AlwaysStoppedAnimation(read?readColor:Colors.orange),
               backgroundColor: Colors.grey[300],
             ),
           ),
         ),
-        Text(
+        read?Container():Text(
           '  ${value * 100}%',
           style: TextStyle(
             color: Colors.grey[400],

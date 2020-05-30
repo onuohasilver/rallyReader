@@ -33,7 +33,7 @@ class ThumbNail extends StatelessWidget {
             height: heightT * .014,
           ),
           CurvedLinearProgressIndicator(
-              widthT: widthT * .6, heightT: heightT, value: .45)
+              widthT: widthT * .6, heightT: heightT, value: .45,read: false,)
         ],
       ),
     );
@@ -156,7 +156,7 @@ class ExpandedThumbnail extends StatelessWidget {
                   Container(
                     width: widthT * .5,
                     child: CurvedLinearProgressIndicator(
-                        widthT: widthT, value: completion),
+                        widthT: widthT, value: completion,read:false),
                   )
                 ],
               ),

@@ -1,6 +1,7 @@
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:flutter/material.dart';
 import 'package:rallyreader/components/colorFlatButton.dart';
+import 'package:rallyreader/components/progressIndicator.dart';
 
 import 'landingScreen.dart';
 
@@ -11,7 +12,7 @@ class ReadScreen extends StatefulWidget {
 
 class _ReadScreenState extends State<ReadScreen> {
   int currentPageNumber = 1;
-  int totalPageCount = 0;
+  int totalPageCount = 1;
   double sliderValue = 0;
   PdfController pdfController;
 
@@ -62,6 +63,15 @@ class _ReadScreenState extends State<ReadScreen> {
                 },
                 controller: pdfController,
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal:10.0,vertical:5),
+            child: CurvedLinearProgressIndicator(
+              widthT: widthT * 3.1,
+              value: currentPageNumber / totalPageCount,
+              read: true,
+              readColor: Color(0xFF574497),
             ),
           ),
           Container(
