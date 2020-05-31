@@ -13,7 +13,7 @@ class GetPermission {
     
   }
 
-  List<String> getFileList() {
+  List<String> get getFileList {
     Directory dir = Directory('/storage/emulated/0/');
     String pathX = dir.toString();
     List<FileSystemEntity> pdfFileX = [];

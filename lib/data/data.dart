@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Data extends ChangeNotifier {
   List<String> filePath = [];
 
-  updateFiles(files) {
+  void updateFiles(files) {
     filePath = files;
     notifyListeners();
   }

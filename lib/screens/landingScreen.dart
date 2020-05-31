@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/bottomBar.dart';
+import 'package:rallyreader/data/data.dart';
+import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
@@ -13,15 +15,21 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   GetPermission getPermission=GetPermission();
+  List<String> fileNames;
   @override
   void initState() { 
     getPermission.requestPermission;
-    GetPermission().getFileList();
+    fileNames=getPermission.getFileList;
+    
     super.initState();
     
   }
+  
   @override
   Widget build(BuildContext context) {
+    final appData = Provider.of<Data>(context);
+    appData.updateFiles(fileNames); 
+    print(fileNames) ;
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
     return Scaffold(

@@ -1,7 +1,9 @@
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rallyreader/components/colorFlatButton.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
+import 'package:rallyreader/data/data.dart';
 
 import 'landingScreen.dart';
 
@@ -15,18 +17,20 @@ class _ReadScreenState extends State<ReadScreen> {
   int totalPageCount = 1;
   double sliderValue = 0;
   PdfController pdfController;
+  List<String> files;
 
   @override
   void initState() {
-    pdfController = PdfController(
-        document: PdfDocument.openAsset('assets/cv.pdf'),
-        viewportFraction: 1.0);
-
     super.initState();
+    List<String> files = context.read<Data>().filePath;
+    pdfController = PdfController(
+        document: PdfDocument.openFile(files.last), viewportFraction: 1.0);
   }
 
   @override
   Widget build(BuildContext context) {
+    
+    
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
 
@@ -66,7 +70,7 @@ class _ReadScreenState extends State<ReadScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:10.0,vertical:5),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
             child: CurvedLinearProgressIndicator(
               widthT: widthT * 3.1,
               value: currentPageNumber / totalPageCount,
