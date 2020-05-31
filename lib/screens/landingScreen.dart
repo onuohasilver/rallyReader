@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/bottomBar.dart';
-
+import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
@@ -12,6 +12,14 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
+  GetPermission getPermission=GetPermission();
+  @override
+  void initState() { 
+    getPermission.requestPermission;
+    GetPermission().getFileList();
+    super.initState();
+    
+  }
   @override
   Widget build(BuildContext context) {
     double heightT = MediaQuery.of(context).size.height;
