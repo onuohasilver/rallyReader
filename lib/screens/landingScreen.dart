@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
+import 'package:rallyreader/screens/readScreen.dart';
+
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -14,28 +16,29 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
-  GetPermission getPermission=GetPermission();
+  GetPermission getPermission = GetPermission();
   List<String> fileNames;
   @override
-  void initState() { 
+  void initState() {
     getPermission.requestPermission;
-    fileNames=getPermission.getFileList;
-    
+    fileNames = getPermission.getFileList;
+
     super.initState();
-    
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
-    appData.updateFiles(fileNames); 
-    print(fileNames) ;
+    appData.updateFiles(fileNames);
+    print(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.orangeAccent.withOpacity(.8),
       body: Container(
         height: heightT,
         width: widthT,
+        color: Colors.white.withOpacity(.78),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -51,9 +54,14 @@ class _LandingScreenState extends State<LandingScreen> {
                     fontSize: heightT * .034, fontWeight: FontWeight.w600),
               ),
               Container(
-                height: heightT * .26,
+                height: heightT * .20,
+                width: widthT,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  
+                ),
                 child: ListView.builder(
-                  itemCount: bookList.length,
+                  itemCount: 0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
@@ -74,14 +82,15 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: bookList.length,
+                  
+                  itemCount: 1,
                   itemBuilder: (BuildContext context, int index) {
                     var book = bookList[index];
                     return ExpandedThumbnail(
                       heightT: heightT,
                       widthT: widthT,
                       title: book.title,
-                      author: book.author,
+                      
                       pages: book.pages,
                       rating: book.rating,
                       image: book.image,
@@ -90,13 +99,13 @@ class _LandingScreenState extends State<LandingScreen> {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return BookScreen(
+                          return 
+                           BookScreen(
                             author: book.author,
                             title: book.title,
-                            rating:book.rating,
-                            image:book.image,
+                            rating: book.rating,
+                            image: book.image,
                             favorites: book.favorite,
-
                           );
                         }));
                       },

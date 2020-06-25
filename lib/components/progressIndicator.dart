@@ -25,17 +25,17 @@ class CurvedLinearProgressIndicator extends StatelessWidget {
             height: 8,
             child: LinearProgressIndicator(
               value: value,
-              valueColor: AlwaysStoppedAnimation(read?readColor:Colors.orange),
+              valueColor: AlwaysStoppedAnimation(read?Colors.orange:readColor),
               backgroundColor: Colors.grey[300],
             ),
           ),
         ),
-        read?Container():Text(
+        read?Text(
           '  ${value * 100}%',
           style: TextStyle(
             color: Colors.grey[400],
-          ),
-        )
+          )
+        ):Container(),
       ],
     );
   }

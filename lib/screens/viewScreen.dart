@@ -61,14 +61,16 @@ class _BookScreenState extends State<BookScreen> {
                           onPressed: () {},
                         ),
                       ]),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    child: BookImage(
-                        shadow: true,
-                        heightT: heightT + (heightT * .4),
-                        widthT: widthT + (widthT * .4),
-                        image: widget.image),
-                  ),
+                  // Container(
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  //     child: BookImage(
+                  //         shadow: true,
+                  //         heightT: heightT + (heightT * .4),
+                  //         widthT: widthT + (widthT * .4),
+                  //         ),
+                  //   ),
+                  // ),
                   Text(
                     widget.title,
                     style: GoogleFonts.jura(
