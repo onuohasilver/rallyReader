@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
+import 'package:rallyreader/screens/readScreen.dart';
+
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -32,7 +34,7 @@ class _LandingScreenState extends State<LandingScreen> {
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.lightBlueAccent.withOpacity(.8),
+      backgroundColor: Colors.orangeAccent.withOpacity(.8),
       body: Container(
         height: heightT,
         width: widthT,
@@ -56,10 +58,10 @@ class _LandingScreenState extends State<LandingScreen> {
                 width: widthT,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                  
                 ),
                 child: ListView.builder(
-                  itemCount: bookList.length,
+                  itemCount: 0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
@@ -80,14 +82,15 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: bookList.length,
+                  
+                  itemCount: 1,
                   itemBuilder: (BuildContext context, int index) {
                     var book = bookList[index];
                     return ExpandedThumbnail(
                       heightT: heightT,
                       widthT: widthT,
                       title: book.title,
-                      author: book.author,
+                      
                       pages: book.pages,
                       rating: book.rating,
                       image: book.image,
@@ -96,7 +99,8 @@ class _LandingScreenState extends State<LandingScreen> {
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return BookScreen(
+                          return 
+                           BookScreen(
                             author: book.author,
                             title: book.title,
                             rating: book.rating,
