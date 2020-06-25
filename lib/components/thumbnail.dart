@@ -20,8 +20,9 @@ class ThumbNail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           BookImage(
             shadow: false,
@@ -29,11 +30,15 @@ class ThumbNail extends StatelessWidget {
             widthT: widthT,
             image: image,
           ),
-          SizedBox(
-            height: heightT * .014,
-          ),
-          CurvedLinearProgressIndicator(
-              widthT: widthT * .6, heightT: heightT, value: .45,read: false,)
+          // SizedBox(
+          //   height: heightT * .014,
+          // ),
+          // CurvedLinearProgressIndicator(
+          //   widthT: widthT * .6,
+          //   heightT: heightT,
+          //   value: .45,
+          //   read: false,
+          // )
         ],
       ),
     );
@@ -51,7 +56,8 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.rating,
       @required this.image,
       @required this.favorite,
-      @required this.completion, this.onTap})
+      @required this.completion,
+      this.onTap})
       : super(key: key);
 
   final double heightT;
@@ -70,6 +76,10 @@ class ExpandedThumbnail extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       child: Container(
+        decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
         child: Row(
           children: <Widget>[
             BookImage(
@@ -100,7 +110,7 @@ class ExpandedThumbnail extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
                     child: Container(
-                      width: widthT*.54,
+                      width: widthT * .54,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -120,7 +130,8 @@ class ExpandedThumbnail extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 18.0),
                             child: Row(
                               children: <Widget>[
                                 Icon(
@@ -135,13 +146,11 @@ class ExpandedThumbnail extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
                             child: Row(
                               children: <Widget>[
-                                Icon(
-                                  Icons.favorite,
-                                  color: Colors.redAccent
-                                ),
+                                Icon(Icons.favorite, color: Colors.redAccent),
                                 Text(
                                   '$favorite',
                                   style: TextStyle(color: Colors.black87),
@@ -156,7 +165,7 @@ class ExpandedThumbnail extends StatelessWidget {
                   Container(
                     width: widthT * .5,
                     child: CurvedLinearProgressIndicator(
-                        widthT: widthT, value: completion,read:false),
+                        widthT: widthT, value: completion, read: false),
                   )
                 ],
               ),

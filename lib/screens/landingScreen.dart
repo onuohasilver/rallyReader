@@ -14,28 +14,29 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
-  GetPermission getPermission=GetPermission();
+  GetPermission getPermission = GetPermission();
   List<String> fileNames;
   @override
-  void initState() { 
+  void initState() {
     getPermission.requestPermission;
-    fileNames=getPermission.getFileList;
-    
+    fileNames = getPermission.getFileList;
+
     super.initState();
-    
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
-    appData.updateFiles(fileNames); 
-    print(fileNames) ;
+    appData.updateFiles(fileNames);
+    print(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.lightBlueAccent.withOpacity(.8),
       body: Container(
         height: heightT,
         width: widthT,
+        color: Colors.white.withOpacity(.78),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -51,7 +52,12 @@ class _LandingScreenState extends State<LandingScreen> {
                     fontSize: heightT * .034, fontWeight: FontWeight.w600),
               ),
               Container(
-                height: heightT * .26,
+                height: heightT * .20,
+                width: widthT,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
                 child: ListView.builder(
                   itemCount: bookList.length,
                   scrollDirection: Axis.horizontal,
@@ -93,10 +99,9 @@ class _LandingScreenState extends State<LandingScreen> {
                           return BookScreen(
                             author: book.author,
                             title: book.title,
-                            rating:book.rating,
-                            image:book.image,
+                            rating: book.rating,
+                            image: book.image,
                             favorites: book.favorite,
-
                           );
                         }));
                       },

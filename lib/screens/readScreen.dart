@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:rallyreader/components/colorFlatButton.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 import 'package:rallyreader/data/data.dart';
-
 import 'landingScreen.dart';
 
 class ReadScreen extends StatefulWidget {
