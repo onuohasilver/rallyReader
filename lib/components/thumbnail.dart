@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:rallyreader/components/colorFlatButton.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 
@@ -10,13 +11,15 @@ class ThumbNail extends StatelessWidget {
       {Key key,
       @required this.heightT,
       @required this.widthT,
-      @required this.image})
+      @required this.pdfController,
+      @required this.keyString})
       : super(key: key);
 
   final double heightT;
   final double widthT;
+  final String keyString;
 
-  final String image;
+  final PdfController pdfController;
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +29,11 @@ class ThumbNail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           BookImage(
+            keyString: keyString,
             shadow: false,
             heightT: heightT,
             widthT: widthT,
-            image: image,
+            pdfController: pdfController,
           ),
           // SizedBox(
           //   height: heightT * .014,
@@ -54,9 +58,10 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.title,
       @required this.pages,
       @required this.rating,
-      @required this.image,
+      @required this.pdfController,
       @required this.favorite,
       @required this.completion,
+      @required this.keyString,
       this.onTap})
       : super(key: key);
 
@@ -68,8 +73,9 @@ class ExpandedThumbnail extends StatelessWidget {
   final double rating;
   final int favorite;
   final double completion;
-  final String image;
+  final PdfController pdfController;
   final Function onTap;
+  final String keyString;
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +89,11 @@ class ExpandedThumbnail extends StatelessWidget {
         child: Row(
           children: <Widget>[
             BookImage(
+              keyString: keyString,
               shadow: false,
               heightT: heightT,
               widthT: widthT,
-              image: image,
+              pdfController: pdfController,
               onTap: onTap,
             ),
             Padding(

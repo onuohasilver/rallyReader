@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
-import 'package:rallyreader/screens/readScreen.dart';
 
 import 'package:rallyreader/screens/viewScreen.dart';
 
@@ -30,7 +29,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
     appData.updateFiles(fileNames);
-    print(fileNames);
+
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -58,14 +57,14 @@ class _LandingScreenState extends State<LandingScreen> {
                 width: widthT,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  
                 ),
                 child: ListView.builder(
                   itemCount: 0,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
-                      image: bookList[index].image,
+                      pdfController: appData.controllers[index],
+                      keyString: index.toString(),
                       heightT: heightT,
                       widthT: widthT,
                     );
@@ -76,31 +75,29 @@ class _LandingScreenState extends State<LandingScreen> {
                 height: heightT * .02,
               ),
               Text(
-                'All Books',
+                '${appData.filePath.length}',
                 style: GoogleFonts.poppins(
                     fontSize: heightT * .025, fontWeight: FontWeight.w600),
               ),
               Expanded(
                 child: ListView.builder(
-                  
-                  itemCount: 1,
+                  itemCount: appData.filePath.length,
                   itemBuilder: (BuildContext context, int index) {
                     var book = bookList[index];
                     return ExpandedThumbnail(
                       heightT: heightT,
                       widthT: widthT,
                       title: book.title,
-                      
                       pages: book.pages,
                       rating: book.rating,
-                      image: book.image,
+                      pdfController: appData.controllers[index],
+                      keyString: index.toString(),
                       favorite: book.favorite,
                       completion: book.completion,
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return 
-                           BookScreen(
+                          return BookScreen(
                             author: book.author,
                             title: book.title,
                             rating: book.rating,
