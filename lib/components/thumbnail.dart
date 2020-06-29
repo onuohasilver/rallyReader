@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
-import 'package:rallyreader/components/colorFlatButton.dart';
+import 'package:provider/provider.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
+import 'package:rallyreader/data/data.dart';
 import 'bookImage.dart';
 
 class ThumbNail extends StatelessWidget {
@@ -60,6 +61,7 @@ class ExpandedThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appData = Provider.of<Data>(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
       child: Container(
@@ -120,10 +122,21 @@ class ExpandedThumbnail extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            Icon(Icons.favorite_border),
-                            Icon(Icons.av_timer,
+                            IconButton(
+                                icon: Icon(
+                                  Icons.favorite,
+                                  color: (appData.favorites.contains(title))
+                                      ? Colors.red
+                                      : Colors.grey,
+                                ),
+                                onPressed: () {
+                                  appData.setFavorite(title);
+                                }),
+                            Icon(
+                              Icons.av_timer,
                             ),
                             Icon(Icons.library_books),
+                            Icon(Icons.more_vert)
                           ],
                         ))
                   ],

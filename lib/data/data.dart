@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 
@@ -7,6 +5,8 @@ class Data extends ChangeNotifier {
   List<String> filePath = [];
   List<PdfController> controllers = [];
   List pdfImages=[1,2,3];
+  List favorites=[];
+  Map<String,List<String>> caches={};
 
   void updateFiles(files) {
     filePath = files;
@@ -18,7 +18,15 @@ class Data extends ChangeNotifier {
   }
   void updatePdfImages(renderedObject){
     pdfImages.add(renderedObject);
+  }
 
-
+  void setFavorite(bookTitle){
+    if (!favorites.contains(bookTitle)){
+      favorites.add(bookTitle);
+    }else{
+      favorites.remove(bookTitle);
+    }
+    
+    notifyListeners();
   }
 }
