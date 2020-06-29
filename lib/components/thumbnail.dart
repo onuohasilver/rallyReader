@@ -3,21 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:rallyreader/components/colorFlatButton.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
-
 import 'bookImage.dart';
 
 class ThumbNail extends StatelessWidget {
   const ThumbNail(
-      {Key key,
-      @required this.heightT,
+      {@required this.heightT,
       @required this.widthT,
       @required this.pdfController,
-      @required this.keyString})
+      @required this.key})
       : super(key: key);
 
   final double heightT;
   final double widthT;
-  final String keyString;
+  final GlobalKey key;
 
   final PdfController pdfController;
 
@@ -29,7 +27,7 @@ class ThumbNail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           BookImage(
-            keyString: keyString,
+            key: key,
             shadow: false,
             heightT: heightT,
             widthT: widthT,
@@ -52,8 +50,7 @@ class ThumbNail extends StatelessWidget {
 
 class ExpandedThumbnail extends StatelessWidget {
   const ExpandedThumbnail(
-      {Key key,
-      @required this.heightT,
+      {@required this.heightT,
       @required this.widthT,
       @required this.title,
       @required this.pages,
@@ -61,7 +58,7 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.pdfController,
       @required this.favorite,
       @required this.completion,
-      @required this.keyString,
+      @required this.key,
       this.onTap})
       : super(key: key);
 
@@ -75,7 +72,7 @@ class ExpandedThumbnail extends StatelessWidget {
   final double completion;
   final PdfController pdfController;
   final Function onTap;
-  final String keyString;
+  final GlobalKey key;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +86,7 @@ class ExpandedThumbnail extends StatelessWidget {
         child: Row(
           children: <Widget>[
             BookImage(
-              keyString: keyString,
+              key: key,
               shadow: false,
               heightT: heightT,
               widthT: widthT,
@@ -102,10 +99,14 @@ class ExpandedThumbnail extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: GoogleFonts.hindMadurai(
-                        fontSize: heightT * .022, fontWeight: FontWeight.w600),
+                  Container(
+                    child: Text(
+                      title,
+                      overflow: TextOverflow.fade,
+                      style: GoogleFonts.hindMadurai(
+                          fontSize: heightT * .022,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),

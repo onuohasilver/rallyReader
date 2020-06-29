@@ -1,25 +1,21 @@
+
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:flutter/material.dart';
 
-class BookShelfScreen extends StatefulWidget {
+class BookShelfImage extends StatelessWidget {
   final PdfController pdfController;
-  
-  const BookShelfScreen(
-      { Key key,  @required this.pdfController})
-      : super(key: key);
-  @override
-  _BookShelfScreenState createState() => _BookShelfScreenState();
-}
-
-class _BookShelfScreenState extends State<BookShelfScreen> {
-  List<String> files;
-
+  final GlobalKey key;
+  BookShelfImage({
+    @required this.pdfController,
+    @required this.key,
+  });
   @override
   Widget build(BuildContext context) {
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
-
-    return AbsorbPointer(
+   
+    return RepaintBoundary(
+      key: key,
       child: Container(
         height: heightT,
         width: widthT,
@@ -28,7 +24,7 @@ class _BookShelfScreenState extends State<BookShelfScreen> {
             Expanded(
               child: PdfView(
                 documentLoader: Center(child: CircularProgressIndicator()),
-                pageLoader: Center(
+                pageLoader: Center(   
                     child: CircularProgressIndicator(
                   strokeWidth: 10,
                   valueColor: AlwaysStoppedAnimation(Colors.purpleAccent),
@@ -40,7 +36,7 @@ class _BookShelfScreenState extends State<BookShelfScreen> {
                   format: PdfPageFormat.JPEG,
                   backgroundColor: '#ffffff',
                 ),
-                controller: widget.pdfController,
+                controller: pdfController,
               ),
             ),
           ],
