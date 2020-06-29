@@ -1,13 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/bottomBar.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
+import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -19,15 +18,19 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
+  GetPermission getPermission = GetPermission();
+  List<String> fileNames;
   @override
   void initState() {
+    getPermission.requestPermission;
+    fileNames = getPermission.getFileList;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
-
+    appData.updateFiles(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -45,7 +48,6 @@ class _LandingScreenState extends State<LandingScreen> {
               SizedBox(
                 height: heightT * .09,
               ),
-              Container(child: Image.memory(base64Decode(widget.base64String))),
               Text(
                 'Recent Books.',
                 style: GoogleFonts.poppins(
@@ -58,12 +60,12 @@ class _LandingScreenState extends State<LandingScreen> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: ListView.builder(
-                  itemCount: 0,
+                  itemCount: appData.filePath.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     GlobalKey key = GlobalKey();
                     return ThumbNail(
-                      pdfController: appData.controllers[index],
+                      pdfController: null,
                       key: key,
                       heightT: heightT,
                       widthT: widthT,
@@ -74,14 +76,9 @@ class _LandingScreenState extends State<LandingScreen> {
               SizedBox(
                 height: heightT * .02,
               ),
-              Text(
-                '${widget.base64String}',
-                style: GoogleFonts.poppins(
-                    fontSize: heightT * .025, fontWeight: FontWeight.w600),
-              ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: bookList.length,
+                  itemCount: appData.filePath.length,
                   itemBuilder: (BuildContext context, int index) {
                     var book = bookList[index];
                     GlobalKey key = GlobalKey();
@@ -89,11 +86,8 @@ class _LandingScreenState extends State<LandingScreen> {
                       heightT: heightT,
                       widthT: widthT,
                       title: appData.filePath[index].split('/').last,
-                      pages: book.pages,
-                      rating: book.rating,
-                      pdfController: appData.controllers[index],
+                      pdfController: null,
                       key: key,
-                      favorite: book.favorite,
                       completion: book.completion,
                       onTap: () {
                         Navigator.push(context,

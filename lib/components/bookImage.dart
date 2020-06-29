@@ -39,8 +39,10 @@ class BookImage extends StatelessWidget {
           width: widthT * .3,
           child: Stack(
             children: [
-              BookShelfImage(pdfController: pdfController, key: key),
-              Container(),
+              // BookShelfImage(pdfController: pdfController, key: key),
+              Container(
+                color: Colors.pinkAccent
+              ),
               Material(
                 color: Colors.transparent,
                 child: InkWell(

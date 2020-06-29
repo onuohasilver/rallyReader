@@ -10,7 +10,7 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => Data(),
       child: MaterialApp(
-        initialRoute: 'InitialScreen',
+        initialRoute: 'LandingScreen',
         routes: {
           'LandingScreen': (context) => LandingScreen(),
           'InitialScreen': (context)=> InitialScreen()

@@ -53,10 +53,7 @@ class ExpandedThumbnail extends StatelessWidget {
       {@required this.heightT,
       @required this.widthT,
       @required this.title,
-      @required this.pages,
-      @required this.rating,
       @required this.pdfController,
-      @required this.favorite,
       @required this.completion,
       @required this.key,
       this.onTap})
@@ -65,10 +62,6 @@ class ExpandedThumbnail extends StatelessWidget {
   final double heightT;
   final double widthT;
   final String title;
-
-  final int pages;
-  final double rating;
-  final int favorite;
   final double completion;
   final PdfController pdfController;
   final Function onTap;
@@ -106,61 +99,6 @@ class ExpandedThumbnail extends StatelessWidget {
                       style: GoogleFonts.hindMadurai(
                           fontSize: heightT * .022,
                           fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 18.0),
-                    child: Container(
-                      width: widthT * .54,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            height: heightT * .04,
-                            width: widthT * .16,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Center(
-                                  child: Text(
-                                '$pages L',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              )),
-                              color: Colors.lightGreen,
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 18.0),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.deepOrange,
-                                ),
-                                Text(
-                                  '$rating',
-                                  style: TextStyle(color: Colors.black87),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(Icons.favorite, color: Colors.redAccent),
-                                Text(
-                                  '$favorite',
-                                  style: TextStyle(color: Colors.black87),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
                     ),
                   ),
                   Padding(

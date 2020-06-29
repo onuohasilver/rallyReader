@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
-import 'package:provider/provider.dart';
+
 import 'package:rallyreader/components/bookShelfImage.dart';
-import 'package:rallyreader/data/data.dart';
+
 import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/screens/landingScreen.dart';
 import 'dart:typed_data';
@@ -30,7 +29,8 @@ class _InitialScreenState extends State<InitialScreen> {
     fileNames = getPermission.getFileList;
     super.initState();
   }
-
+  ///Gets a png image of the widget with the specified globalkey
+  //TODO: Make the function viable for an offstage widget
   Future<Uint8List> _capturePng() async {
     try {
       print('inside');
@@ -48,15 +48,14 @@ class _InitialScreenState extends State<InitialScreen> {
     } catch (e) {
       print(e);
     }
+    
   }
 
   @override
   Widget build(BuildContext context) {
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
-    final appData = Provider.of<Data>(context);
 
-    // appData.updateFiles(fileNames);
 
     return RepaintBoundary(
       key: GlobalKey(),
