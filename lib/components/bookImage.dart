@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:rallyreader/screens/addScreen.dart';
-import 'package:rallyreader/screens/viewScreen.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
+
 
 class BookImage extends StatelessWidget {
   const BookImage(
-      {Key key,
+      {
       @required this.heightT,
       @required this.widthT,
-      this.image,
+      @required this.pdfController,
       @required this.shadow,
+      @required this.key,
       this.onTap})
       : super(key: key);
 
   final double heightT;
   final double widthT;
-  final String image;
+  final PdfController pdfController;
   final bool shadow;
   final Function onTap;
+  final GlobalKey key;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: shadow
             ? [
                 BoxShadow(
@@ -31,18 +33,20 @@ class BookImage extends StatelessWidget {
             : null,
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(8),
         child: Container(
-          height: heightT * .2,
-          width: widthT * .3,
+          height: heightT * .12,
+          width: widthT * .22,
           child: Stack(
             children: [
-              BookShelfScreen(),
+              // BookShelfImage(pdfController: pdfController, key: key),
+              Container(
+                color: Colors.pinkAccent
+              ),
               Material(
-                color:Colors.transparent,
+                color: Colors.transparent,
                 child: InkWell(
-                  onTap:onTap,
-                  
+                  onTap: onTap,
                 ),
               )
             ],

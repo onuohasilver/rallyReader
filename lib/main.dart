@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rallyreader/screens/initialScreen.dart';
 import 'package:rallyreader/screens/landingScreen.dart';
 
 import 'data/data.dart';
@@ -9,62 +10,87 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => Data(),
       child: MaterialApp(
-        home: LandingScreen(),
+        initialRoute: 'LandingScreen',
         routes: {
           'LandingScreen': (context) => LandingScreen(),
+          'InitialScreen': (context)=> InitialScreen()
         },
       ),
     ),
   );
 }
 
-// class GetA extends StatefulWidget {
+// import 'dart:async';
+// import 'dart:convert';
+// import 'dart:typed_data';
+// import 'dart:ui' as ui;
+
+// import 'package:flutter/material.dart';
+// import 'package:flutter/rendering.dart';
+
+// void main() => runApp(new MyApp());
+
+// class MyApp extends StatelessWidget {
 //   @override
-//   _GetAState createState() => _GetAState();
+//   Widget build(BuildContext context) {
+//     return new MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: new ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: new MyHomePage(),
+//     );
+//   }
 // }
 
-// class _GetAState extends State<GetA> {
-//   Future<List<Directory>> externalStorage = getExternalStorageDirectories();
-//   final Permission permissionHandler = Permission.storage;
-//   PermissionStatus _permissionStatus;
+// class MyHomePage extends StatefulWidget {
 //   @override
-//   void initState() {
-//     super.initState();
-//     requestPermission(permissionHandler);
-//   }
+//   _MyHomePageState createState() => new _MyHomePageState();
+// }
 
-//   Future<void> requestPermission(Permission permission) async {
-//     final status = await permission.request();
+// class _MyHomePageState extends State<MyHomePage> {
+//   GlobalKey _globalKey = new GlobalKey();
 
-//     setState(() {
-//       print(status);
-//       _permissionStatus = status;
-//       print(_permissionStatus);
-//     });
+//   Future<Uint8List> _capturePng() async {
+//     try {
+//       print('inside');
+//       RenderRepaintBoundary boundary =
+//           _globalKey.currentContext.findRenderObject();
+//       ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+//       ByteData byteData =
+//           await image.toByteData(format: ui.ImageByteFormat.png);
+//       var pngBytes = byteData.buffer.asUint8List();
+//       var bs64 = base64Encode(pngBytes);
+//       print(pngBytes);
+//       print(bs64);
+//       setState(() {});
+//       return pngBytes;
+//     } catch (e) {
+//       print(e);
+//     }
 //   }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     Directory dir = Directory('/storage/emulated/0/');
-//     String pathX = dir.toString();
-//     print(pathX);
-//     List<FileSystemEntity> fileX;
-//     List<FileSystemEntity> pdfFileX = [];
-//     fileX = dir.listSync(recursive: true, followLinks: false);
-//     for (FileSystemEntity entity in fileX) {
-//       String path = entity.path;
-//       pdfFileX.add(entity);
-//       if (path.endsWith('pdf')) {
-//         print(path);
-//       }
-//     }
-
-//     return Scaffold(
-//       body: Center(
-//         child: RaisedButton(
-//           onPressed: () {
-//             requestPermission(permissionHandler);
-//           },
+//     return RepaintBoundary(
+//       key: _globalKey,
+//       child: new Scaffold(
+//         appBar: new AppBar(
+//           title: new Text('Widget To Image demo'),
+//         ),
+//         body: new Center(
+//           child: new Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: <Widget>[
+//               new Text(
+//                 'click below given button to capture iamge',
+//               ),
+//               new RaisedButton(
+//                 child: Text('capture Image'),
+//                 onPressed: _capturePng,
+//               ),
+//             ],
+//           ),
 //         ),
 //       ),
 //     );

@@ -6,17 +6,15 @@ import 'package:rallyreader/screens/readScreen.dart';
 class BookScreen extends StatefulWidget {
   final String image;
   final String title;
-  final String author;
-  final int favorites;
-  final double rating;
+  
+  
+  
 
   const BookScreen(
       {Key key,
       @required this.image,
       @required this.title,
-      @required this.author,
-      @required this.favorites,
-      @required this.rating})
+      })
       : super(key: key);
   @override
   _BookScreenState createState() => _BookScreenState();
@@ -79,79 +77,9 @@ class _BookScreenState extends State<BookScreen> {
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 3),
-                  Text(
-                    widget.author,
-                    style: GoogleFonts.jura(
-                        color: Colors.grey[400],
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600),
-                  ),
+                  
                   SizedBox(height: heightT * .06),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Container(
-                            height: heightT * .04,
-                            width: widthT * .15,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Center(
-                                  child: Text(
-                                '120L',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              )),
-                              color: Colors.lightGreen,
-                            ),
-                          ),
-                          SizedBox(height: 15),
-                          
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                ),
-                                Text(
-                                  widget.rating.toString(),
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                          
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(Icons.favorite, color: Colors.redAccent),
-                                Text(
-                                  widget.favorites.toString(),
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
-                            ),
-                            SizedBox(height: 15),
-                          
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                  
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
                     child: Container(

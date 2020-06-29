@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rallyreader/components/colorFlatButton.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
+import 'package:provider/provider.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
-
+import 'package:rallyreader/data/data.dart';
 import 'bookImage.dart';
 
 class ThumbNail extends StatelessWidget {
   const ThumbNail(
-      {Key key,
-      @required this.heightT,
+      {@required this.heightT,
       @required this.widthT,
-      @required this.image})
+      @required this.pdfController,
+      @required this.key})
       : super(key: key);
 
   final double heightT;
   final double widthT;
+  final GlobalKey key;
 
-  final String image;
+  final PdfController pdfController;
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +28,12 @@ class ThumbNail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           BookImage(
+            key: key,
             shadow: false,
             heightT: heightT,
             widthT: widthT,
-            image: image,
+            pdfController: pdfController,
           ),
-          // SizedBox(
-          //   height: heightT * .014,
-          // ),
-          // CurvedLinearProgressIndicator(
-          //   widthT: widthT * .6,
-          //   heightT: heightT,
-          //   value: .45,
-          //   read: false,
-          // )
         ],
       ),
     );
@@ -48,134 +42,105 @@ class ThumbNail extends StatelessWidget {
 
 class ExpandedThumbnail extends StatelessWidget {
   const ExpandedThumbnail(
-      {Key key,
-      @required this.heightT,
+      {@required this.heightT,
       @required this.widthT,
       @required this.title,
-      @required this.pages,
-      @required this.rating,
-      @required this.image,
-      @required this.favorite,
+      @required this.pdfController,
       @required this.completion,
+      @required this.key,
       this.onTap})
       : super(key: key);
 
   final double heightT;
   final double widthT;
   final String title;
-
-  final int pages;
-  final double rating;
-  final int favorite;
   final double completion;
-  final String image;
+  final PdfController pdfController;
   final Function onTap;
+  final GlobalKey key;
 
   @override
   Widget build(BuildContext context) {
+    final appData = Provider.of<Data>(context);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(6),
           color: Colors.white,
         ),
         child: Row(
           children: <Widget>[
             BookImage(
+              key: key,
               shadow: false,
               heightT: heightT,
               widthT: widthT,
-              image: image,
+              pdfController: pdfController,
               onTap: onTap,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: GoogleFonts.hindMadurai(
-                        fontSize: heightT * .022, fontWeight: FontWeight.w600),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 18.0),
-                    child: Container(
-                      width: widthT * .54,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            height: heightT * .04,
-                            width: widthT * .16,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Center(
-                                  child: Text(
-                                '$pages L',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
-                              )),
-                              color: Colors.lightGreen,
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 18.0),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.deepOrange,
-                                ),
-                                Text(
-                                  '$rating',
-                                  style: TextStyle(color: Colors.black87),
-                                )
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Row(
-                              children: <Widget>[
-                                Icon(Icons.favorite, color: Colors.redAccent),
-                                Text(
-                                  '$favorite',
-                                  style: TextStyle(color: Colors.black87),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: heightT * .05,
+                      width: widthT * .6,
+                      child: Text(
+                        title,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        maxLines: 2,
+                        style: GoogleFonts.hindMadurai(
+                            fontSize: heightT * .018,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: Container(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Container(
+                          width: widthT * .55,
+                          child: CurvedLinearProgressIndicator(
+                              widthT: widthT * 1.8,
+                              value: completion,
+                              read: false,
+                              readColor: Colors.orange)),
+                    ),
+                    Container(
                         width: widthT * .55,
-                        child: CurvedLinearProgressIndicator(
-                            widthT: widthT * 1.8,
-                            value: completion,
-                            read: false,
-                            readColor: Colors.orange)),
-                  ),
-                  Container(
-                      width: widthT * .55,
-                      height: heightT * .05,
-                      child: ColorFlatButton(
-                        color: Colors.orange,
-                        widthT: double.infinity,
-                        heightT: heightT * .3,
-                        label: 'Read Book',
-                        onTap: onTap,
-                      ))
-                ],
+                        height: heightT * .04,
+                        // child: ColorFlatButton(
+                        //   color: Colors.orange,
+                        //   widthT: double.infinity,
+                        //   heightT: heightT * .3,
+                        //   label: 'Explore',
+                        //   onTap: onTap,
+                        // ))
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            IconButton(
+                                icon: Icon(
+                                  Icons.favorite,
+                                  color: (appData.favorites.contains(title))
+                                      ? Colors.red
+                                      : Colors.grey,
+                                ),
+                                onPressed: () {
+                                  appData.setFavorite(title);
+                                }),
+                            Icon(
+                              Icons.av_timer,
+                            ),
+                            Icon(Icons.library_books),
+                            Icon(Icons.more_vert)
+                          ],
+                        ))
+                  ],
+                ),
               ),
             )
           ],

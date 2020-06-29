@@ -1,34 +1,21 @@
+
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rallyreader/data/data.dart';
 
-class BookShelfScreen extends StatefulWidget {
-  final onTap;
-
-  const BookShelfScreen({Key key, this.onTap}) : super(key: key);
-  @override
-  _BookShelfScreenState createState() => _BookShelfScreenState();
-}
-
-class _BookShelfScreenState extends State<BookShelfScreen> {
-  PdfController pdfController;
-  List<String> files;
-
-  @override
-  void initState() {
-    super.initState();
-    List<String> files = context.read<Data>().filePath;
-    pdfController = PdfController(
-        document: PdfDocument.openFile(files.last), viewportFraction: 1.0);
-  }
-
+class BookShelfImage extends StatelessWidget {
+  final PdfController pdfController;
+  final GlobalKey key;
+  BookShelfImage({
+    @required this.pdfController,
+    @required this.key,
+  });
   @override
   Widget build(BuildContext context) {
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
-
-    return AbsorbPointer(
+   
+    return RepaintBoundary(
+      key: key,
       child: Container(
         height: heightT,
         width: widthT,
@@ -37,7 +24,7 @@ class _BookShelfScreenState extends State<BookShelfScreen> {
             Expanded(
               child: PdfView(
                 documentLoader: Center(child: CircularProgressIndicator()),
-                pageLoader: Center(
+                pageLoader: Center(   
                     child: CircularProgressIndicator(
                   strokeWidth: 10,
                   valueColor: AlwaysStoppedAnimation(Colors.purpleAccent),

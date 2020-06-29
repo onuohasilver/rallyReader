@@ -1,16 +1,18 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/bottomBar.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
-import 'package:rallyreader/screens/readScreen.dart';
-
+import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class LandingScreen extends StatefulWidget {
+  final base64String;
+
+  const LandingScreen({Key key, this.base64String}) : super(key: key);
   @override
   _LandingScreenState createState() => _LandingScreenState();
 }
@@ -22,7 +24,6 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     getPermission.requestPermission;
     fileNames = getPermission.getFileList;
-
     super.initState();
   }
 
@@ -30,7 +31,6 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
     appData.updateFiles(fileNames);
-    print(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -54,58 +54,47 @@ class _LandingScreenState extends State<LandingScreen> {
                     fontSize: heightT * .034, fontWeight: FontWeight.w600),
               ),
               Container(
-                height: heightT * .20,
+                height: heightT * .12,
                 width: widthT,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  
                 ),
                 child: ListView.builder(
-                  itemCount: 0,
+                  itemCount: appData.filePath.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
+                    GlobalKey key = GlobalKey();
                     return ThumbNail(
-                      image: bookList[index].image,
+                      pdfController: null,
+                      key: key,
                       heightT: heightT,
                       widthT: widthT,
                     );
                   },
                 ),
               ),
-              SizedBox(
-                height: heightT * .02,
-              ),
-              Text(
-                'All Books',
-                style: GoogleFonts.poppins(
-                    fontSize: heightT * .025, fontWeight: FontWeight.w600),
-              ),
+              // SizedBox(
+              //   height: heightT * .02,
+              // ),
               Expanded(
                 child: ListView.builder(
-                  
-                  itemCount: 1,
+                  itemCount: bookList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var book = bookList[index];
+                    GlobalKey key = GlobalKey();
                     return ExpandedThumbnail(
                       heightT: heightT,
                       widthT: widthT,
-                      title: book.title,
-                      
-                      pages: book.pages,
-                      rating: book.rating,
-                      image: book.image,
-                      favorite: book.favorite,
+                      title: appData.filePath[index].split('/').last,
+                      pdfController: null,
+                      key: key,
                       completion: book.completion,
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return 
-                           BookScreen(
-                            author: book.author,
+                          return BookScreen(
                             title: book.title,
-                            rating: book.rating,
                             image: book.image,
-                            favorites: book.favorite,
                           );
                         }));
                       },
