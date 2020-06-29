@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
-import 'bookShelfImage.dart';
+
 
 class BookImage extends StatelessWidget {
   const BookImage(
@@ -24,7 +24,7 @@ class BookImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(8),
         boxShadow: shadow
             ? [
                 BoxShadow(
@@ -33,10 +33,10 @@ class BookImage extends StatelessWidget {
             : null,
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(8),
         child: Container(
-          height: heightT * .2,
-          width: widthT * .3,
+          height: heightT * .12,
+          width: widthT * .22,
           child: Stack(
             children: [
               // BookShelfImage(pdfController: pdfController, key: key),

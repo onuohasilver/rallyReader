@@ -54,7 +54,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     fontSize: heightT * .034, fontWeight: FontWeight.w600),
               ),
               Container(
-                height: heightT * .20,
+                height: heightT * .12,
                 width: widthT,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -73,12 +73,12 @@ class _LandingScreenState extends State<LandingScreen> {
                   },
                 ),
               ),
-              SizedBox(
-                height: heightT * .02,
-              ),
+              // SizedBox(
+              //   height: heightT * .02,
+              // ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: appData.filePath.length,
+                  itemCount: bookList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var book = bookList[index];
                     GlobalKey key = GlobalKey();
@@ -93,11 +93,8 @@ class _LandingScreenState extends State<LandingScreen> {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return BookScreen(
-                            author: book.author,
                             title: book.title,
-                            rating: book.rating,
                             image: book.image,
-                            favorites: book.favorite,
                           );
                         }));
                       },

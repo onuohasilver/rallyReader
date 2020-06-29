@@ -33,15 +33,6 @@ class ThumbNail extends StatelessWidget {
             widthT: widthT,
             pdfController: pdfController,
           ),
-          // SizedBox(
-          //   height: heightT * .014,
-          // ),
-          // CurvedLinearProgressIndicator(
-          //   widthT: widthT * .6,
-          //   heightT: heightT,
-          //   value: .45,
-          //   read: false,
-          // )
         ],
       ),
     );
@@ -70,10 +61,10 @@ class ExpandedThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(6),
           color: Colors.white,
         ),
         child: Row(
@@ -86,42 +77,57 @@ class ExpandedThumbnail extends StatelessWidget {
               pdfController: pdfController,
               onTap: onTap,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Text(
-                      title,
-                      overflow: TextOverflow.fade,
-                      style: GoogleFonts.hindMadurai(
-                          fontSize: heightT * .022,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: Container(
-                        width: widthT * .55,
-                        child: CurvedLinearProgressIndicator(
-                            widthT: widthT * 1.8,
-                            value: completion,
-                            read: false,
-                            readColor: Colors.orange)),
-                  ),
-                  Container(
-                      width: widthT * .55,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
                       height: heightT * .05,
-                      child: ColorFlatButton(
-                        color: Colors.orange,
-                        widthT: double.infinity,
-                        heightT: heightT * .3,
-                        label: 'Read Book',
-                        onTap: onTap,
-                      ))
-                ],
+                      width: widthT * .6,
+                      child: Text(
+                        title,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        maxLines: 2,
+                        style: GoogleFonts.hindMadurai(
+                            fontSize: heightT * .018,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: Container(
+                          width: widthT * .55,
+                          child: CurvedLinearProgressIndicator(
+                              widthT: widthT * 1.8,
+                              value: completion,
+                              read: false,
+                              readColor: Colors.orange)),
+                    ),
+                    Container(
+                        width: widthT * .55,
+                        height: heightT * .04,
+                        // child: ColorFlatButton(
+                        //   color: Colors.orange,
+                        //   widthT: double.infinity,
+                        //   heightT: heightT * .3,
+                        //   label: 'Explore',
+                        //   onTap: onTap,
+                        // ))
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Icon(Icons.favorite_border),
+                            Icon(Icons.av_timer,
+                            ),
+                            Icon(Icons.library_books),
+                          ],
+                        ))
+                  ],
+                ),
               ),
             )
           ],
