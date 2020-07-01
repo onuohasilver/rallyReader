@@ -20,6 +20,7 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   GetPermission getPermission = GetPermission();
   List<String> fileNames;
+  String selectedCollection = 'Scaly';
   @override
   void initState() {
     getPermission.requestPermission;
@@ -33,6 +34,7 @@ class _LandingScreenState extends State<LandingScreen> {
     appData.updateFiles(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
+    
     return Scaffold(
       backgroundColor: Colors.orangeAccent.withOpacity(.8),
       body: Container(
@@ -53,6 +55,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 style: GoogleFonts.poppins(
                     fontSize: heightT * .034, fontWeight: FontWeight.w600),
               ),
+                
               Container(
                 height: heightT * .12,
                 width: widthT,
@@ -73,22 +76,25 @@ class _LandingScreenState extends State<LandingScreen> {
                   },
                 ),
               ),
-              // SizedBox(
-              //   height: heightT * .02,
-              // ),
               Expanded(
                 child: ListView.builder(
                   itemCount: bookList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var book = bookList[index];
-                    GlobalKey key = GlobalKey();
+
                     return ExpandedThumbnail(
                       heightT: heightT,
                       widthT: widthT,
                       title: appData.filePath[index].split('/').last,
                       pdfController: null,
-                      key: key,
+                      key: null,
                       completion: book.completion,
+                      selectedCollection: selectedCollection,
+                      onChanged: (String value) {
+                        setState(() {
+                          selectedCollection = value;
+                        });
+                      },
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
