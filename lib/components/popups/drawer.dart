@@ -12,18 +12,20 @@ class DrawerBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 50,
       child: Container(
         height: heightT,
-        width: widthT,
+        width: widthT * .7,
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height: heightT * .08),
             Text.rich(
               TextSpan(
                 text: 'Hi!',
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: Colors.deepOrange,
                     fontWeight: FontWeight.w500,
                     fontSize: heightT * 0.04),
                 children: [
@@ -41,10 +43,9 @@ class DrawerBuilder extends StatelessWidget {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 18.0, vertical: 4.0),
-              child: Divider(
-                thickness: 1.0,
-              ),
+              child: Divider(),
             ),
+            Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
@@ -53,10 +54,22 @@ class DrawerBuilder extends StatelessWidget {
                     ListTile(
                       leading: Icon(
                         Icons.notifications,
-                        color: Colors.orange,
+                        color: Colors.deepOrange,
                       ),
                       title: Text(
                         'Notification',
+                        style: TextStyle(fontSize: heightT * 0.021),
+                      ),
+                      enabled: true,
+                      onTap: () {},
+                    ),
+                     ListTile(
+                      leading: Icon(
+                        Icons.person,
+                        color: Colors.lime,
+                      ),
+                      title: Text(
+                        'Profile',
                         style: TextStyle(fontSize: heightT * 0.021),
                       ),
                       enabled: true,
@@ -126,6 +139,32 @@ class DrawerBuilder extends StatelessWidget {
                     ),
                     Divider(),
                     Divider(),
+                     ListTile(
+                      leading: Icon(
+                        Icons.settings,
+                        color: Colors.grey,
+                      ),
+                      title: Text(
+                        'Settings',
+                        style: TextStyle(fontSize: heightT * 0.021),
+                      ),
+                      enabled: true,
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: Container(
+                        height: heightT * .04,
+                        width: widthT * .08,
+                        child: Image.asset('assets/rallyLogo.png'),
+                      ),
+                      title: Text(
+                        'About Rally Reader',
+                        style: TextStyle(fontSize: heightT * 0.018),
+                      ),
+                      enabled: true,
+                      onTap: () {},
+                    ),
+                 
                   ],
                 ),
               ),
