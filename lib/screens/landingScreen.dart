@@ -89,12 +89,8 @@ class _LandingScreenState extends State<LandingScreen> {
                       pdfController: null,
                       key: null,
                       completion: book.completion,
-                      selectedCollection: selectedCollection,
-                      onChanged: (String value) {
-                        setState(() {
-                          selectedCollection = value;
-                        });
-                      },
+                      
+                      
                       onTap: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
@@ -112,7 +108,7 @@ class _LandingScreenState extends State<LandingScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomBar(),
+      // bottomNavigationBar: BottomBar(),
     );
   }
 }

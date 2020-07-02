@@ -3,8 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/popups/addCollections.dart';
+import 'package:rallyreader/components/popups/snackbars.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/screens/viewScreen.dart';
 import 'bookImage.dart';
 
 class ThumbNail extends StatelessWidget {
@@ -49,8 +51,6 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.pdfController,
       @required this.completion,
       @required this.key,
-      @required this.onChanged,
-      @required this.selectedCollection,
       this.onTap})
       : super(key: key);
 
@@ -61,8 +61,6 @@ class ExpandedThumbnail extends StatelessWidget {
   final PdfController pdfController;
   final Function onTap;
   final GlobalKey key;
-  final Function onChanged;
-  final String selectedCollection;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +125,7 @@ class ExpandedThumbnail extends StatelessWidget {
                                       : Colors.grey,
                                 ),
                                 onPressed: () {
-                                  appData.setFavorite(title);
+                                  appData.setFavorite(context, title);
                                 }),
                             IconButton(
                                 icon: Icon(
@@ -137,19 +135,41 @@ class ExpandedThumbnail extends StatelessWidget {
                                       : Colors.grey,
                                 ),
                                 onPressed: () {
-                                  appData.addToReadinglist(title);
+                                  appData.addToReadinglist(context, title);
                                 }),
                             IconButton(
-                                icon: Icon(Icons.library_books,
-                                    color: Colors.grey),
+                                icon: Icon(
+                                  Icons.library_books,
+                                ),
                                 onPressed: () {
                                   addToCollection(
-                                    context,
-                                    heightT,
-                                    widthT,
-                                  );
+                                      context, heightT, widthT, title);
                                 }),
-                            Icon(Icons.more_vert)
+                            PopupMenuButton(
+                              onSelected: (value) {
+                                print(value);
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return BookScreen(
+                                    title:' book.title',
+                                    image: "book.image",
+                                  );
+                                }));
+                              },
+                              itemBuilder: (context) {
+                                return [
+                                  PopupMenuItem(
+                                    value: 's',
+                                    child: Text('Scales'),
+                                  ),
+                                  PopupMenuItem
+                                  (
+                                    value: 'saa',
+                                    child: Text('Scales'),
+                                  ),
+                                ];
+                              },
+                            )
                           ],
                         ))
                   ],
