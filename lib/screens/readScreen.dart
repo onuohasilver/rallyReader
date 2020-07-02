@@ -1,7 +1,7 @@
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/colorFlatButton.dart';
+import 'package:rallyreader/components/buttons/colorFlatButton.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 import 'package:rallyreader/data/data.dart';
 import 'landingScreen.dart';
@@ -28,8 +28,6 @@ class _ReadScreenState extends State<ReadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
-    
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
 

@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
+import 'package:rallyreader/components/imageContainers/bookShelfImage.dart';
 
-import 'package:rallyreader/components/bookShelfImage.dart';
+
 
 import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/screens/landingScreen.dart';

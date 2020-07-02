@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:provider/provider.dart';
+import 'package:rallyreader/components/imageContainers/bookImage.dart';
 import 'package:rallyreader/components/popups/addCollections.dart';
 import 'package:rallyreader/components/popups/snackbars.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
-import 'bookImage.dart';
+
 
 class ThumbNail extends StatelessWidget {
   const ThumbNail(
