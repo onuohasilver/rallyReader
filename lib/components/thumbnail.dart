@@ -48,7 +48,8 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.pdfController,
       @required this.completion,
       @required this.key,
-      this.onTap})
+      this.onTap,
+      @required this.scaffoldKey})
       : super(key: key);
 
   final double heightT;
@@ -58,6 +59,7 @@ class ExpandedThumbnail extends StatelessWidget {
   final PdfController pdfController;
   final Function onTap;
   final GlobalKey key;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +124,7 @@ class ExpandedThumbnail extends StatelessWidget {
                                       : Colors.grey,
                                 ),
                                 onPressed: () {
-                                  appData.setFavorite(context, title);
+                                  appData.setFavorite(scaffoldKey, title);
                                 }),
                             IconButton(
                                 icon: Icon(
@@ -132,7 +134,7 @@ class ExpandedThumbnail extends StatelessWidget {
                                       : Colors.grey,
                                 ),
                                 onPressed: () {
-                                  appData.addToReadinglist(context, title);
+                                  appData.addToReadinglist(scaffoldKey, title);
                                 }),
                             IconButton(
                                 icon: Icon(

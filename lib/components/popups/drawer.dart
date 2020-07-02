@@ -21,25 +21,35 @@ class DrawerBuilder extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: heightT * .08),
-            Text.rich(
-              TextSpan(
-                text: 'Hi!',
-                style: GoogleFonts.poppins(
-                    color: Colors.deepOrange,
-                    fontWeight: FontWeight.w500,
-                    fontSize: heightT * 0.04),
-                children: [
-                  TextSpan(
-                    text: '\nOnuoha Silver',
-                    style:  GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                        fontSize: heightT * 0.04),
+            Container(
+              height: heightT * .2,
+              width: double.infinity,
+              color: Colors.orangeAccent.withOpacity(.1),
+              child: Align(
+                alignment:Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:18.0),
+                  child: Text.rich(
+                    TextSpan(
+                      text: 'Hi!',
+                      style: GoogleFonts.poppins(
+                          color: Colors.deepOrange,
+                          fontWeight: FontWeight.w500,
+                          fontSize: heightT * 0.04),
+                      children: [
+                        TextSpan(
+                          text: '\nOnuoha Silver',
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: heightT * 0.04),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.start,
                   ),
-                ],
+                ),
               ),
-              textAlign: TextAlign.start,
             ),
             Padding(
               padding:
@@ -64,7 +74,7 @@ class DrawerBuilder extends StatelessWidget {
                       enabled: true,
                       onTap: () {},
                     ),
-                     ListTile(
+                    ListTile(
                       leading: Icon(
                         Icons.person,
                         color: Colors.lime,
@@ -82,7 +92,7 @@ class DrawerBuilder extends StatelessWidget {
                         color: Colors.green,
                       ),
                       title: Text(
-                        'Friends',
+                        'Reading Partners',
                         style: TextStyle(fontSize: heightT * 0.021),
                       ),
                       enabled: true,
@@ -140,7 +150,7 @@ class DrawerBuilder extends StatelessWidget {
                     ),
                     Divider(),
                     Divider(),
-                     ListTile(
+                    ListTile(
                       leading: Icon(
                         Icons.settings,
                         color: Colors.grey,
@@ -165,7 +175,6 @@ class DrawerBuilder extends StatelessWidget {
                       enabled: true,
                       onTap: () {},
                     ),
-                 
                   ],
                 ),
               ),

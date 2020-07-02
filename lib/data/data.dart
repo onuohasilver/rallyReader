@@ -24,23 +24,23 @@ class Data extends ChangeNotifier {
     pdfImages.add(renderedObject);
   }
 
-  void setFavorite(BuildContext context,String  bookTitle) {
+  void setFavorite(GlobalKey<ScaffoldState> key,String  bookTitle) {
     if (!favorites.contains(bookTitle)) {
       favorites.add(bookTitle);
-      showSnackBar(context, 'Added to favorites');
+      showSnackBar(key, 'Added to favorites');
     } else {
       favorites.remove(bookTitle);
-      showSnackBar(context, 'Removed from favorites');
+      showSnackBar(key, 'Removed from favorites');
     }
     notifyListeners();
   }
-  void addToReadinglist(BuildContext context,String bookTitle){
+  void addToReadinglist(GlobalKey<ScaffoldState> key,String bookTitle){
     if (!toRead.contains(bookTitle)) {
       toRead.add(bookTitle);
-      showSnackBar(context, 'Added to Reading List!');
+      showSnackBar(key, 'Added to Reading List!');
     } else {
       toRead.remove(bookTitle);
-      showSnackBar(context, 'Removed Reading List!');
+      showSnackBar(key, 'Removed Reading List!');
     }
     notifyListeners();
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-showSnackBar(BuildContext context,String text) {
+showSnackBar(GlobalKey<ScaffoldState> key, String text) {
   final snackBar = SnackBar(
       content: Text(
         text,
@@ -8,5 +8,5 @@ showSnackBar(BuildContext context,String text) {
       ),
       backgroundColor: Colors.orange,
       duration: Duration(seconds: 1));
-  Scaffold.of(context).showSnackBar(snackBar);
+  key.currentState.showSnackBar(snackBar);
 }

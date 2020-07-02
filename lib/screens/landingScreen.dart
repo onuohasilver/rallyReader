@@ -21,6 +21,7 @@ class _LandingScreenState extends State<LandingScreen> {
   GetPermission getPermission = GetPermission();
   List<String> fileNames;
   String selectedCollection = 'Scaly';
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   void initState() {
     getPermission.requestPermission;
@@ -28,20 +29,19 @@ class _LandingScreenState extends State<LandingScreen> {
     super.initState();
   }
 
+  
   @override
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
     appData.updateFiles(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
-    GlobalKey<ScaffoldState> scaffoldKey=GlobalKey();
-
 
     return Scaffold(
       backgroundColor: Colors.orangeAccent.withOpacity(.8),
       drawer: DrawerBuilder(widthT: widthT, heightT: heightT),
       key:scaffoldKey,
-      
+
       body: Container(
         height: heightT,
         width: widthT,
@@ -91,6 +91,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       title: appData.filePath[index].split('/').last,
                       pdfController: null,
                       key: null,
+                      scaffoldKey: scaffoldKey,
                       completion: book.completion,
                       onTap: () {
                         Navigator.push(
