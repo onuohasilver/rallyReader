@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rallyreader/components/bookImage.dart';
 import 'package:rallyreader/screens/readScreen.dart';
 
 class BookScreen extends StatefulWidget {
   final String image;
   final String title;
-  
-  
-  
 
-  const BookScreen(
-      {Key key,
-      @required this.image,
-      @required this.title,
-      })
-      : super(key: key);
+  const BookScreen({
+    Key key,
+    @required this.image,
+    @required this.title,
+  }) : super(key: key);
   @override
   _BookScreenState createState() => _BookScreenState();
 }
@@ -77,9 +72,9 @@ class _BookScreenState extends State<BookScreen> {
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 3),
-                  
+
                   SizedBox(height: heightT * .06),
-                  
+
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
                     child: Container(
@@ -109,11 +104,10 @@ class _BookScreenState extends State<BookScreen> {
                               Container(
                                 width: widthT * .75,
                                 child: Text(
-                                  '''The American Abstract Artists herewith present a fourth in the series of books...
+                                    '''The American Abstract Artists herewith present a fourth in the series of books...
                                 ''',
-                                  textAlign: TextAlign.justify,
-                                  style:TextStyle(fontSize: 20)
-                                ),
+                                    textAlign: TextAlign.justify,
+                                    style: TextStyle(fontSize: 20)),
                               )
                             ],
                           )

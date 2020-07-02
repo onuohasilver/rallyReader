@@ -28,7 +28,7 @@ class ColorFlatButton extends StatelessWidget {
           onTap:onTap,
           child: Center(
             child: Text(
-              label,
+              label??'No Label',
               style: TextStyle(fontSize: 15, color: Colors.white),
             ),
           ),

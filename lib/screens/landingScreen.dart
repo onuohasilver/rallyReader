@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rallyreader/components/bottomBar.dart';
+import 'package:rallyreader/components/buttons/topRowButton.dart';
+import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/thumbnail.dart';
@@ -20,6 +20,8 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   GetPermission getPermission = GetPermission();
   List<String> fileNames;
+  String selectedCollection = 'Scaly';
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   void initState() {
     getPermission.requestPermission;
@@ -27,14 +29,19 @@ class _LandingScreenState extends State<LandingScreen> {
     super.initState();
   }
 
+  
   @override
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
     appData.updateFiles(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.orangeAccent.withOpacity(.8),
+      drawer: DrawerBuilder(widthT: widthT, heightT: heightT),
+      key:scaffoldKey,
+
       body: Container(
         height: heightT,
         width: widthT,
@@ -48,6 +55,7 @@ class _LandingScreenState extends State<LandingScreen> {
               SizedBox(
                 height: heightT * .09,
               ),
+              TopRowButton(scaffoldKey:scaffoldKey),
               Text(
                 'Recent Books.',
                 style: GoogleFonts.poppins(
@@ -63,40 +71,40 @@ class _LandingScreenState extends State<LandingScreen> {
                   itemCount: appData.filePath.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
-                    GlobalKey key = GlobalKey();
                     return ThumbNail(
                       pdfController: null,
-                      key: key,
                       heightT: heightT,
                       widthT: widthT,
                     );
                   },
                 ),
               ),
-              // SizedBox(
-              //   height: heightT * .02,
-              // ),
               Expanded(
                 child: ListView.builder(
                   itemCount: bookList.length,
                   itemBuilder: (BuildContext context, int index) {
                     var book = bookList[index];
-                    GlobalKey key = GlobalKey();
+
                     return ExpandedThumbnail(
                       heightT: heightT,
                       widthT: widthT,
                       title: appData.filePath[index].split('/').last,
                       pdfController: null,
-                      key: key,
+                      key: null,
+                      scaffoldKey: scaffoldKey,
                       completion: book.completion,
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return BookScreen(
-                            title: book.title,
-                            image: book.image,
-                          );
-                        }));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return BookScreen(
+                                title: book.title,
+                                image: book.image,
+                              );
+                            },
+                          ),
+                        );
                       },
                     );
                   },
@@ -106,7 +114,6 @@ class _LandingScreenState extends State<LandingScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomBar(),
     );
   }
 }

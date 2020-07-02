@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:provider/provider.dart';
+import 'package:rallyreader/components/imageContainers/bookImage.dart';
+import 'package:rallyreader/components/popups/addCollections.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 import 'package:rallyreader/data/data.dart';
-import 'bookImage.dart';
+import 'package:rallyreader/screens/viewScreen.dart';
 
 class ThumbNail extends StatelessWidget {
-  const ThumbNail(
-      {@required this.heightT,
-      @required this.widthT,
-      @required this.pdfController,
-      @required this.key})
-      : super(key: key);
+  const ThumbNail({
+    @required this.heightT,
+    @required this.widthT,
+    @required this.pdfController,
+  });
 
   final double heightT;
   final double widthT;
-  final GlobalKey key;
 
   final PdfController pdfController;
 
@@ -48,7 +48,8 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.pdfController,
       @required this.completion,
       @required this.key,
-      this.onTap})
+      this.onTap,
+      @required this.scaffoldKey})
       : super(key: key);
 
   final double heightT;
@@ -58,6 +59,7 @@ class ExpandedThumbnail extends StatelessWidget {
   final PdfController pdfController;
   final Function onTap;
   final GlobalKey key;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +68,8 @@ class ExpandedThumbnail extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          color: Colors.white,
-        ),
+            borderRadius: BorderRadius.circular(6),
+            color: Colors.white.withOpacity(.7)),
         child: Row(
           children: <Widget>[
             BookImage(
@@ -112,13 +113,6 @@ class ExpandedThumbnail extends StatelessWidget {
                     Container(
                         width: widthT * .55,
                         height: heightT * .04,
-                        // child: ColorFlatButton(
-                        //   color: Colors.orange,
-                        //   widthT: double.infinity,
-                        //   heightT: heightT * .3,
-                        //   label: 'Explore',
-                        //   onTap: onTap,
-                        // ))
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
@@ -130,13 +124,50 @@ class ExpandedThumbnail extends StatelessWidget {
                                       : Colors.grey,
                                 ),
                                 onPressed: () {
-                                  appData.setFavorite(title);
+                                  appData.setFavorite(scaffoldKey, title);
                                 }),
-                            Icon(
-                              Icons.av_timer,
-                            ),
-                            Icon(Icons.library_books),
-                            Icon(Icons.more_vert)
+                            IconButton(
+                                icon: Icon(
+                                  Icons.av_timer,
+                                  color: (appData.toRead.contains(title))
+                                      ? Colors.orange
+                                      : Colors.grey,
+                                ),
+                                onPressed: () {
+                                  appData.addToReadinglist(scaffoldKey, title);
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.library_books,
+                                ),
+                                onPressed: () {
+                                  addToCollection(
+                                      context, heightT, widthT, title);
+                                }),
+                            PopupMenuButton(
+                              onSelected: (value) {
+                                print(value);
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return BookScreen(
+                                    title: ' book.title',
+                                    image: "book.image",
+                                  );
+                                }));
+                              },
+                              itemBuilder: (context) {
+                                return [
+                                  PopupMenuItem(
+                                    value: 's',
+                                    child: Text('Scales'),
+                                  ),
+                                  PopupMenuItem(
+                                    value: 'saa',
+                                    child: Text('Scales'),
+                                  ),
+                                ];
+                              },
+                            )
                           ],
                         ))
                   ],
