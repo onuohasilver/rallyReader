@@ -4,23 +4,19 @@ import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/imageContainers/bookImage.dart';
 import 'package:rallyreader/components/popups/addCollections.dart';
-import 'package:rallyreader/components/popups/snackbars.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
-
 class ThumbNail extends StatelessWidget {
-  const ThumbNail(
-      {@required this.heightT,
-      @required this.widthT,
-      @required this.pdfController,
-      @required this.key})
-      : super(key: key);
+  const ThumbNail({
+    @required this.heightT,
+    @required this.widthT,
+    @required this.pdfController,
+  });
 
   final double heightT;
   final double widthT;
-  final GlobalKey key;
 
   final PdfController pdfController;
 
@@ -152,7 +148,7 @@ class ExpandedThumbnail extends StatelessWidget {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return BookScreen(
-                                    title:' book.title',
+                                    title: ' book.title',
                                     image: "book.image",
                                   );
                                 }));
@@ -163,8 +159,7 @@ class ExpandedThumbnail extends StatelessWidget {
                                     value: 's',
                                     child: Text('Scales'),
                                   ),
-                                  PopupMenuItem
-                                  (
+                                  PopupMenuItem(
                                     value: 'saa',
                                     child: Text('Scales'),
                                   ),

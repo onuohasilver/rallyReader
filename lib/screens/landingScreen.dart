@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/thumbnail.dart';
@@ -33,9 +33,10 @@ class _LandingScreenState extends State<LandingScreen> {
     appData.updateFiles(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
-    
+
     return Scaffold(
       backgroundColor: Colors.orangeAccent.withOpacity(.8),
+      drawer:DrawerBuilder(widthT: widthT,heightT: heightT),
       body: Container(
         height: heightT,
         width: widthT,
@@ -54,7 +55,6 @@ class _LandingScreenState extends State<LandingScreen> {
                 style: GoogleFonts.poppins(
                     fontSize: heightT * .034, fontWeight: FontWeight.w600),
               ),
-                
               Container(
                 height: heightT * .12,
                 width: widthT,
@@ -65,10 +65,8 @@ class _LandingScreenState extends State<LandingScreen> {
                   itemCount: appData.filePath.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
-                    GlobalKey key = GlobalKey();
                     return ThumbNail(
                       pdfController: null,
-                      key: key,
                       heightT: heightT,
                       widthT: widthT,
                     );
@@ -88,16 +86,18 @@ class _LandingScreenState extends State<LandingScreen> {
                       pdfController: null,
                       key: null,
                       completion: book.completion,
-                      
-                      
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return BookScreen(
-                            title: book.title,
-                            image: book.image,
-                          );
-                        }));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return BookScreen(
+                                title: book.title,
+                                image: book.image,
+                              );
+                            },
+                          ),
+                        );
                       },
                     );
                   },
@@ -107,7 +107,6 @@ class _LandingScreenState extends State<LandingScreen> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomBar(),
     );
   }
 }
