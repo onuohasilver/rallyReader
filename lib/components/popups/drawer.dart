@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DrawerBuilder extends StatelessWidget {
   final heightT;
@@ -24,14 +25,14 @@ class DrawerBuilder extends StatelessWidget {
             Text.rich(
               TextSpan(
                 text: 'Hi!',
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                     color: Colors.deepOrange,
                     fontWeight: FontWeight.w500,
                     fontSize: heightT * 0.04),
                 children: [
                   TextSpan(
                     text: '\nOnuoha Silver',
-                    style: TextStyle(
+                    style:  GoogleFonts.poppins(
                         color: Colors.black,
                         fontWeight: FontWeight.w700,
                         fontSize: heightT * 0.04),

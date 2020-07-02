@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rallyreader/components/buttons/topRowButton.dart';
 import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:provider/provider.dart';
@@ -33,10 +34,14 @@ class _LandingScreenState extends State<LandingScreen> {
     appData.updateFiles(fileNames);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
+    GlobalKey<ScaffoldState> scaffoldKey=GlobalKey();
+
 
     return Scaffold(
       backgroundColor: Colors.orangeAccent.withOpacity(.8),
-      drawer:DrawerBuilder(widthT: widthT,heightT: heightT),
+      drawer: DrawerBuilder(widthT: widthT, heightT: heightT),
+      key:scaffoldKey,
+      
       body: Container(
         height: heightT,
         width: widthT,
@@ -50,6 +55,7 @@ class _LandingScreenState extends State<LandingScreen> {
               SizedBox(
                 height: heightT * .09,
               ),
+              TopRowButton(scaffoldKey:scaffoldKey),
               Text(
                 'Recent Books.',
                 style: GoogleFonts.poppins(
