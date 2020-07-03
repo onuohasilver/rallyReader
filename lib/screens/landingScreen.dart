@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/buttons/topRowButton.dart';
 import 'package:rallyreader/components/popups/drawer.dart';
+import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/thumbnail.dart';
@@ -29,7 +30,6 @@ class _LandingScreenState extends State<LandingScreen> {
     super.initState();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
@@ -40,8 +40,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Scaffold(
       backgroundColor: Colors.orangeAccent.withOpacity(.8),
       drawer: DrawerBuilder(widthT: widthT, heightT: heightT),
-      key:scaffoldKey,
-
+      key: scaffoldKey,
       body: Container(
         height: heightT,
         width: widthT,
@@ -52,14 +51,13 @@ class _LandingScreenState extends State<LandingScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                height: heightT * .09,
+              TopRowButton(
+                scaffoldKey: scaffoldKey,
+                height: heightT,
               ),
-              TopRowButton(scaffoldKey:scaffoldKey),
-              Text(
-                'Recent Books.',
-                style: GoogleFonts.poppins(
-                    fontSize: heightT * .034, fontWeight: FontWeight.w600),
+              PageTitle(
+                heightT: heightT,
+                title: 'Recent Books.',
               ),
               Container(
                 height: heightT * .12,

@@ -11,6 +11,8 @@ addToCollection(
       builder: (context) {
         String selectedCollection = 'Scaly';
         final appData = Provider.of<Data>(context);
+        TextEditingController textController = TextEditingController();
+
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: StatefulBuilder(
@@ -35,6 +37,7 @@ addToCollection(
                           maxLength: 10,
                           maxLengthEnforced: true,
                           textAlign: TextAlign.center,
+                          controller: textController,
                         )),
                     Text('or add to an existing collection'),
                     //TODO: link to data of created collections
@@ -49,7 +52,8 @@ addToCollection(
                       items: [
                         DropdownMenuItem(value: 'Scaxle', child: Text('cxas')),
                         DropdownMenuItem(value: 'Sacxale', child: Text('csas')),
-                        DropdownMenuItem(value: 'Scaly', child: Text('caAxs'))
+                        DropdownMenuItem(value: 'Scaly', child: Text('caAxs')),
+                        DropdownMenuItem(value: 'ffff', child: Text('fff'))
                       ],
                     ),
                     ColorFlatButton(
@@ -57,10 +61,12 @@ addToCollection(
                         widthT: widthT,
                         label: 'Add to Collection',
                         onTap: () {
-                      
                           appData.createCollection(
-                              selectedCollection, bookTitle);
-                              
+                              (textController.text.length < 2)
+                                  ? selectedCollection
+                                  : textController.text,
+                              bookTitle);
+                          Navigator.pop(context);
                         },
                         color: Colors.orange)
                   ],

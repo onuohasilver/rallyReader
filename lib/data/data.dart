@@ -7,7 +7,7 @@ class Data extends ChangeNotifier {
   List<PdfController> controllers = [];
   List pdfImages = [1, 2, 3];
   List favorites = [];
-  List toRead=[];
+  List toRead = [];
   Map<String, List<String>> caches = {};
 
   void updateFiles(files) {
@@ -24,7 +24,7 @@ class Data extends ChangeNotifier {
     pdfImages.add(renderedObject);
   }
 
-  void setFavorite(GlobalKey<ScaffoldState> key,String  bookTitle) {
+  void setFavorite(GlobalKey<ScaffoldState> key, String bookTitle) {
     if (!favorites.contains(bookTitle)) {
       favorites.add(bookTitle);
       showSnackBar(key, 'Added to favorites');
@@ -34,7 +34,8 @@ class Data extends ChangeNotifier {
     }
     notifyListeners();
   }
-  void addToReadinglist(GlobalKey<ScaffoldState> key,String bookTitle){
+
+  void addToReadinglist(GlobalKey<ScaffoldState> key, String bookTitle) {
     if (!toRead.contains(bookTitle)) {
       toRead.add(bookTitle);
       showSnackBar(key, 'Added to Reading List!');
@@ -43,12 +44,18 @@ class Data extends ChangeNotifier {
       showSnackBar(key, 'Removed Reading List!');
     }
     notifyListeners();
-
   }
 
-  void createCollection(String collectionName,String  bookTitle) {
-    caches[collectionName]=[];
-    caches[collectionName].add(bookTitle);
+  void createCollection(String collectionName, String bookTitle) {
+    if (caches[collectionName] == null) {
+      caches[collectionName] = [];
+      caches[collectionName].add(bookTitle);
+    }else{
+
+      //TODO: check if the title is already in the collection
+      caches[collectionName].add(bookTitle);
+    }
+
     notifyListeners();
   }
 }
