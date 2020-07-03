@@ -53,6 +53,13 @@ class _CollectionsState extends State<Collections> {
                       height: height,
                       width: width,
                       numberOfBooks: contents[index],
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          'IndividualCollectionScreen',
+                          arguments: titles[index],
+                        );
+                      },
                     );
                   },
                 ),

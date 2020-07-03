@@ -10,6 +10,7 @@ class CollectionThumbNail extends StatelessWidget {
     @required this.title,
     @required this.numberOfBooks,
     this.image,
+    @required this.onTap,
   }) : super(key: key);
 
   final double height;
@@ -17,6 +18,7 @@ class CollectionThumbNail extends StatelessWidget {
   final String title;
   final int numberOfBooks;
   final String image;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class CollectionThumbNail extends StatelessWidget {
                         '.',
                         style: TextStyle(color: Colors.transparent),
                       ),
-                      onTap: () {},
+                      onTap: onTap,
                     ),
                   ),
                 ),
