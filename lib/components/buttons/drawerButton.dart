@@ -33,6 +33,7 @@ class DrawerButton extends StatelessWidget {
           enabled: true,
         ),
         onTap: () {
+          Navigator.pop(context);
           Navigator.pushNamed(context,routeName);
         },
       ),

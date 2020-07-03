@@ -35,7 +35,7 @@ class CollectionThumbNail extends StatelessWidget {
                 elevation: 5,
                 shadowColor: Colors.grey[100],
                 child: Ink.image(
-                  image: image??AssetImage('assets/topUserImage.png'),
+                  image: image ?? AssetImage('assets/topUserImage.png'),
                   fit: BoxFit.cover,
                   child: BackdropFilter(
                     filter: ui.ImageFilter.blur(sigmaX: 1.7, sigmaY: 1.9),
@@ -52,46 +52,52 @@ class CollectionThumbNail extends StatelessWidget {
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.topRight,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Card(
-              color: Colors.red,
-              shape: CircleBorder(),
-              elevation: 50,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  numberOfBooks.toString(),
-                  style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: height * .03,
-                      fontWeight: FontWeight.w600),
+        Positioned.fill(
+          right: 20,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                color: Colors.red,
+                shape: CircleBorder(),
+                elevation: 50,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    numberOfBooks.toString(),
+                    style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: height * .0184,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15.0, bottom: 5),
-            child: Container(
-              width: width * .4,
-              height: height * .04,
-              decoration: BoxDecoration(
-                color: Colors.orange[100].withOpacity(.7),
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
+        Positioned.fill(
+          bottom: 16,
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0, bottom: 5),
+              child: Container(
+                width: width * .4,
+                height: height * .04,
+                decoration: BoxDecoration(
+                  color: Colors.orange[100].withOpacity(.7),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  title,
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    title,
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ),

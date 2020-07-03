@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:rallyreader/components/buttons/topRowButton.dart';
 import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/components/thumbnails/collectionThumbnail.dart';
+import 'package:rallyreader/data/data.dart';
 
 class Collections extends StatefulWidget {
   @override
@@ -17,6 +17,7 @@ class _CollectionsState extends State<Collections> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    Data appData = Provider.of<Data>(context);
     return Scaffold(
       drawer: DrawerBuilder(widthT: width, heightT: height),
       key: scaffoldKey,
@@ -32,39 +33,28 @@ class _CollectionsState extends State<Collections> {
               TopRowButton(scaffoldKey: scaffoldKey, height: height),
               PageTitle(heightT: height, title: 'Collections'),
               Expanded(
-                child: GridView.count(
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  padding: EdgeInsets.all(5),
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    CollectionThumbNail(
+                child: GridView.builder(
+                  //TODO: Use animatedGridViewBuilder
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemCount: appData.caches.length,
+                  itemBuilder: (context, index) {
+                    Map source = appData.caches;
+                    List titles = [];
+                    List<int> contents = [];
+                    for (String collection in source.keys) {
+                      titles.add(collection);
+                    }
+                    for (List counter in source.values) {
+                      contents.add(counter.length);
+                    }
+                    return CollectionThumbNail(
+                      title: titles[index],
                       height: height,
                       width: width,
-                      numberOfBooks: 34,
-                      title: 'Study',
-                    ),
-                    CollectionThumbNail(
-                      height: height,
-                      width: width,
-                      numberOfBooks: 10,
-                      title: 'Leisure',
-                    ),
-                    Container(
-                      height: height * .2,
-                      width: width / 4,
-                      child: ConstrainedBox(
-                        constraints: ,
-                        child: Material(
-                            borderRadius: BorderRadius.circular(10),
-                            elevation: 5,
-                            shadowColor: Colors.grey[100],
-                            child: InkWell(
-                                child: Icon(Icons.add, size: height * .3),
-                                onTap: () {})),
-                      ),
-                    ),
-                  ],
+                      numberOfBooks: contents[index],
+                    );
+                  },
                 ),
               ),
             ],
