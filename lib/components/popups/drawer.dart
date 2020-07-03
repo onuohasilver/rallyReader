@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rallyreader/components/buttons/drawerButton.dart';
 
 class DrawerBuilder extends StatelessWidget {
   final heightT;
@@ -19,34 +21,43 @@ class DrawerBuilder extends StatelessWidget {
         width: widthT * .7,
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: heightT * .2,
+              height: heightT * .29,
               width: double.infinity,
-              color: Colors.orangeAccent.withOpacity(.1),
-              child: Align(
-                alignment:Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:18.0),
-                  child: Text.rich(
-                    TextSpan(
-                      text: 'Hi!',
-                      style: GoogleFonts.poppins(
-                          color: Colors.deepOrange,
-                          fontWeight: FontWeight.w500,
-                          fontSize: heightT * 0.04),
-                      children: [
-                        TextSpan(
-                          text: '\nOnuoha Silver',
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                              fontSize: heightT * 0.04),
-                        ),
-                      ],
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/topUserImage.png'),
+                    fit: BoxFit.cover),
+                color: Colors.orangeAccent.withOpacity(.1),
+              ),
+              child: BackdropFilter(
+                filter: ui.ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    child: Text.rich(
+                      TextSpan(
+                        text: 'Hi!',
+                        style: GoogleFonts.poppins(
+                            color: Colors.orange[200],
+                            fontWeight: FontWeight.w500,
+                            shadows: [Shadow(blurRadius: 30)],
+                            fontSize: heightT * 0.04),
+                        children: [
+                          TextSpan(
+                            text: '\nOnuoha Silver',
+                            style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                shadows: [Shadow(blurRadius: 30)],
+                                fontSize: heightT * 0.04),
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.start,
                     ),
-                    textAlign: TextAlign.start,
                   ),
                 ),
               ),
@@ -56,111 +67,59 @@ class DrawerBuilder extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 18.0, vertical: 4.0),
               child: Divider(),
             ),
-            Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
                 child: Column(
                   children: <Widget>[
-                    ListTile(
-                      leading: Icon(
-                        Icons.notifications,
-                        color: Colors.deepOrange,
-                      ),
-                      title: Text(
-                        'Notification',
-                        style: TextStyle(fontSize: heightT * 0.021),
-                      ),
-                      enabled: true,
-                      onTap: () {},
+                    DrawerButton(
+                      heightT: heightT,
+                      label: 'Notifications',
+                      icon: Icons.notifications,
+                      color: Colors.orange,
                     ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.person,
-                        color: Colors.lime,
-                      ),
-                      title: Text(
-                        'Profile',
-                        style: TextStyle(fontSize: heightT * 0.021),
-                      ),
-                      enabled: true,
-                      onTap: () {},
+                    DrawerButton(
+                      heightT: heightT,
+                      label: 'Profile',
+                      icon: Icons.person,
                     ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.people,
-                        color: Colors.green,
-                      ),
-                      title: Text(
-                        'Reading Partners',
-                        style: TextStyle(fontSize: heightT * 0.021),
-                      ),
-                      enabled: true,
-                      onTap: () {},
+                    DrawerButton(
+                      heightT: heightT,
+                      label: 'Book Circle',
+                      icon: Icons.supervised_user_circle,
+                      color: Colors.green,
+                    ),
+                    Divider(),
+                    DrawerButton(
+                      heightT: heightT,
+                      label: 'Books',
+                      icon: Icons.book,
+                      color: Colors.blueAccent,
+                    ),
+                    DrawerButton(
+                      heightT: heightT,
+                      label: 'Reading Plans',
+                      icon: Icons.fiber_smart_record,
+                      color: Colors.purple,
+                    ),
+                    DrawerButton(
+                      heightT: heightT,
+                      label: 'Collections',
+                      icon: Icons.library_books,
+                    ),
+                    DrawerButton(
+                      heightT: heightT,
+                      label: 'Favorites',
+                      icon: Icons.favorite,
+                      color: Colors.red,
                     ),
                     Divider(),
                     Divider(),
-                    ListTile(
-                      leading: Icon(
-                        Icons.book,
-                        color: Colors.blue,
-                      ),
-                      title: Text(
-                        'Books',
-                        style: TextStyle(fontSize: heightT * 0.021),
-                      ),
-                      enabled: true,
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.fiber_smart_record,
-                        color: Colors.purple,
-                      ),
-                      title: Text(
-                        'Reading Plans',
-                        style: TextStyle(fontSize: heightT * 0.021),
-                      ),
-                      enabled: true,
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.library_books,
-                        color: Colors.indigo,
-                      ),
-                      title: Text(
-                        'Collections',
-                        style: TextStyle(fontSize: heightT * 0.021),
-                      ),
-                      enabled: true,
-                      onTap: () {},
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      ),
-                      title: Text(
-                        'Favorites',
-                        style: TextStyle(fontSize: heightT * 0.021),
-                      ),
-                      enabled: true,
-                      onTap: () {},
-                    ),
-                    Divider(),
-                    Divider(),
-                    ListTile(
-                      leading: Icon(
-                        Icons.settings,
-                        color: Colors.grey,
-                      ),
-                      title: Text(
-                        'Settings',
-                        style: TextStyle(fontSize: heightT * 0.021),
-                      ),
-                      enabled: true,
-                      onTap: () {},
+                    DrawerButton(
+                      heightT: heightT,
+                      label: 'Settings',
+                      icon: Icons.settings,
+                      color: Colors.grey,
                     ),
                     ListTile(
                       leading: Container(
