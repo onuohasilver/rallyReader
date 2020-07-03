@@ -33,7 +33,7 @@ class DrawerButton extends StatelessWidget {
           enabled: true,
         ),
         onTap: () {
-          //TODO: Navigate to routeName
+          Navigator.pushNamed(context,routeName);
         },
       ),
     );

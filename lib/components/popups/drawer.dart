@@ -106,6 +106,7 @@ class DrawerBuilder extends StatelessWidget {
                       heightT: heightT,
                       label: 'Collections',
                       icon: Icons.library_books,
+                      routeName: 'CollectionScreen',
                     ),
                     DrawerButton(
                       heightT: heightT,
