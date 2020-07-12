@@ -60,6 +60,10 @@ class _CollectionsState extends State<Collections> {
                           arguments: titles[index],
                         );
                       },
+                      onLongPress: (){
+                        ///TODO: Add long press popup that has 
+                        /// TODshare option and  delete option
+                      },
                     );
                   },
                 ),
