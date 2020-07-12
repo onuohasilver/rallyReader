@@ -28,7 +28,7 @@ class DrawerButton extends StatelessWidget {
           ),
           title: Text(
             label,
-            style: TextStyle(fontSize: heightT * 0.021),
+            style: TextStyle(fontSize: heightT * 0.016),
           ),
           enabled: true,
         ),

@@ -8,7 +8,7 @@ class Data extends ChangeNotifier {
   List pdfImages = [1, 2, 3];
   List favorites = [];
   List toRead = [];
-  Map<String, List<String>> caches = {};
+  Map<String, List<String>> caches = {'Default':[]};
 
   void updateFiles(files) {
     filePath = files;

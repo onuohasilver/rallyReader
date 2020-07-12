@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/buttons/colorFlatButton.dart';
-
 import 'package:rallyreader/data/data.dart';
 
 addToCollection(
@@ -9,7 +8,7 @@ addToCollection(
   showDialog(
       context: context,
       builder: (context) {
-        String selectedCollection = 'Scaly';
+        String selectedCollection = 'Default';
         final appData = Provider.of<Data>(context);
         TextEditingController textController = TextEditingController();
 
@@ -42,20 +41,18 @@ addToCollection(
                     Text('or add to an existing collection'),
                     //TODO: link to data of created collections
                     DropdownButton(
-                      value: selectedCollection,
-                      elevation: 8,
-                      onChanged: (String value) {
-                        setState(() {
-                          selectedCollection = value;
-                        });
-                      },
-                      items: [
-                        DropdownMenuItem(value: 'Scaxle', child: Text('cxas')),
-                        DropdownMenuItem(value: 'Sacxale', child: Text('csas')),
-                        DropdownMenuItem(value: 'Scaly', child: Text('caAxs')),
-                        DropdownMenuItem(value: 'ffff', child: Text('fff'))
-                      ],
-                    ),
+                        value: selectedCollection,
+                        elevation: 8,
+                        onChanged: (String value) {
+                          setState(() {
+                            selectedCollection = value;
+                          });
+                        },
+                        items: appData.caches.entries.map((entry) {
+                          String collection = entry.key;
+                          return DropdownMenuItem(
+                              child: Text(collection), value: collection);
+                        }).toList()),
                     ColorFlatButton(
                         heightT: heightT / 2,
                         widthT: widthT,
