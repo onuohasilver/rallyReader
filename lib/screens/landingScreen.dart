@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rallyreader/components/buttons/topRowButton.dart';
 import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
+import 'package:rallyreader/components/thumbnails/thumbnail.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/thumbnail.dart';
 import 'package:rallyreader/collections/books.dart';
 import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
@@ -91,6 +90,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       key: null,
                       scaffoldKey: scaffoldKey,
                       completion: book.completion,
+                      showMenu: true,
                       onTap: () {
                         Navigator.push(
                           context,

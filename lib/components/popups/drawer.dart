@@ -113,6 +113,7 @@ class DrawerBuilder extends StatelessWidget {
                       label: 'Favorites',
                       icon: Icons.favorite,
                       color: Colors.red,
+                      routeName:'FavoritesScreen'
                     ),
                     Divider(),
                     Divider(),
