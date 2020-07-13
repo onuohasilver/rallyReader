@@ -6,6 +6,7 @@ import 'package:rallyreader/screens/initialScreen.dart';
 import 'package:rallyreader/screens/landingScreen.dart';
 import 'package:rallyreader/screens/favoritesScreen.dart';
 import 'package:rallyreader/screens/profileScreen.dart';
+import 'package:rallyreader/screens/signUp.dart';
 
 import 'data/data.dart';
 
@@ -14,14 +15,15 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => Data(),
       child: MaterialApp(
-        initialRoute: 'LandingScreen',
+        initialRoute: 'SignUp',
         routes: {
           'LandingScreen': (context) => LandingScreen(),
           'InitialScreen': (context)=> InitialScreen(),
           'CollectionScreen':(context)=> Collections(),
           'IndividualCollectionScreen':(context)=>IndividualCollectionScreen(),
           'FavoritesScreen':(context)=> FavoritesScreen(),
-          'ProfileScreen':(context)=>ProfileScreen()
+          'ProfileScreen':(context)=>ProfileScreen(),
+          'SignUp':(context)=>SignUp()
         },
       ),
     ),
