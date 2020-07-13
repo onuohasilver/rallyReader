@@ -3,13 +3,17 @@ import 'package:rallyreader/components/buttons/colorFlatButton.dart';
 import 'dart:ui' as ui;
 
 import 'package:rallyreader/components/textInput/textEntry.dart';
+import 'package:rallyreader/handlers/signInHandlers/emailSignInHandler.dart';
 
 Future buildSignUpDialog(BuildContext context, double height, double width) {
   return showDialog(
     context: context,
     builder: (context) {
+      TextEditingController password = TextEditingController();
+      TextEditingController passwordConfirm = TextEditingController();
+      TextEditingController email = TextEditingController();
       return BackdropFilter(
-        filter: ui.ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+        filter: ui.ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
         child: Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -29,22 +33,37 @@ Future buildSignUpDialog(BuildContext context, double height, double width) {
                   width: width * .2,
                   child: Image.asset('assets/rallyLogo.png'),
                 ),
-                TextEntry(width: width, hint: 'your email address'),
                 TextEntry(
-                    width: width,
-                    hint: 'your password',
-                    obscure: true,
-                    type: TextInputType.text),
+                  width: width,
+                  hint: 'email address',
+                  controller: email,
+                ),
                 TextEntry(
-                    width: width,
-                    hint: 'confirm your password',
-                    obscure: true,
-                    type: TextInputType.text),
+                  width: width,
+                  hint: 'password',
+                  obscure: true,
+                  type: TextInputType.text,
+                  controller: password,
+                ),
+                TextEntry(
+                  width: width,
+                  hint: 'confirm  password',
+                  obscure: true,
+                  type: TextInputType.text,
+                  controller: passwordConfirm,
+                ),
                 ColorFlatButton(
                   widthT: width,
                   heightT: height * .7,
                   label: 'Create Account',
                   color: Colors.orange[900],
+                  onTap: () {
+                    assert(password.text == passwordConfirm.text);
+                    signUpWithEmail(email.text, password.text)
+                        .whenComplete((() {
+                      print('Success!');
+                    }));
+                  },
                 )
               ],
             ),
