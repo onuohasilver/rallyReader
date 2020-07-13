@@ -82,6 +82,7 @@ class DrawerBuilder extends StatelessWidget {
                       heightT: heightT,
                       label: 'Profile',
                       icon: Icons.person,
+                      routeName:'ProfileScreen'
                     ),
                     DrawerButton(
                       heightT: heightT,

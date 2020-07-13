@@ -5,6 +5,7 @@ import 'package:rallyreader/screens/individualCollectionScreen.dart';
 import 'package:rallyreader/screens/initialScreen.dart';
 import 'package:rallyreader/screens/landingScreen.dart';
 import 'package:rallyreader/screens/favoritesScreen.dart';
+import 'package:rallyreader/screens/profileScreen.dart';
 
 import 'data/data.dart';
 
@@ -20,6 +21,7 @@ void main() {
           'CollectionScreen':(context)=> Collections(),
           'IndividualCollectionScreen':(context)=>IndividualCollectionScreen(),
           'FavoritesScreen':(context)=> FavoritesScreen(),
+          'ProfileScreen':(context)=>ProfileScreen()
         },
       ),
     ),
