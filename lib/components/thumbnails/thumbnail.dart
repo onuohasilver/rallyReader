@@ -48,6 +48,7 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.pdfController,
       @required this.completion,
       @required this.key,
+      @required this.showMenu,
       this.onTap,
       @required this.scaffoldKey})
       : super(key: key);
@@ -60,6 +61,7 @@ class ExpandedThumbnail extends StatelessWidget {
   final Function onTap;
   final GlobalKey key;
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final bool showMenu;
 
   @override
   Widget build(BuildContext context) {
@@ -110,66 +112,69 @@ class ExpandedThumbnail extends StatelessWidget {
                               read: false,
                               readColor: Colors.orange)),
                     ),
-                    Container(
-                        width: widthT * .55,
-                        height: heightT * .04,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            IconButton(
-                                icon: Icon(
-                                  Icons.favorite,
-                                  color: (appData.favorites.contains(title))
-                                      ? Colors.red
-                                      : Colors.grey,
-                                ),
-                                onPressed: () {
-                                  appData.setFavorite(scaffoldKey, title);
-                                }),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.av_timer,
-                                  color: (appData.toRead.contains(title))
-                                      ? Colors.orange
-                                      : Colors.grey,
-                                ),
-                                onPressed: () {
-                                  appData.addToReadinglist(scaffoldKey, title);
-                                }),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.library_books,
-                                ),
-                                onPressed: () {
-                                  addToCollection(
-                                      context, heightT, widthT, title);
-                                }),
-                            PopupMenuButton(
-                              onSelected: (value) {
-                                print(value);
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return BookScreen(
-                                    title: ' book.title',
-                                    image: "book.image",
-                                  );
-                                }));
-                              },
-                              itemBuilder: (context) {
-                                return [
-                                  PopupMenuItem(
-                                    value: 's',
-                                    child: Text('Scales'),
-                                  ),
-                                  PopupMenuItem(
-                                    value: 'saa',
-                                    child: Text('Scales'),
-                                  ),
-                                ];
-                              },
-                            )
-                          ],
-                        ))
+                    showMenu
+                        ? Container(
+                            width: widthT * .55,
+                            height: heightT * .04,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                IconButton(
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      color: (appData.favorites.contains(title))
+                                          ? Colors.red
+                                          : Colors.grey,
+                                    ),
+                                    onPressed: () {
+                                      appData.setFavorite(scaffoldKey, title);
+                                    }),
+                                IconButton(
+                                    icon: Icon(
+                                      Icons.av_timer,
+                                      color: (appData.toRead.contains(title))
+                                          ? Colors.orange
+                                          : Colors.grey,
+                                    ),
+                                    onPressed: () {
+                                      appData.addToReadinglist(
+                                          scaffoldKey, title);
+                                    }),
+                                IconButton(
+                                    icon: Icon(
+                                      Icons.library_books,
+                                    ),
+                                    onPressed: () {
+                                      addToCollection(
+                                          context, heightT, widthT, title);
+                                    }),
+                                PopupMenuButton(
+                                  onSelected: (value) {
+                                    print(value);
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return BookScreen(
+                                        title: ' book.title',
+                                        image: "book.image",
+                                      );
+                                    }));
+                                  },
+                                  itemBuilder: (context) {
+                                    return [
+                                      PopupMenuItem(
+                                        value: 's',
+                                        child: Text('Scales'),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 'saa',
+                                        child: Text('Scales'),
+                                      ),
+                                    ];
+                                  },
+                                )
+                              ],
+                            ))
+                        : Container(height: 0, width: 0)
                   ],
                 ),
               ),
