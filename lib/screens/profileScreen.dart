@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:rallyreader/components/buttons/profileMenuCard.dart';
 import 'package:rallyreader/components/buttons/topRowButton.dart';
 import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/components/text/multiColorText.dart';
@@ -80,22 +81,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          ProfileMenuCard(height: height, width: width),
-                          ProfileMenuCard(height: height, width: width),
+                          ProfileMenuCard(
+                              height: height,
+                              width: width,
+                              label: Icons.supervised_user_circle),
+                          ProfileMenuCard(
+                            height: height,
+                            width: width,
+                            label: Icons.fiber_smart_record,
+                          ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          ProfileMenuCard(height: height, width: width),
-                          ProfileMenuCard(height: height, width: width),
+                          ProfileMenuCard(
+                            height: height,
+                            width: width,
+                            label: Icons.fiber_smart_record,
+                          ),
+                          ProfileMenuCard(
+                              height: height,
+                              width: width,
+                              label: Icons.multiline_chart),
                         ],
                       ),
                       SizedBox(height: height * .01),
                       Text(
-                        'The universe is filled with mysteries, and humans are a part of that mystery. - J L Cooper',
-                        textAlign: TextAlign.center,style:GoogleFonts.poppins()
-                      )
+                          'The universe is filled with mysteries, and humans are a part of that mystery. - J L Cooper',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins())
                     ],
                   ),
                 ),
@@ -108,29 +123,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class ProfileMenuCard extends StatelessWidget {
-  const ProfileMenuCard({
-    Key key,
-    @required this.height,
-    @required this.width,
-  }) : super(key: key);
-
-  final double height;
-  final double width;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-          height: height * .22,
-          width: width * .4,
-          child: Material(
-            borderRadius: BorderRadius.circular(15),
-            child: InkWell(
-              child: Icon(Icons.people),
-            ),
-          )),
-    );
-  }
-}
