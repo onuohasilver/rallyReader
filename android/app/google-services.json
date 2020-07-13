@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "115403008192",
+    "firebase_url": "https://rallyreader-62bfc.firebaseio.com",
+    "project_id": "rallyreader-62bfc",
+    "storage_bucket": "rallyreader-62bfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115403008192:android:3f8f813850c065b3b6e525",
+        "android_client_info": {
+          "package_name": "com.rally.reader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115403008192-dq2lgfe666hruk1ve92shfr0h1bu2kk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rally.reader",
+            "certificate_hash": "3223de88f6dfc4a47264afcaa21fb59ca49574f1"
+          }
+        },
+        {
+          "client_id": "115403008192-5a3urm6fkkkj3ltjp9sa2rn2vko0ani0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdQ5OGfPr4qwRzUypqH0zQG3pOhESVNro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115403008192-5a3urm6fkkkj3ltjp9sa2rn2vko0ani0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
