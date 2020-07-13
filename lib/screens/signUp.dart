@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rallyreader/components/banners.dart';
+import 'package:rallyreader/constants.dart';
+import 'dart:ui' as ui;
 
 class SignUp extends StatefulWidget {
   @override
@@ -18,9 +21,12 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
     animation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
         curve: Curves.bounceInOut, parent: animationController));
     delayedAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        curve: Interval(.5,1.0,curve:Curves.bounceInOut), parent: animationController));
-    secondDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        curve: Interval(.7,1.0,curve:Curves.bounceInOut), parent: animationController));
+        curve: Interval(.5, 1.0, curve: Curves.bounceInOut),
+        parent: animationController));
+    secondDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(
+            curve: Interval(.7, 1.0, curve: Curves.bounceInOut),
+            parent: animationController));
     super.initState();
   }
 
@@ -36,80 +42,50 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
           return Container(
             height: height,
             width: width,
-            color: Colors.orange[100],
+            decoration: kSignInImage,
             child: Padding(
               padding: EdgeInsets.only(top: height * .07),
               child: Stack(children: <Widget>[
                 Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      child: Image.asset('assets/readingWoman.png',
-                          fit: BoxFit.contain),
-                      height: height * .3,
-                      width: width * .5,
+                  child: BackdropFilter(
+                    filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SignBox(
+                            height: height*1.5,
+                            animation: animation,
+                            width: width,
+                            text: 'R\nE\nAD', textRatio: .07,),
+                        GrowingCicle(
+                          height: height,
+                          width: width,
+                          animation: animation,
+                        ),
+                        SignBox(
+                          height: height*2,
+                          animation: delayedAnimation,
+                          width: width*.9,
+                          text: 'SHARE',
+                          bgColor: Colors.deepOrange, textRatio: .09,
+                        ),
+                        GrowingCicle(
+                          height: height*1.3,
+                          width: width*1.5,
+                          animation: secondDelayedAnimation,
+                        ),
+                        SignBox(
+                            height: height * 2.5,
+                            animation: secondDelayedAnimation,
+                            width: width * .9,
+                            text: 'ENGAGE', textRatio: .1,),
+                      ],
                     ),
                   ),
-                ),
-                Positioned.fill(
-                    child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        height: height * .2 * animation.value,
-                        width: width * .23,
-                        color: Colors.black,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('READ',
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white, fontSize: width * .12,fontWeight:FontWeight.w600)),
-                        ),
-                      ),
-                      Container(
-                          height: height * .1,
-                          width: width * .07 * animation.value,
-                          child: Material(
-                            type: MaterialType.circle,
-                            color:Colors.black
-                          )),
-                      Container(
-                        height: height * .3 * delayedAnimation.value,
-                        width: width * .3,
-                        color: Colors.deepOrange,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text('SHARE',
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black, fontSize: width * .11,fontWeight:FontWeight.w600)),
-                          ),
-                        ),
-                      ),
-                      Container(
-                          height: height * .1,
-                          width: width * .09 * delayedAnimation.value,
-                          child: Material(
-                            type: MaterialType.circle,
-                            color:Colors.black
-                          )),
-                      Container(
-                        height: height * .3 * animation.value,
-                        width: width * .23,
-                        color: Colors.black,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('ENGAGE',
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white, fontSize: width * .09,fontWeight:FontWeight.w600)),
-                        ),
-                      ),
-                    ],
                   ),
-                )),
+                ),
               ]),
             ),
           );
@@ -118,3 +94,25 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
     );
   }
 }
+
+class GrowingCicle extends StatelessWidget {
+  const GrowingCicle({
+    Key key,
+    @required this.height,
+    @required this.width,
+    @required this.animation,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+  final Animation animation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: height * .1,
+        width: width * .07 * animation.value,
+        child: Material(type: MaterialType.circle, color: Colors.black));
+  }
+}
+
