@@ -42,3 +42,28 @@ class SignBox extends StatelessWidget {
     );
   }
 }
+
+
+
+
+class GrowingCicle extends StatelessWidget {
+  const GrowingCicle({
+    Key key,
+    @required this.height,
+    @required this.width,
+    @required this.animation,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+  final Animation animation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: height * .1,
+        width: width * .07 * animation.value,
+        child: Material(type: MaterialType.circle, color: Colors.black));
+  }
+}
+
