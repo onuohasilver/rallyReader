@@ -7,7 +7,6 @@ import 'package:rallyreader/components/popups/signUpDialog.dart';
 import 'package:rallyreader/constants.dart';
 import 'dart:ui' as ui;
 
-import 'package:rallyreader/handlers/signInHandlers/googleSignInHandler.dart';
 
 class SignUp extends StatefulWidget {
   @override

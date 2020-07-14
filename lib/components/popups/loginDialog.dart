@@ -52,7 +52,7 @@ Future buildShowDialog(BuildContext context, double height, double width) {
                   onTap: () {
                     signInWithEmail(email.text, password.text)
                         .whenComplete((() {
-                      print('Success!');
+                      Navigator.pushReplacementNamed(context, 'SetProfile');
                     }));
                   },
                 )
