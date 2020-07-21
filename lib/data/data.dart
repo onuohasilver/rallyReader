@@ -8,7 +8,8 @@ class Data extends ChangeNotifier {
   List pdfImages = [1, 2, 3];
   List favorites = [];
   List toRead = [];
-  Map<String, List<String>> caches = {'Default':[]};
+  bool showingModal=false;
+  Map<String, List<String>> caches = {'Default': []};
 
   void updateFiles(files) {
     filePath = files;
@@ -50,12 +51,16 @@ class Data extends ChangeNotifier {
     if (caches[collectionName] == null) {
       caches[collectionName] = [];
       caches[collectionName].add(bookTitle);
-    }else{
-
+    } else {
       //TODO: check if the title is already in the collection
       caches[collectionName].add(bookTitle);
     }
 
+    notifyListeners();
+  }
+
+  void showModal(){
+    showingModal=!showingModal;
     notifyListeners();
   }
 }
