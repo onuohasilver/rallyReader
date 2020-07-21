@@ -44,7 +44,7 @@ class SignUpButton extends StatelessWidget {
               onTap:onTap ?? () {
                 
                     signInWithGoogle().whenComplete(
-                      (() => print('Sign In Succesful!')),
+                      (() => Navigator.pushReplacementNamed(context,'SetProfile')),
                     );
               },
             ),

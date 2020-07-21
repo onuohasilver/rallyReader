@@ -6,24 +6,35 @@ import 'package:rallyreader/screens/initialScreen.dart';
 import 'package:rallyreader/screens/landingScreen.dart';
 import 'package:rallyreader/screens/favoritesScreen.dart';
 import 'package:rallyreader/screens/profileScreen.dart';
+import 'package:rallyreader/screens/setProfile.dart';
 import 'package:rallyreader/screens/signUp.dart';
 
 import 'data/data.dart';
+import 'data/userProfileData.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => Data(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Data(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserData(),
+        )
+      ],
       child: MaterialApp(
         initialRoute: 'SignUp',
         routes: {
           'LandingScreen': (context) => LandingScreen(),
-          'InitialScreen': (context)=> InitialScreen(),
-          'CollectionScreen':(context)=> Collections(),
-          'IndividualCollectionScreen':(context)=>IndividualCollectionScreen(),
-          'FavoritesScreen':(context)=> FavoritesScreen(),
-          'ProfileScreen':(context)=>ProfileScreen(),
-          'SignUp':(context)=>SignUp()
+          'InitialScreen': (context) => InitialScreen(),
+          'CollectionScreen': (context) => Collections(),
+          'IndividualCollectionScreen': (context) =>
+              IndividualCollectionScreen(),
+          'FavoritesScreen': (context) => FavoritesScreen(),
+          'ProfileScreen': (context) => ProfileScreen(),
+          'SignUp': (context) => SignUp(),
+          'SetProfile': (context) => SetProfileScreen()
         },
       ),
     ),

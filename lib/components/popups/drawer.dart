@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:rallyreader/components/buttons/drawerButton.dart';
+import 'package:rallyreader/data/userProfileData.dart';
 
 class DrawerBuilder extends StatelessWidget {
   final heightT;
@@ -14,6 +16,7 @@ class DrawerBuilder extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    UserData userData=Provider.of<UserData>(context);
     return Drawer(
       elevation: 50,
       child: Container(
@@ -47,7 +50,7 @@ class DrawerBuilder extends StatelessWidget {
                             fontSize: heightT * 0.04),
                         children: [
                           TextSpan(
-                            text: '\nOnuoha Silver',
+                            text: '\n${userData.userName}',
                             style: GoogleFonts.poppins(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,

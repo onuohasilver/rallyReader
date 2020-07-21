@@ -61,7 +61,7 @@ Future buildSignUpDialog(BuildContext context, double height, double width) {
                     assert(password.text == passwordConfirm.text);
                     signUpWithEmail(email.text, password.text)
                         .whenComplete((() {
-                      print('Success!');
+                      Navigator.pushReplacementNamed(context, 'SetProfile');
                     }));
                   },
                 )
