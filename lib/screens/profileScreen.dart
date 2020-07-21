@@ -8,6 +8,7 @@ import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/components/text/multiColorText.dart';
 import 'package:rallyreader/constants.dart';
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/data/userProfileData.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -22,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Data appData = Provider.of<Data>(context);
+    UserData userData=Provider.of<UserData>(context);
 
     return Scaffold(
       drawer: DrawerBuilder(widthT: width, heightT: height),
@@ -57,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SizedBox(height: height * .05),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
                             height: height * .15,
@@ -68,12 +70,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               color: Colors.black,
                             ),
                           ),
-                          MultiColorText(
-                              leading: ' 27.5k', trailing: ' friends'),
-                          MultiColorText(
-                            leading: ' 27',
-                            trailing: ' circles',
-                            color: Colors.green,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(' ${userData.userName}',style:GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                shadows: [Shadow(blurRadius: 30)],
+                                fontSize: height * 0.04),),
+                              Row(
+                                children: <Widget>[
+                                  MultiColorText(
+                                    leading: ' 27.5k',
+                                    trailing: ' friends',
+                                  ),
+                                  MultiColorText(
+                                    leading: ' 27',
+                                    trailing: ' circles',
+                                    color: Colors.green,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -122,4 +140,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-

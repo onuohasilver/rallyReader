@@ -3,7 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:rallyreader/data/data.dart';
 import 'package:rallyreader/data/userProfileData.dart';
+import 'package:rallyreader/handlers/handlers.dart';
 
 class SetProfileScreen extends StatefulWidget {
   @override
@@ -14,6 +16,8 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
   Firestore firestore = Firestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   String currentUserID;
+  GetPermission getPermission = GetPermission();
+  List<String> fileNames;
   @override
   void initState() {
     getCurrentUser() async {
@@ -29,7 +33,8 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    UserData userData=Provider.of<UserData>(context);
+    UserData userData = Provider.of<UserData>(context);
+    final appData = Provider.of<Data>(context);
     TextEditingController userName = TextEditingController();
 
     return Scaffold(
@@ -82,7 +87,11 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
                                 .setData({'username': userName.text},
                                     merge: true);
                             userData.setUserName(userName.text);
-                            Navigator.pushReplacementNamed(context, 'LandingScreen');
+                            getPermission.requestPermission;
+                            fileNames = getPermission.getFileList;
+                            appData.updateFiles(fileNames);
+                            Navigator.pushReplacementNamed(
+                                context, 'LandingScreen');
                           },
                           icon: Icon(Icons.arrow_forward, size: width * .09),
                         ),

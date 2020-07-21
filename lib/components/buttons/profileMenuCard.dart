@@ -22,7 +22,6 @@ class ProfileMenuCard extends StatelessWidget {
         child: Stack(
           children: [
             Material(
-              
               elevation: 30,
               borderRadius: BorderRadius.circular(15),
               color: Colors.brown.withOpacity(.6),
@@ -32,6 +31,13 @@ class ProfileMenuCard extends StatelessWidget {
                 child: Center(child: Icon(label, size: height * .1)),
               ),
             ),
+            Positioned.fill(
+              bottom:height*.02,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text('Following'),
+              ),
+            )
           ],
         ),
       ),
