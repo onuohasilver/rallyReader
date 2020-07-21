@@ -92,6 +92,7 @@ class DrawerBuilder extends StatelessWidget {
                       label: 'Book Circle',
                       icon: Icons.supervised_user_circle,
                       color: Colors.green,
+                      routeName: 'BookCircleScreen',
                     ),
                     Divider(),
                     DrawerButton(

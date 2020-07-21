@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rallyreader/screens/bookCircleScreen.dart';
 import 'package:rallyreader/screens/collectionsScreen.dart';
 import 'package:rallyreader/screens/individualCollectionScreen.dart';
 import 'package:rallyreader/screens/initialScreen.dart';
@@ -34,6 +35,7 @@ void main() {
           'FavoritesScreen': (context) => FavoritesScreen(),
           'ProfileScreen': (context) => ProfileScreen(),
           'SignUp': (context) => SignUp(),
+          'BookCircleScreen':(context)=>BookCircleScreen(),
           'SetProfile': (context) => SetProfileScreen()
         },
       ),

@@ -18,6 +18,7 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
   String currentUserID;
   GetPermission getPermission = GetPermission();
   List<String> fileNames;
+  TextEditingController userName = TextEditingController();
   @override
   void initState() {
     getCurrentUser() async {
@@ -35,7 +36,7 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
     double width = MediaQuery.of(context).size.width;
     UserData userData = Provider.of<UserData>(context);
     final appData = Provider.of<Data>(context);
-    TextEditingController userName = TextEditingController();
+    
 
     return Scaffold(
       body: Container(
