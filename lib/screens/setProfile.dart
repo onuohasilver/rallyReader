@@ -35,7 +35,9 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     UserData userData = Provider.of<UserData>(context);
-    final appData = Provider.of<Data>(context);
+    Data appData = Provider.of<Data>(context);
+    userData.setCurrentUserID(currentUserID);
+    
     
 
     return Scaffold(
@@ -85,7 +87,8 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
                             firestore
                                 .collection('users')
                                 .document(currentUserID)
-                                .setData({'username': userName.text},
+                                .setData({'username': userName.text,
+                                'circles':['default']},
                                     merge: true);
                             userData.setUserName(userName.text);
                             getPermission.requestPermission;

@@ -64,65 +64,70 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                   child: GlowingOverscrollIndicator(
                     axisDirection: AxisDirection.down,
                     color: Colors.deepOrange,
-                    child: ListView(children: [
-                      Spacer(),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Circle(
-                            height: height,
-                            width: width,
-                            color: Colors.green,
-                            animation: animation,
-                            label: 'Top Niggas',
-                          ),
-                          Circle(
-                            height: height * .5,
-                            width: width * .5,
-                            color: Colors.purple,
-                            animation: animation,
-                            label: 'Rolling Men',
-                          ),
-                          Circle(
-                            height: height * 1.5,
-                            width: width * 1.5,
-                            color: Colors.orange,
-                            animation: animation,
-                            label: 'Deeep Fried',
-                          )
-                        ],
-                      ),
-                      Spacer(),
-                      PageTitle(heightT: height, title: 'All Circles'),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Circle(
-                            height: height * 1.5,
-                            width: width * 1.5,
-                            color: Colors.orange,
-                            animation: animation,
-                            label: 'Deeep Fried',
-                          ),
-                          Circle(
-                            height: height,
-                            width: width,
-                            color: Colors.green,
-                            animation: animation,
-                            label: 'Top Niggas',
-                          ),
-                          Circle(
-                            height: height * .5,
-                            width: width * .5,
-                            color: Colors.purple,
-                            animation: animation,
-                            label: 'Rolling Men',
-                          ),
-                        ],
-                      ),
-                    ]),
+                    child: ListView(
+                      children: [
+                        Spacer(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Circle(
+                              height: height,
+                              width: width,
+                              color: Colors.green,
+                              animation: animation,
+                              label: 'Top Niggas',
+                            ),
+                            Circle(
+                              height: height * .5,
+                              width: width * .5,
+                              color: Colors.purple,
+                              animation: animation,
+                              label: 'Rolling Men',
+                            ),
+                            Circle(
+                              height: height * 1.5,
+                              width: width * 1.5,
+                              color: Colors.red,
+                              animation: animation,
+                              label: 'Religion',
+                            )
+                          ],
+                        ),
+                        Spacer(),
+                        PageTitle(
+                          heightT: height,
+                          title: 'All Circles',
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Circle(
+                              height: height * 1.5,
+                              width: width * 1.5,
+                              color: Colors.deepOrange,
+                              animation: animation,
+                              label: 'Deeep Fried',
+                            ),
+                            Circle(
+                              height: height,
+                              width: width,
+                              color: Colors.green,
+                              animation: animation,
+                              label: 'Top Niggas',
+                            ),
+                            Circle(
+                              height: height * .5,
+                              width: width * .5,
+                              color: Colors.purple,
+                              animation: animation,
+                              label: 'Rolling Men',
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

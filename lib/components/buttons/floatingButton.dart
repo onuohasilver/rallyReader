@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:rallyreader/components/popups/modal.dart';
 import 'package:rallyreader/data/data.dart';
 
 class MyFloatingActionButton extends StatefulWidget {
@@ -22,13 +23,7 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
               widget.appData.showModal();
               var bottomSheetController = showBottomSheet(
                   context: context,
-                  builder: (context) => BackdropFilter(
-                        filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                        child: Container(
-                          color: Colors.grey[900],
-                          height: 250,
-                        ),
-                      ));
+                  builder: (context) => Modal());
               showFoatingActionButton(false);
 
               bottomSheetController.closed.then((value) {
