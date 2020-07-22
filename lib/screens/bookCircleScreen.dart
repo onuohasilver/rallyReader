@@ -9,6 +9,7 @@ import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/components/thumbnails/circles.dart';
 
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/handlers/dbHandlers/firestoreFutures.dart';
 
 class BookCircleScreen extends StatefulWidget {
   @override
@@ -64,69 +65,47 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                   child: GlowingOverscrollIndicator(
                     axisDirection: AxisDirection.down,
                     color: Colors.deepOrange,
-                    child: ListView(
-                      children: [
-                        Spacer(),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Circle(
-                              height: height,
-                              width: width,
-                              color: Colors.green,
-                              animation: animation,
-                              label: 'Top Niggas',
-                            ),
-                            Circle(
-                              height: height * .5,
-                              width: width * .5,
-                              color: Colors.purple,
-                              animation: animation,
-                              label: 'Rolling Men',
-                            ),
-                            Circle(
-                              height: height * 1.5,
-                              width: width * 1.5,
-                              color: Colors.red,
-                              animation: animation,
-                              label: 'Religion',
-                            )
-                          ],
-                        ),
-                        Spacer(),
-                        PageTitle(
-                          heightT: height,
-                          title: 'All Circles',
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Circle(
-                              height: height * 1.5,
-                              width: width * 1.5,
-                              color: Colors.deepOrange,
-                              animation: animation,
-                              label: 'Deeep Fried',
-                            ),
-                            Circle(
-                              height: height,
-                              width: width,
-                              color: Colors.green,
-                              animation: animation,
-                              label: 'Top Niggas',
-                            ),
-                            Circle(
-                              height: height * .5,
-                              width: width * .5,
-                              color: Colors.purple,
-                              animation: animation,
-                              label: 'Rolling Men',
-                            ),
-                          ],
-                        ),
-                      ],
+                    child: FutureBuilder(
+                      future: firestore
+                          .collection('namedCollections')
+                          .document(
+                            'namedCircles',
+                          )
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List circles = snapshot.data.data['circles'];
+                          Map circleWidgets = {};
+                          int thresh = ((circles.length / 3).round() +
+                              ((circles.length % 3) != 0 ? 1 : 0));
+                          int indexCounter = 0;
+
+                          for (int rowIndex = 0;
+                              rowIndex < (thresh);
+                              rowIndex++) {
+                            circleWidgets['row $rowIndex'] = [];
+                            for (int index = indexCounter;
+                                index < circles.length;
+                                index++) {
+                                  if(circleWidgets['row $rowIndex'].length<3){
+                                    circleWidgets['row $rowIndex'].add(Text(circles[index]['name']));
+                                    indexCounter++;
+                                  }
+                                }
+                          }
+
+                          print(circles.length);
+                          print(thresh);
+
+                          print(circleWidgets);
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            // children: circleWidgets['row 1']
+                          );
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -138,3 +117,64 @@ class _BookCircleScreenState extends State<BookCircleScreen>
     );
   }
 }
+
+//  Spacer(),
+//                   Row(
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: <Widget>[
+//                       Circle(
+//                         height: height,
+//                         width: width,
+//                         color: Colors.green,
+//                         animation: animation,
+//                         label: 'Top Niggas',
+//                       ),
+//                       Circle(
+//                         height: height * .5,
+//                         width: width * .5,
+//                         color: Colors.purple,
+//                         animation: animation,
+//                         label: 'Rolling Men',
+//                       ),
+//                       Circle(
+//                         height: height * 1.5,
+//                         width: width * 1.5,
+//                         color: Colors.red,
+//                         animation: animation,
+//                         label: 'Religion',
+//                       )
+//                     ],
+//                   ),
+//                   Spacer(),
+//                   PageTitle(
+//                     heightT: height,
+//                     title: 'All Circles',
+//                   ),
+//                   Row(
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: <Widget>[
+//                       Circle(
+//                         height: height * 1.5,
+//                         width: width * 1.5,
+//                         color: Colors.blue[900],
+//                         animation: animation,
+//                         label: 'Deeep Fried',
+//                       ),
+//                       Circle(
+//                         height: height,
+//                         width: width,
+//                         color: Colors.green,
+//                         animation: animation,
+//                         label: 'Top Niggas',
+//                       ),
+//                       Circle(
+//                         height: height * .5,
+//                         width: width * .5,
+//                         color: Colors.purple,
+//                         animation: animation,
+//                         label: 'Rolling Men',
+//                       ),
+//                     ],
+//                   ),
