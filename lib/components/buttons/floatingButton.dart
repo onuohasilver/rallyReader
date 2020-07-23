@@ -18,7 +18,7 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
     return showFab
         ? FloatingActionButton(
             child: Icon(Icons.add),
-            backgroundColor: Colors.deepOrange,
+            backgroundColor: Colors.black,
             onPressed: () {
               widget.appData.showModal();
               var bottomSheetController = showBottomSheet(

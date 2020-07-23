@@ -9,6 +9,7 @@ import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/components/thumbnails/circles.dart';
 
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/data/userProfileData.dart';
 import 'package:rallyreader/handlers/dbHandlers/firestoreFutures.dart';
 
 class BookCircleScreen extends StatefulWidget {
@@ -35,7 +36,16 @@ class _BookCircleScreenState extends State<BookCircleScreen>
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Data appData = Provider.of<Data>(context);
+    UserData userData = Provider.of<UserData>(context);
     bool showingModal = appData.showingModal;
+    Future<dynamic> namedCircles = firestore
+        .collection('namedCollections')
+        .document(
+          'namedCircles',
+        )
+        .get();
+    Future<dynamic> previousCircles =
+        firestore.collection('users').document(userData.currentUserId).get();
     animationController.forward();
     return Scaffold(
       drawer: DrawerBuilder(widthT: width, heightT: height),
@@ -66,44 +76,121 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                     axisDirection: AxisDirection.down,
                     color: Colors.deepOrange,
                     child: FutureBuilder(
-                      future: firestore
-                          .collection('namedCollections')
-                          .document(
-                            'namedCircles',
-                          )
-                          .get(),
+                      future: Future.wait([namedCircles, previousCircles]),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List circles = snapshot.data.data['circles'];
-                          Map circleWidgets = {};
+                          List circles = snapshot.data.data[0]['circles'];
+                          List previousUserCircles =
+                              snapshot.data.data[1]['circles'];
+                          Map<String, List<Widget>> circleWidgets = {};
+                          Map<String, List<Widget>> usersCircles = {};
+
+                          ///thresh for the number of rows to be created
                           int thresh = ((circles.length / 3).round() +
                               ((circles.length % 3) != 0 ? 1 : 0));
-                          int indexCounter = 0;
 
+                          ///indexCounter that increments to indicate that
+                          ///the current row of Widgets has been satisfied
+                          int indexCounter = 0;
+                          int indexCounterIndiv = 0;
+
+                          ///loop through the number of specified row thresh
                           for (int rowIndex = 0;
                               rowIndex < (thresh);
                               rowIndex++) {
+                            ///create a key,value pair to match current loop index
                             circleWidgets['row $rowIndex'] = [];
+                            usersCircles['row $rowIndex'] = [];
                             for (int index = indexCounter;
                                 index < circles.length;
                                 index++) {
-                                  if(circleWidgets['row $rowIndex'].length<3){
-                                    circleWidgets['row $rowIndex'].add(Text(circles[index]['name']));
-                                    indexCounter++;
-                                  }
-                                }
+                              ///add widgets to the current loop until it is satisfied
+                              if (circleWidgets['row $rowIndex'].length < 3) {
+                                circleWidgets['row $rowIndex'].add(
+                                  Circle(
+                                      animation: animation,
+                                      label: circles[indexCounter]['name'],
+                                      count: circles[indexCounter]['members']
+                                          .length,
+                                      width: width,
+                                      height: height,
+                                      color: Colors.brown[800]),
+                                );
+
+                                //  previousCircles.contains(circles[indexCounter]['name'] )?usersCircles['row $rowIndex'].add('');
+                                indexCounter++;
+                              }
+                              if (usersCircles['row $rowIndex'].length < 3 &&
+                                  previousUserCircles.contains(
+                                      circles[indexCounterIndiv]['name'])) {
+                                usersCircles['row $rowIndex'].add(
+                                  Circle(
+                                      animation: animation,
+                                      label: circles[indexCounterIndiv]['name'],
+                                      count: circles[indexCounterIndiv]
+                                              ['members']
+                                          .length,
+                                      width: width,
+                                      height: height,
+                                      color: Colors.brown[800]),
+                                );
+
+                                indexCounterIndiv++;
+                              }
+                            }
                           }
-
-                          print(circles.length);
-                          print(thresh);
-
-                          print(circleWidgets);
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            // children: circleWidgets['row 1']
+                          print(usersCircles);
+                          List<Widget> displayCircles = [];
+                          // List<Widget> displayCirclesRows = [];
+                          for (int index = 0; index < thresh; index++) {
+                            displayCircles.add(
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: circleWidgets['row $index'],
+                                ),
+                              ),
+                            );
+                          }
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(.1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: ListView(
+                                    physics: BouncingScrollPhysics(),
+                                    children: displayCircles,
+                                  ),
+                                ),
+                              ),
+                              PageTitle(heightT: height, title: 'All Circles'),
+                              Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(.1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: ListView(
+                                    physics: BouncingScrollPhysics(),
+                                    children: displayCircles,
+                                  ),
+                                ),
+                              ),
+                            ],
                           );
                         } else {
-                          return CircularProgressIndicator();
+                          return Center(
+                            child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.deepOrange),
+                                strokeWidth: 5),
+                          );
                         }
                       },
                     ),
@@ -117,64 +204,3 @@ class _BookCircleScreenState extends State<BookCircleScreen>
     );
   }
 }
-
-//  Spacer(),
-//                   Row(
-//                     crossAxisAlignment: CrossAxisAlignment.center,
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: <Widget>[
-//                       Circle(
-//                         height: height,
-//                         width: width,
-//                         color: Colors.green,
-//                         animation: animation,
-//                         label: 'Top Niggas',
-//                       ),
-//                       Circle(
-//                         height: height * .5,
-//                         width: width * .5,
-//                         color: Colors.purple,
-//                         animation: animation,
-//                         label: 'Rolling Men',
-//                       ),
-//                       Circle(
-//                         height: height * 1.5,
-//                         width: width * 1.5,
-//                         color: Colors.red,
-//                         animation: animation,
-//                         label: 'Religion',
-//                       )
-//                     ],
-//                   ),
-//                   Spacer(),
-//                   PageTitle(
-//                     heightT: height,
-//                     title: 'All Circles',
-//                   ),
-//                   Row(
-//                     crossAxisAlignment: CrossAxisAlignment.center,
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: <Widget>[
-//                       Circle(
-//                         height: height * 1.5,
-//                         width: width * 1.5,
-//                         color: Colors.blue[900],
-//                         animation: animation,
-//                         label: 'Deeep Fried',
-//                       ),
-//                       Circle(
-//                         height: height,
-//                         width: width,
-//                         color: Colors.green,
-//                         animation: animation,
-//                         label: 'Top Niggas',
-//                       ),
-//                       Circle(
-//                         height: height * .5,
-//                         width: width * .5,
-//                         color: Colors.purple,
-//                         animation: animation,
-//                         label: 'Rolling Men',
-//                       ),
-//                     ],
-//                   ),
