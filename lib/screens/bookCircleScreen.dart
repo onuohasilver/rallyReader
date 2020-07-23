@@ -79,15 +79,19 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                       future: Future.wait([namedCircles, previousCircles]),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List circles = snapshot.data.data[0]['circles'];
+                          List circles = snapshot.data[0]['circles'];
                           List previousUserCircles =
-                              snapshot.data.data[1]['circles'];
+                              snapshot.data[1].data['circles'];
+
                           Map<String, List<Widget>> circleWidgets = {};
                           Map<String, List<Widget>> usersCircles = {};
 
                           ///thresh for the number of rows to be created
                           int thresh = ((circles.length / 3).round() +
                               ((circles.length % 3) != 0 ? 1 : 0));
+                          int userThresh = ((previousUserCircles.length / 3).round() +
+                              ((previousUserCircles.length % 3) != 0 ? 1 : 0));
+
 
                           ///indexCounter that increments to indicate that
                           ///the current row of Widgets has been satisfied
@@ -119,21 +123,30 @@ class _BookCircleScreenState extends State<BookCircleScreen>
 
                                 //  previousCircles.contains(circles[indexCounter]['name'] )?usersCircles['row $rowIndex'].add('');
                                 indexCounter++;
+                                //  print('contained');
                               }
-                              if (usersCircles['row $rowIndex'].length < 3 &&
-                                  previousUserCircles.contains(
-                                      circles[indexCounterIndiv]['name'])) {
-                                usersCircles['row $rowIndex'].add(
-                                  Circle(
-                                      animation: animation,
-                                      label: circles[indexCounterIndiv]['name'],
-                                      count: circles[indexCounterIndiv]
-                                              ['members']
-                                          .length,
-                                      width: width,
-                                      height: height,
-                                      color: Colors.brown[800]),
-                                );
+                            }
+                            for (int index = indexCounterIndiv;
+                                index < circles.length;
+                                index++) {
+                              if ((usersCircles['row $rowIndex'].length < 3)) {
+                                print('IndexCount $indexCounterIndiv');
+                                print(circles[indexCounterIndiv]['name']);
+                                previousUserCircles.contains(
+                                        circles[indexCounterIndiv]['name'])
+                                    ? usersCircles['row $rowIndex'].add(
+                                        Circle(
+                                            animation: animation,
+                                            label: circles[indexCounterIndiv]
+                                                ['name'],
+                                            count: circles[indexCounterIndiv]
+                                                    ['members']
+                                                .length,
+                                            width: width,
+                                            height: height,
+                                            color: Colors.brown[800]),
+                                      )
+                                    : print('dumb');
 
                                 indexCounterIndiv++;
                               }
@@ -141,7 +154,19 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                           }
                           print(usersCircles);
                           List<Widget> displayCircles = [];
-                          // List<Widget> displayCirclesRows = [];
+                          List<Widget> userDisplayCircles = [];
+                          for (int index = 0; index < userThresh; index++) {
+                            userDisplayCircles.add(
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: usersCircles['row $index'],
+                                ),
+                              ),
+                            );
+                          }
                           for (int index = 0; index < thresh; index++) {
                             displayCircles.add(
                               Padding(
@@ -165,11 +190,13 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                                   ),
                                   child: ListView(
                                     physics: BouncingScrollPhysics(),
-                                    children: displayCircles,
+                                    children: userDisplayCircles,
                                   ),
                                 ),
                               ),
-                              PageTitle(heightT: height, title: 'All Circles'),
+                              PageTitle(
+                                  heightT: height,
+                                  title: '${previousUserCircles.toString()}'),
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
