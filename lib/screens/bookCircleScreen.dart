@@ -70,7 +70,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 TopRowButton(height: height, scaffoldKey: scaffoldKey),
-                PageTitle(heightT: height, title: 'My Circles'),
+                PageTitle(heightT: height * .7, title: 'My Circles'),
                 Expanded(
                   child: GlowingOverscrollIndicator(
                     axisDirection: AxisDirection.down,
@@ -89,9 +89,9 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                           ///thresh for the number of rows to be created
                           int thresh = ((circles.length / 3).round() +
                               ((circles.length % 3) != 0 ? 1 : 0));
-                          int userThresh = ((previousUserCircles.length / 3).round() +
+                          int userThresh = ((previousUserCircles.length / 3)
+                                  .round() +
                               ((previousUserCircles.length % 3) != 0 ? 1 : 0));
-
 
                           ///indexCounter that increments to indicate that
                           ///the current row of Widgets has been satisfied
@@ -153,7 +153,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                             }
                           }
                           print(usersCircles);
-                          List<Widget> displayCircles = [];
+                          
                           List<Widget> userDisplayCircles = [];
                           for (int index = 0; index < userThresh; index++) {
                             userDisplayCircles.add(
@@ -167,18 +167,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                               ),
                             );
                           }
-                          for (int index = 0; index < thresh; index++) {
-                            displayCircles.add(
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: circleWidgets['row $index'],
-                                ),
-                              ),
-                            );
-                          }
+                          
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -195,17 +184,28 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                                 ),
                               ),
                               PageTitle(
-                                  heightT: height,
-                                  title: '${previousUserCircles.toString()}'),
+                                heightT: height * .7,
+                                title: 'All Circles',
+                              ),
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.black.withOpacity(.1),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: ListView(
+                                  child: ListView.builder(
+                                    itemCount: thresh,
+                                    // itemExtent: 10,
                                     physics: BouncingScrollPhysics(),
-                                    children: displayCircles,
+                                    itemBuilder: (context, index) {
+                                      return Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: circleWidgets['row $index'],
+                                      );
+                                    },
                                   ),
                                 ),
                               ),

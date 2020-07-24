@@ -57,7 +57,14 @@ class Circle extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              print('Yo');
+              Navigator.pushReplacementNamed(
+                context,
+                'IndividualCircleScreen',
+                arguments: label,
+              );
+            },
           ),
         ),
       ),

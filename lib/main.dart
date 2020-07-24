@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/screens/bookCircleScreen.dart';
 import 'package:rallyreader/screens/collectionsScreen.dart';
+import 'package:rallyreader/screens/individualCircleScreen.dart';
 import 'package:rallyreader/screens/individualCollectionScreen.dart';
 import 'package:rallyreader/screens/initialScreen.dart';
 import 'package:rallyreader/screens/landingScreen.dart';
@@ -32,6 +33,7 @@ void main() {
           'CollectionScreen': (context) => Collections(),
           'IndividualCollectionScreen': (context) =>
               IndividualCollectionScreen(),
+          'IndividualCircleScreen':(context)=>IndividualCircleScreen(),
           'FavoritesScreen': (context) => FavoritesScreen(),
           'ProfileScreen': (context) => ProfileScreen(),
           'SignUp': (context) => SignUp(),
