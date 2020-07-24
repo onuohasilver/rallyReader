@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rallyreader/components/thumbnails/thumbnail.dart';
 import 'dart:ui' as ui;
+
+import 'package:rallyreader/data/data.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
@@ -71,7 +75,7 @@ class _FancyFabState extends State<FancyFab>
     isOpened = !isOpened;
   }
 
-  Widget add() {
+  Widget add(appData) {
     return Container(
         child: Material(
       type: MaterialType.circle,
@@ -85,19 +89,44 @@ class _FancyFabState extends State<FancyFab>
                 child: BackdropFilter(
                   filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                   child: Container(
-                    height: 200,
+                    height: 150,
                     width: double.infinity,
-                    child: ListView(
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        paddingA(),
-                        paddingA(),
-                        paddingA(),
-                        paddingA(),
-                        paddingA(),
-                        paddingA(),
-                        paddingA(),
+                    child: Column(
+                      children: <Widget>[
+                        // Spacer(flex:1),
+                        Expanded(
+                          child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: appData.filePath.length,
+                            itemBuilder: (context, index) {
+                              return Stack(children: [
+                                ThumbNail(
+                                  pdfController: null,
+                                  heightT: 1200,
+                                  widthT: 600,
+                                ),
+                                Positioned.fill(
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: Checkbox(
+                                            value: true,
+                                            
+                                            onChanged: (value) {
+                                              print(value);
+                                            }),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ]);
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -107,12 +136,12 @@ class _FancyFabState extends State<FancyFab>
           );
         },
         child: Padding(
-            padding:EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
             child: Icon(
-          Icons.add,
-          size: 30,
-          color: Colors.white,
-        )),
+              Icons.add,
+              size: 30,
+              color: Colors.white,
+            )),
       ),
     ));
   }
@@ -136,7 +165,7 @@ class _FancyFabState extends State<FancyFab>
         child: InkWell(
           child: Padding(
             padding: const EdgeInsets.all(13.0),
-            child: Icon(Icons.image,size:30,color:Colors.white),
+            child: Icon(Icons.image, size: 30, color: Colors.white),
           ),
         ),
       ),
@@ -151,7 +180,11 @@ class _FancyFabState extends State<FancyFab>
         child: InkWell(
           child: Padding(
             padding: const EdgeInsets.all(13.0),
-            child: Icon(Icons.inbox,size:30,color: Colors.white,),
+            child: Icon(
+              Icons.inbox,
+              size: 30,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -174,6 +207,8 @@ class _FancyFabState extends State<FancyFab>
 
   @override
   Widget build(BuildContext context) {
+    final appData = Provider.of<Data>(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
@@ -183,7 +218,7 @@ class _FancyFabState extends State<FancyFab>
             _translateButton.value * 3.0,
             0.0,
           ),
-          child: add(),
+          child: add(appData),
         ),
         Transform(
           transform: Matrix4.translationValues(
