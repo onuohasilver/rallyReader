@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:rallyreader/data/data.dart';
 import 'package:rallyreader/handlers/signInHandlers/googleSignInHandler.dart';
 
 class SignUpButton extends StatelessWidget {
@@ -22,6 +24,7 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Data appData = Provider.of<Data>(context);
     return Transform(
       transform: Matrix4.translationValues(boxAnimation.value * width, 0, 0),
       child: Padding(
@@ -41,12 +44,16 @@ class SignUpButton extends StatelessWidget {
                       fontWeight: FontWeight.w500, color: Colors.white),
                 ),
               ),
-              onTap:onTap ?? () {
-                
+              onTap: onTap ??
+                  () {
+                    appData.progress();
                     signInWithGoogle().whenComplete(
-                      (() => Navigator.pushReplacementNamed(context,'SetProfile')),
+                      (() {
+                        Navigator.pushReplacementNamed(context, 'SetProfile');
+                        appData.progress();
+                      }),
                     );
-              },
+                  },
             ),
           ),
         ),

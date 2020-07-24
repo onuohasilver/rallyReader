@@ -6,16 +6,18 @@ class MessageBoard extends StatelessWidget {
     Key key,
     @required this.width,
     @required this.height,
+    this.messages,
   }) : super(key: key);
 
   final double width;
+  final List messages;
   final double height;
 
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: 0.1,
-      minChildSize: 0.1,
+      initialChildSize: 0.05,
+      minChildSize: 0.05,
       maxChildSize: 0.8,
       builder: (context, controller) {
         return Padding(
@@ -40,45 +42,21 @@ class MessageBoard extends StatelessWidget {
                 ),
                 Expanded(
                   flex: 7,
-                  child: ListView.builder(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2),
                     controller: controller,
-                    itemCount: 25,
+                    itemCount: messages.length,
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.all(10),
                     itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                          title: Text(
-                        'Dish $index',
-                        style: TextStyle(color: Colors.black54),
-                      ));
+                      return Container(
+                          color: Colors.purple,
+                          child: Text(
+                            messages[index]['sender'],
+                            style: TextStyle(color: Colors.black54),
+                          ));
                     },
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Expanded(
-                          flex:3,
-                          child: TextField(
-                            decoration:
-                                InputDecoration(),
-                          ),
-                        ),
-                        Spacer(),
-                        Material(
-                          type: MaterialType.circle,
-                          color: Colors.transparent,
-                          child: IconButton(
-                            
-                            icon: Icon(Icons.send),
-                            onPressed: () {},
-                            tooltip: 'Send',
-                            splashColor: Colors.black,
-                          ),
-                        )
-                      ],
-                    ),
                   ),
                 ),
               ],

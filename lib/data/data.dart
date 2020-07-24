@@ -8,7 +8,8 @@ class Data extends ChangeNotifier {
   List pdfImages = [1, 2, 3];
   List favorites = [];
   List toRead = [];
-  bool showingModal=false;
+  bool showingModal = false;
+  bool progressComplete = false;
   Map<String, List<String>> caches = {'Default': []};
 
   void updateFiles(files) {
@@ -59,8 +60,13 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showModal(){
-    showingModal=!showingModal;
+  void showModal() {
+    showingModal = !showingModal;
+    notifyListeners();
+  }
+
+  void progress() {
+    progressComplete = !progressComplete;
     notifyListeners();
   }
 }

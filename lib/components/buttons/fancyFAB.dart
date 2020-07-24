@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
@@ -72,33 +73,87 @@ class _FancyFabState extends State<FancyFab>
 
   Widget add() {
     return Container(
-      child: FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Add',
-        backgroundColor: Colors.brown[900],
-        child: Icon(Icons.add),
+        child: Material(
+      type: MaterialType.circle,
+      color: Colors.brown[900],
+      child: InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Center(
+                child: BackdropFilter(
+                  filter: ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  child: Container(
+                    height: 200,
+                    width: double.infinity,
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        paddingA(),
+                        paddingA(),
+                        paddingA(),
+                        paddingA(),
+                        paddingA(),
+                        paddingA(),
+                        paddingA(),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        child: Padding(
+            padding:EdgeInsets.all(10),
+            child: Icon(
+          Icons.add,
+          size: 30,
+          color: Colors.white,
+        )),
+      ),
+    ));
+  }
+
+  Padding paddingA() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        width: 100,
+        color: Colors.purple,
       ),
     );
   }
 
   Widget image() {
     return Container(
-      child: FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Image',
-        backgroundColor: Colors.brown[900],
-        child: Icon(Icons.image),
+      child: Material(
+        type: MaterialType.circle,
+        color: Colors.brown[900],
+        child: InkWell(
+          child: Padding(
+            padding: const EdgeInsets.all(13.0),
+            child: Icon(Icons.image,size:30,color:Colors.white),
+          ),
+        ),
       ),
     );
   }
 
   Widget inbox() {
     return Container(
-      child: FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Inbox',
-        backgroundColor: Colors.brown[900],
-        child: Icon(Icons.inbox),
+      child: Material(
+        type: MaterialType.circle,
+        color: Colors.brown[900],
+        child: InkWell(
+          child: Padding(
+            padding: const EdgeInsets.all(13.0),
+            child: Icon(Icons.inbox,size:30,color: Colors.white,),
+          ),
+        ),
       ),
     );
   }

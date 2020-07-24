@@ -39,10 +39,11 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
             return Center(child: CircularProgressIndicator());
           }
           List members;
+          List messageBoard;
           for (var circle in snapshot.data.data['circles']) {
             circle['name'] == title ? members = circle['members'] : Container();
+            circle['name'] == title ? messageBoard = circle['messageBoard'] : Container();
           }
-
           return Stack(children: [
             Container(
               height: height,
@@ -100,7 +101,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  child: MessageBoard(width: width, height: height),
+                  child: MessageBoard(width: width, height: height,messages:messageBoard),
                 ),
               ),
             ),
