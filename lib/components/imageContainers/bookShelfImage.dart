@@ -16,9 +16,9 @@ class BookShelfImage extends StatefulWidget {
 
 class _BookShelfImageState extends State<BookShelfImage>
     with WidgetsBindingObserver {
-  final Completer<PDFViewController> _controller =
+       final Completer<PDFViewController> _controller =
       Completer<PDFViewController>();
-  int pages = 0;
+  
   int currentPage = 0;
   bool isReady = false;
   String errorMessage = '';
@@ -40,7 +40,6 @@ class _BookShelfImageState extends State<BookShelfImage>
               false, // if set to true the link is handled in flutter
           onRender: (_pages) {
             setState(() {
-              pages = _pages;
               isReady = true;
             });
           },
@@ -50,10 +49,10 @@ class _BookShelfImageState extends State<BookShelfImage>
             });
             print(error.toString());
           },
+         onViewCreated: (PDFViewController pdfViewController) {
+              _controller.complete(pdfViewController);
+            },
          
-          onViewCreated: (PDFViewController pdfViewController) {
-            _controller.complete(pdfViewController);
-          },
          
         
         ),
