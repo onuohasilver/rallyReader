@@ -48,7 +48,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                           heightT: height,
                           widthT: width,
                           title: book,
-                          pdfController: null,
+                         path:appData.filePath[index],
                           key: null,
                           scaffoldKey: scaffoldKey,
                           completion: 23.0,

@@ -102,7 +102,7 @@ class _FancyFabState extends State<FancyFab>
                             itemBuilder: (context, index) {
                               return Stack(children: [
                                 ThumbNail(
-                                  pdfController: null,
+                                  path:appData.filePath[index],
                                   heightT: 1200,
                                   widthT: 600,
                                 ),

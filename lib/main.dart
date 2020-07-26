@@ -10,7 +10,6 @@ import 'package:rallyreader/screens/favoritesScreen.dart';
 import 'package:rallyreader/screens/profileScreen.dart';
 import 'package:rallyreader/screens/setProfile.dart';
 import 'package:rallyreader/screens/signUp.dart';
-
 import 'data/data.dart';
 import 'data/userProfileData.dart';
 
@@ -33,11 +32,11 @@ void main() {
           'CollectionScreen': (context) => Collections(),
           'IndividualCollectionScreen': (context) =>
               IndividualCollectionScreen(),
-          'IndividualCircleScreen':(context)=>IndividualCircleScreen(),
+          'IndividualCircleScreen': (context) => IndividualCircleScreen(),
           'FavoritesScreen': (context) => FavoritesScreen(),
           'ProfileScreen': (context) => ProfileScreen(),
           'SignUp': (context) => SignUp(),
-          'BookCircleScreen':(context)=>BookCircleScreen(),
+          'BookCircleScreen': (context) => BookCircleScreen(),
           'SetProfile': (context) => SetProfileScreen()
         },
       ),
@@ -46,78 +45,147 @@ void main() {
 }
 
 // import 'dart:async';
-// import 'dart:convert';
-// import 'dart:typed_data';
-// import 'dart:ui' as ui;
+// import 'dart:io';
 
+// import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter/rendering.dart';
+// import 'package:flutter/services.dart';
+// import 'package:path_provider/path_provider.dart';
+// import 'package:flutter_pdfview/flutter_pdfview.dart';
 
-// void main() => runApp(new MyApp());
+// void main() => runApp(MyApp());
 
-// class MyApp extends StatelessWidget {
+// class MyApp extends StatefulWidget {
 //   @override
-//   Widget build(BuildContext context) {
-//     return new MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: new ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: new MyHomePage(),
-//     );
+//   _MyAppState createState() => _MyAppState();
+// }
+
+// class _MyAppState extends State<MyApp> {
+//   String pathPDF = "";
+//   String remotePDFpath = "";
+//   String corruptedPathPDF = "";
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     fromAsset('assets/corrupted.pdf', 'corrupted.pdf').then((f) {
+//       setState(() {
+//         corruptedPathPDF = f.path;
+//       });
+//     });
+//     fromAsset('assets/demo-link.pdf', 'demo.pdf').then((f) {
+//       setState(() {
+//         pathPDF = f.path;
+//       });
+//     });
+
+//     createFileOfPdfUrl().then((f) {
+//       setState(() {
+//         remotePDFpath = f.path;
+//       });
+//     });
 //   }
-// }
 
-// class MyHomePage extends StatefulWidget {
-//   @override
-//   _MyHomePageState createState() => new _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   GlobalKey _globalKey = new GlobalKey();
-
-//   Future<Uint8List> _capturePng() async {
+//   Future<File> createFileOfPdfUrl() async {
+//     Completer<File> completer = Completer();
+//     print("Start download file from internet!");
 //     try {
-//       print('inside');
-//       RenderRepaintBoundary boundary =
-//           _globalKey.currentContext.findRenderObject();
-//       ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-//       ByteData byteData =
-//           await image.toByteData(format: ui.ImageByteFormat.png);
-//       var pngBytes = byteData.buffer.asUint8List();
-//       var bs64 = base64Encode(pngBytes);
-//       print(pngBytes);
-//       print(bs64);
-//       setState(() {});
-//       return pngBytes;
+//       // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
+//       // final url = "https://pdfkit.org/docs/guide.pdf";
+//       final url = "http://www.pdf995.com/samples/pdf.pdf";
+//       final filename = url.substring(url.lastIndexOf("/") + 1);
+//       var request = await HttpClient().getUrl(Uri.parse(url));
+//       var response = await request.close();
+//       var bytes = await consolidateHttpClientResponseBytes(response);
+//       var dir = await getApplicationDocumentsDirectory();
+//       print("Download files");
+//       print("${dir.path}/$filename");
+//       File file = File("${dir.path}/$filename");
+
+//       await file.writeAsBytes(bytes, flush: true);
+//       completer.complete(file);
 //     } catch (e) {
-//       print(e);
+//       throw Exception('Error parsing asset file!');
 //     }
+
+//     return completer.future;
+//   }
+
+//   Future<File> fromAsset(String asset, String filename) async {
+//     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+//     Completer<File> completer = Completer();
+
+//     try {
+//       var dir = await getApplicationDocumentsDirectory();
+//       File file = File("${dir.path}/$filename");
+//       var data = await rootBundle.load(asset);
+//       var bytes = data.buffer.asUint8List();
+//       await file.writeAsBytes(bytes, flush: true);
+//       completer.complete(file);
+//     } catch (e) {
+//       throw Exception('Error parsing asset file!');
+//     }
+
+//     return completer.future;
 //   }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return RepaintBoundary(
-//       key: _globalKey,
-//       child: new Scaffold(
-//         appBar: new AppBar(
-//           title: new Text('Widget To Image demo'),
-//         ),
-//         body: new Center(
-//           child: new Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               new Text(
-//                 'click below given button to capture iamge',
-//               ),
-//               new RaisedButton(
-//                 child: Text('capture Image'),
-//                 onPressed: _capturePng,
-//               ),
-//             ],
-//           ),
-//         ),
+//     return MaterialApp(
+//       title: 'Flutter PDF View',
+//       debugShowCheckedModeBanner: false,
+//       home: Scaffold(
+//         appBar: AppBar(title: const Text('Plugin example app')),
+//         body: Center(child: Builder(
+//           builder: (BuildContext context) {
+//             return Column(
+//               children: <Widget>[
+//                 RaisedButton(
+//                   child: Text("Open PDF"),
+//                   onPressed: () {
+//                     if (pathPDF != null || pathPDF.isNotEmpty) {
+//                       Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) => PDFScreen(path: pathPDF),
+//                         ),
+//                       );
+//                     }
+//                   },
+//                 ),
+//                 RaisedButton(
+//                   child: Text("Remote PDF"),
+//                   onPressed: () {
+//                     if (remotePDFpath != null || remotePDFpath.isNotEmpty) {
+//                       Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) => PDFScreen(path: remotePDFpath),
+//                         ),
+//                       );
+//                     }
+//                   },
+//                 ),
+//                 RaisedButton(
+//                   child: Text("Open Corrupted PDF"),
+//                   onPressed: () {
+//                     if (pathPDF != null) {
+//                       Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) =>
+//                               PDFScreen(path: corruptedPathPDF),
+//                         ),
+//                       );
+//                     }
+//                   },
+//                 )
+//               ],
+//             );
+//           },
+//         )),
 //       ),
 //     );
 //   }
 // }
+

@@ -65,7 +65,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
-                      pdfController: null,
+                      path:appData.filePath[index],
                       heightT: heightT,
                       widthT: widthT,
                     );
@@ -86,7 +86,7 @@ class _LandingScreenState extends State<LandingScreen> {
                         heightT: heightT,
                         widthT: widthT,
                         title: appData.filePath[index].split('/').last,
-                        pdfController: null,
+                        path:appData.filePath[index],
                         key: null,
                         scaffoldKey: scaffoldKey,
                         completion: 20.0,
@@ -99,6 +99,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 return BookScreen(
                                   title: 'book.title',
                                   image: 'book.image',
+                                  path:appData.filePath[index]
                                 );
                               },
                             ),
