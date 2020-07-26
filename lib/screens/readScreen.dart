@@ -24,6 +24,7 @@ class _ReadScreenState extends State<ReadScreen> with WidgetsBindingObserver {
   int currentPage = 0;
   bool isReady = false;
   bool showOptions = false;
+  Timer timer;
   String errorMessage = '';
 
   @override
@@ -92,6 +93,32 @@ class _ReadScreenState extends State<ReadScreen> with WidgetsBindingObserver {
               : Center(
                   child: Text(errorMessage),
                 ),
+                 Positioned.fill(top:height*.1,
+            child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("$currentPage / $pages")
+                )),
+          ),
+          Positioned.fill(  
+            child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    icon: Icon(Icons.bookmark,
+                        color: showOptions ? Colors.orange : Colors.grey),
+                    onPressed: () {
+                      setState(
+                        () {
+                          showOptions = !showOptions;
+                        },
+                      );
+                    },
+                  ),
+                )),
+          ),
           Positioned.fill(
             child: Align(
                 alignment: Alignment.bottomRight,
@@ -124,105 +151,70 @@ class _ReadScreenState extends State<ReadScreen> with WidgetsBindingObserver {
                             child: Container(
                               height: height * .06,
                               child: Stack(children: [
-                                Center(
-                                  child: Container(
-                                    width: width * .3,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
-                                  ),
-                                ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     PageNavButton(
-                                        currentPage: currentPage,
-                                        snapshot: snapshot,
-                                        icon: Icons.arrow_left),
-                                    GestureDetector(
-                                      child: Text('   $currentPage of $pages  ',
-                                          style: GoogleFonts.poppins()),
-                                      onTap: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return StatefulBuilder(
-                                                builder: (context, setState) {
-                                             
+                                      currentPage: currentPage,
+                                      snapshot: snapshot,
+                                      icon: Icons.arrow_left,
+                                      onTap: () async {
+                                        setState(() {
+                                          currentPage--;
+                                        });
+                                        await snapshot.data
+                                            .setPage(currentPage);
+                                      },
+                                      onTapDown: (TapDownDetails details) {
+                                        timer = Timer.periodic(
+                                            Duration(milliseconds: 500), (t) {
+                                          setState(() {
+                                            currentPage--;
+                                          });
+                                        });
+                                      },
+                                      onTapUp: (TapUpDetails details) async {
+                                        timer.cancel();
 
-                                              return Dialog(
-                                                child: Container(
-                                                    color: Colors.white,
-                                                    height: height * .13,
-                                                    width: width * .3,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Text('Goto',
-                                                              style: GoogleFonts
-                                                                  .poppins()),
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: <Widget>[
-                                                            IconButton(
-                                                                icon: Icon(Icons
-                                                                    .remove),
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    currentPage =
-                                                                        currentPage -
-                                                                            1;
-                                                                  });
-                                                                }),
-                                                            RaisedButton(
-                                                              child: Text(
-                                                                  '$currentPage'),
-                                                              onPressed:
-                                                                  () async {
-                                                                Navigator.pop(
-                                                                    context);
-                                                                await snapshot
-                                                                    .data
-                                                                    .setPage(
-                                                                        currentPage);
-                                                              },
-                                                            ),
-                                                            IconButton(
-                                                                icon: Icon(Icons
-                                                                    .add),
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    currentPage =
-                                                                        currentPage +
-                                                                            1;
-                                                                  });
-                                                                }),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    )),
-                                              );
-                                            });
-                                          },
-                                        );
+                                        await snapshot.data
+                                            .setPage(currentPage);
+                                      },
+                                      onTapCancel: () {
+                                        print('cancel');
+                                        timer.cancel();
                                       },
                                     ),
+                                    Text('   $currentPage of $pages  ',
+                                        style: GoogleFonts.poppins()),
                                     PageNavButton(
-                                        currentPage: currentPage,
-                                        snapshot: snapshot),
+                                      currentPage: currentPage,
+                                      snapshot: snapshot,
+                                      onTap: () async {
+                                        setState(() {
+                                          currentPage++;
+                                        });
+                                        await snapshot.data
+                                            .setPage(currentPage);
+                                      },
+                                      onTapDown: (TapDownDetails details) {
+                                        timer = Timer.periodic(
+                                            Duration(milliseconds: 500), (t) {
+                                          setState(() {
+                                            currentPage++;
+                                          });
+                                        });
+                                      },
+                                      onTapUp: (TapUpDetails details) async {
+                                        timer.cancel();
+
+                                        await snapshot.data
+                                            .setPage(currentPage);
+                                      },
+                                      onTapCancel: () {
+                                        print('cancel');
+                                        timer.cancel();
+                                      },
+                                    ),
                                   ],
                                 ),
                               ]),
@@ -244,27 +236,45 @@ class _ReadScreenState extends State<ReadScreen> with WidgetsBindingObserver {
 
 class PageNavButton extends StatelessWidget {
   const PageNavButton(
-      {Key key, @required this.currentPage, @required this.snapshot, this.icon})
+      {Key key,
+      @required this.currentPage,
+      @required this.snapshot,
+      this.icon,
+      this.onTapDown,
+      this.onTapUp,
+      this.onTapCancel,
+      this.onTap})
       : super(key: key);
 
   final int currentPage;
   final AsyncSnapshot snapshot;
   final IconData icon;
+  final Function onTapDown;
+  final Function onTapUp;
+  final Function onTapCancel;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      type: MaterialType.circle,
-      color: Colors.deepOrange[800],
-      child: IconButton(
-        icon: Icon(
-          icon ?? Icons.arrow_right,
-          size: 30,
-          color: Colors.white,
+    return GestureDetector(
+      onTapDown: onTapDown,
+      onTapUp: onTapUp,
+      onTapCancel: onTapCancel,
+      onTap: onTap,
+      child: Material(
+        type: MaterialType.circle,
+        color: Colors.deepOrange[800],
+        child: InkWell(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Icon(
+              icon ?? Icons.arrow_right,
+              size: 30,
+              color: Colors.white,
+            ),
+          ),
+          onTap: onTap,
         ),
-        onPressed: () async {
-          await snapshot.data.setPage(currentPage + 1);
-        },
       ),
     );
   }
