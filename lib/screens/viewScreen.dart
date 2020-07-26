@@ -5,11 +5,13 @@ import 'package:rallyreader/screens/readScreen.dart';
 class BookScreen extends StatefulWidget {
   final String image;
   final String title;
+  final String path;
 
   const BookScreen({
     Key key,
     @required this.image,
     @required this.title,
+    this.path,
   }) : super(key: key);
   @override
   _BookScreenState createState() => _BookScreenState();
@@ -127,7 +129,7 @@ class _BookScreenState extends State<BookScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return ReadScreen();
+                                    return ReadScreen(path: widget.path);
                                   },
                                 ),
                               );

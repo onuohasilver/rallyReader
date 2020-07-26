@@ -12,13 +12,13 @@ class ThumbNail extends StatelessWidget {
   const ThumbNail({
     @required this.heightT,
     @required this.widthT,
-    @required this.pdfController,
+    @required this.path,
   });
 
   final double heightT;
   final double widthT;
 
-  final PdfController pdfController;
+  final String path;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ThumbNail extends StatelessWidget {
             shadow: false,
             heightT: heightT,
             widthT: widthT,
-            pdfController: pdfController,
+            path: path,
           ),
         ],
       ),
@@ -45,7 +45,7 @@ class ExpandedThumbnail extends StatelessWidget {
       {@required this.heightT,
       @required this.widthT,
       @required this.title,
-      @required this.pdfController,
+      @required this.path,
       @required this.completion,
       @required this.key,
       @required this.showMenu,
@@ -57,7 +57,7 @@ class ExpandedThumbnail extends StatelessWidget {
   final double widthT;
   final String title;
   final double completion;
-  final PdfController pdfController;
+  final String path;
   final Function onTap;
   final GlobalKey key;
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -79,7 +79,7 @@ class ExpandedThumbnail extends StatelessWidget {
               shadow: false,
               heightT: heightT,
               widthT: widthT,
-              pdfController: pdfController,
+              path: path,
               onTap: onTap,
             ),
             Center(

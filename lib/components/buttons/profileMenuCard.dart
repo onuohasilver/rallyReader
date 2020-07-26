@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
 class ProfileMenuCard extends StatelessWidget {
+///creates a large container with a centered icon
+///[IconData] is provided as the [label] argument
+
   const ProfileMenuCard({
     Key key,
     @required this.height,
     @required this.width,
     this.label,
   }) : super(key: key);
-
+///MediaQuery height data
   final double height;
+  ///MediaQuery width data
   final double width;
+  /// [IconData]
   final IconData label;
 
   @override

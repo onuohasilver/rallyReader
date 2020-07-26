@@ -65,43 +65,49 @@ class _LandingScreenState extends State<LandingScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
-                      pdfController: null,
+                      path:appData.filePath[index],
                       heightT: heightT,
                       widthT: widthT,
                     );
                   },
                 ),
               ),
+              PageTitle(
+                heightT: heightT * .7,
+                title: 'My  Books.',
+              ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: bookList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var book = bookList[index];
-
-                    return ExpandedThumbnail(
-                      heightT: heightT,
-                      widthT: widthT,
-                      title: appData.filePath[index].split('/').last,
-                      pdfController: null,
-                      key: null,
-                      scaffoldKey: scaffoldKey,
-                      completion: book.completion,
-                      showMenu: true,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return BookScreen(
-                                title: book.title,
-                                image: book.image,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    );
-                  },
+                flex: 2,
+                child: Container(
+                  child: ListView.builder(
+                    itemCount: appData.filePath.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ExpandedThumbnail(
+                        heightT: heightT,
+                        widthT: widthT,
+                        title: appData.filePath[index].split('/').last,
+                        path:appData.filePath[index],
+                        key: null,
+                        scaffoldKey: scaffoldKey,
+                        completion: 20.0,
+                        showMenu: true,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return BookScreen(
+                                  title: 'book.title',
+                                  image: 'book.image',
+                                  path:appData.filePath[index]
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
               )
             ],
