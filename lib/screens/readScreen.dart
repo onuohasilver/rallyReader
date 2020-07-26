@@ -1,18 +1,10 @@
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/colorFlatButton.dart';
-import 'package:rallyreader/components/progressIndicator.dart';
-import 'package:rallyreader/data/data.dart';
-import 'landingScreen.dart';
-import 'package:pdf_flutter/pdf_flutter.dart';
+
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class ReadScreen extends StatefulWidget {
@@ -33,10 +25,8 @@ class _ReadScreenState extends State<ReadScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+  
     return Scaffold(
-     
       body: Stack(
         children: <Widget>[
           PDFView(
@@ -99,7 +89,7 @@ class _ReadScreenState extends State<ReadScreen> with WidgetsBindingObserver {
             return FloatingActionButton.extended(
               label: Text("Next Page"),
               onPressed: () async {
-                await snapshot.data.setPage(pages -(pages-1));
+                await snapshot.data.setPage(pages - (pages - 1));
               },
             );
           }

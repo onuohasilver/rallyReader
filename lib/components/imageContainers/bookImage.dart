@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:pdf_flutter/pdf_flutter.dart';
+import 'package:rallyreader/components/imageContainers/bookShelfImage.dart';
 import 'package:rallyreader/screens/readScreen.dart';
 
 class BookImage extends StatefulWidget {
   const BookImage(
-      {
-      @required this.heightT,
+      {@required this.heightT,
       @required this.widthT,
       @required this.path,
       @required this.shadow,
@@ -16,7 +16,7 @@ class BookImage extends StatefulWidget {
 
   final double heightT;
   final double widthT;
-  final String  path;
+  final String path;
   final bool shadow;
   final Function onTap;
   final GlobalKey key;
@@ -45,14 +45,12 @@ class _BookImageState extends State<BookImage> {
           width: widget.widthT * .22,
           child: Stack(
             children: [
-              // BookShelfImage(pdfController: pdfController, key: key),
+         
               Container(
-                color: Colors.pinkAccent,
-                child:ReadScreen(
-        path:widget.path,
-        
-      )
-              ),
+                  color: Colors.pinkAccent,
+                  child: BookShelfImage(
+                    path: widget.path,
+                  )),
               Material(
                 color: Colors.transparent,
                 child: InkWell(

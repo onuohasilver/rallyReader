@@ -4,7 +4,7 @@ import 'package:rallyreader/screens/bookCircleScreen.dart';
 import 'package:rallyreader/screens/collectionsScreen.dart';
 import 'package:rallyreader/screens/individualCircleScreen.dart';
 import 'package:rallyreader/screens/individualCollectionScreen.dart';
-import 'package:rallyreader/screens/initialScreen.dart';
+
 import 'package:rallyreader/screens/landingScreen.dart';
 import 'package:rallyreader/screens/favoritesScreen.dart';
 import 'package:rallyreader/screens/profileScreen.dart';
@@ -28,7 +28,7 @@ void main() {
         initialRoute: 'SignUp',
         routes: {
           'LandingScreen': (context) => LandingScreen(),
-          'InitialScreen': (context) => InitialScreen(),
+        
           'CollectionScreen': (context) => Collections(),
           'IndividualCollectionScreen': (context) =>
               IndividualCollectionScreen(),

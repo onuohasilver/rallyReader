@@ -1,47 +1,72 @@
-
-import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:flutter/material.dart';
 
-class BookShelfImage extends StatelessWidget {
-  final PdfController pdfController;
-  final GlobalKey key;
-  BookShelfImage({
-    @required this.pdfController,
-    @required this.key,
-  });
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+
+import 'package:flutter_pdfview/flutter_pdfview.dart';
+
+class BookShelfImage extends StatefulWidget {
+  final String path;
+
+  BookShelfImage({Key key, this.path}) : super(key: key);
+
+  _BookShelfImageState createState() => _BookShelfImageState();
+}
+
+class _BookShelfImageState extends State<BookShelfImage>
+    with WidgetsBindingObserver {
+  final Completer<PDFViewController> _controller =
+      Completer<PDFViewController>();
+  int pages = 0;
+  int currentPage = 0;
+  bool isReady = false;
+  String errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
-    double heightT = MediaQuery.of(context).size.height;
-    double widthT = MediaQuery.of(context).size.width;
-   
-    return RepaintBoundary(
-      key: key,
-      child: Container(
-        height: heightT,
-        width: widthT,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: PdfView(
-                documentLoader: Center(child: CircularProgressIndicator()),
-                pageLoader: Center(   
-                    child: CircularProgressIndicator(
-                  strokeWidth: 10,
-                  valueColor: AlwaysStoppedAnimation(Colors.purpleAccent),
-                  backgroundColor: Colors.purple,
-                )),
-                renderer: (PdfPage page) => page.render(
-                  width: page.width * 3,
-                  height: page.height * 3,
-                  format: PdfPageFormat.JPEG,
-                  backgroundColor: '#ffffff',
-                ),
-                controller: pdfController,
-              ),
-            ),
-          ],
+    return Stack(
+      children: <Widget>[
+        PDFView(
+          filePath: widget.path,
+          enableSwipe: false,
+          swipeHorizontal: false,
+          autoSpacing: false,
+          pageFling: false,
+          pageSnap: false,
+          defaultPage: currentPage,
+          fitPolicy: FitPolicy.BOTH,
+          preventLinkNavigation:
+              false, // if set to true the link is handled in flutter
+          onRender: (_pages) {
+            setState(() {
+              pages = _pages;
+              isReady = true;
+            });
+          },
+          onError: (error) {
+            setState(() {
+              errorMessage = error.toString();
+            });
+            print(error.toString());
+          },
+         
+          onViewCreated: (PDFViewController pdfViewController) {
+            _controller.complete(pdfViewController);
+          },
+         
+        
         ),
-      ),
+        errorMessage.isEmpty
+            ? !isReady
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Container()
+            : Center(
+                child: Text(errorMessage),
+              )
+      ],
     );
   }
 }
