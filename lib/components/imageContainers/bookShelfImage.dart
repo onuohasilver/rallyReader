@@ -30,7 +30,7 @@ class _BookShelfImageState extends State<BookShelfImage>
         PDFView(
           filePath: widget.path,
           enableSwipe: false,
-          swipeHorizontal: false,
+          swipeHorizontal: true,
           autoSpacing: false,
           pageFling: false,
           pageSnap: false,

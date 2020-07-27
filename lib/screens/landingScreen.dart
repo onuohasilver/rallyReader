@@ -23,6 +23,7 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   void initState() {
     super.initState();
+    setState((){});
   }
 
   @override
@@ -61,11 +62,12 @@ class _LandingScreenState extends State<LandingScreen> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: ListView.builder(
+                  cacheExtent:10.0,
                   itemCount: appData.filePath.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
-                      path:appData.filePath[index],
+                      path: appData.filePath[index],
                       heightT: heightT,
                       widthT: widthT,
                     );
@@ -82,11 +84,12 @@ class _LandingScreenState extends State<LandingScreen> {
                   child: ListView.builder(
                     itemCount: appData.filePath.length,
                     itemBuilder: (BuildContext context, int index) {
+                      String title = appData.filePath[index].split('/').last;
                       return ExpandedThumbnail(
                         heightT: heightT,
                         widthT: widthT,
-                        title: appData.filePath[index].split('/').last,
-                        path:appData.filePath[index],
+                        title: title,
+                        path: appData.filePath[index],
                         key: null,
                         scaffoldKey: scaffoldKey,
                         completion: 20.0,
@@ -97,13 +100,12 @@ class _LandingScreenState extends State<LandingScreen> {
                             MaterialPageRoute(
                               builder: (context) {
                                 return BookScreen(
-                                  title: 'book.title',
-                                  image: 'book.image',
-                                  path:appData.filePath[index]
-                                );
+                                    title: title,
+                                    image: 'book.image',
+                                    path: appData.filePath[index]);
                               },
                             ),
-                          );
+                          ).then((value) => setState(() => {}));
                         },
                       );
                     },

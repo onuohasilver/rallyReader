@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/bookCircleScreen.dart';
 import 'package:rallyreader/screens/collectionsScreen.dart';
 import 'package:rallyreader/screens/individualCircleScreen.dart';
@@ -22,6 +23,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (context) => UserData(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SettingsData(),
         )
       ],
       child: MaterialApp(

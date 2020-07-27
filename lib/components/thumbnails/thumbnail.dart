@@ -28,7 +28,6 @@ class ThumbNail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           BookImage(
-            key: key,
             shadow: false,
             heightT: heightT,
             widthT: widthT,
@@ -75,7 +74,6 @@ class ExpandedThumbnail extends StatelessWidget {
         child: Row(
           children: <Widget>[
             BookImage(
-              key: key,
               shadow: false,
               heightT: heightT,
               widthT: widthT,

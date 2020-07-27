@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rallyreader/components/imageContainers/bookImage.dart';
 import 'package:rallyreader/screens/readScreen.dart';
 
 class BookScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _BookScreenState extends State<BookScreen> {
             Container(
               height: heightT * .70,
               width: widthT,
-              color: Color(0xFF574497),
+              color: Colors.orange[100],
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -56,16 +57,22 @@ class _BookScreenState extends State<BookScreen> {
                           onPressed: () {},
                         ),
                       ]),
-                  // Container(
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  //     child: BookImage(
-                  //         shadow: true,
-                  //         heightT: heightT + (heightT * .4),
-                  //         widthT: widthT + (widthT * .4),
-                  //         ),
-                  //   ),
-                  // ),
+                  SizedBox(
+                    height: heightT * .02,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Container(
+                      height: heightT * .54,
+                      width: widthT * .7,
+                      child: BookImage(
+                        path: widget.path,
+                        shadow: true,
+                        heightT: heightT + (heightT * .6),
+                        widthT: widthT + (widthT * .4),
+                      ),
+                    ),
+                  ),
                   Text(
                     widget.title,
                     style: GoogleFonts.jura(
@@ -74,49 +81,7 @@ class _BookScreenState extends State<BookScreen> {
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 3),
-
                   SizedBox(height: heightT * .06),
-
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
-                    child: Container(
-                      height: heightT * .18,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            height: heightT * .15,
-                            width: widthT * .01,
-                            child: Material(
-                              color: Colors.black26,
-                            ),
-                          ),
-                          SizedBox(width: heightT * .03),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Description',
-                                style: GoogleFonts.muli(
-                                    fontSize: 20, fontWeight: FontWeight.w600),
-                                textAlign: TextAlign.start,
-                              ),
-                              SizedBox(height: heightT * .01),
-                              Container(
-                                width: widthT * .75,
-                                child: Text(
-                                    '''The American Abstract Artists herewith present a fourth in the series of books...
-                                ''',
-                                    textAlign: TextAlign.justify,
-                                    style: TextStyle(fontSize: 20)),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
@@ -125,7 +90,7 @@ class _BookScreenState extends State<BookScreen> {
                       child: Material(
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
@@ -134,16 +99,16 @@ class _BookScreenState extends State<BookScreen> {
                                 ),
                               );
                             },
-                            splashColor: Colors.pink,
+                            splashColor: Colors.orange,
                             child: Center(
                               child: Text(
                                 'Read More',
-                                style: TextStyle(color: Colors.pink[400]),
+                                style: TextStyle(color: Colors.orange[700]),
                               ),
                             ),
                           ),
                           borderRadius: BorderRadius.circular(8),
-                          color: Colors.pink.withOpacity(.3)),
+                          color: Colors.orange.withOpacity(.3)),
                     ),
                   )
                 ],
