@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class SettingsData extends ChangeNotifier {
   bool enableSwipe = false,
       swipeHorizontal = false,
-      pageSnap = false;
+      pageSnap = false,
+      nightMode=false;
   
   void enableSwiping(){
     enableSwipe=!enableSwipe;
@@ -17,6 +18,11 @@ class SettingsData extends ChangeNotifier {
 
   void setPageSnap(){
     pageSnap=!pageSnap;
+    notifyListeners();
+  }
+
+  void setNightMode(){
+    nightMode=!nightMode;
     notifyListeners();
   }
 }

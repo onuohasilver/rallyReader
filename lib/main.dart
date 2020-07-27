@@ -10,6 +10,7 @@ import 'package:rallyreader/screens/landingScreen.dart';
 import 'package:rallyreader/screens/favoritesScreen.dart';
 import 'package:rallyreader/screens/profileScreen.dart';
 import 'package:rallyreader/screens/setProfile.dart';
+import 'package:rallyreader/screens/settingsScreen.dart';
 import 'package:rallyreader/screens/signUp.dart';
 import 'data/data.dart';
 import 'data/userProfileData.dart';
@@ -40,8 +41,8 @@ void main() {
           'ProfileScreen': (context) => ProfileScreen(),
           'SignUp': (context) => SignUp(),
           'BookCircleScreen': (context) => BookCircleScreen(),
-          'SetProfile': (context) => SetProfileScreen()
-        },
+          'SetProfile': (context) => SetProfileScreen(),
+          'Settings':(context)=>SettingsScreen()        },
       ),
     ),
   );

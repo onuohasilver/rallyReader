@@ -127,6 +127,7 @@ class DrawerBuilder extends StatelessWidget {
                       label: 'Settings',
                       icon: Icons.settings,
                       color: Colors.grey,
+                      routeName: 'Settings',
                     ),
                     ListTile(
                       leading: Container(
