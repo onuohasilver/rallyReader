@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:rallyreader/components/imageContainers/bookShelfImage.dart';
+import 'package:rallyreader/data/settings.dart';
 
 class BookImage extends StatefulWidget {
   const BookImage(
@@ -23,6 +25,7 @@ class BookImage extends StatefulWidget {
 class _BookImageState extends State<BookImage> {
   @override
   Widget build(BuildContext context) {
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
@@ -41,10 +44,14 @@ class _BookImageState extends State<BookImage> {
           child: Stack(
             children: [
               Container(
-                  color: Colors.pinkAccent,
+                  color: Colors.orange[700],
                   child: BookShelfImage(
                     path: widget.path,
                   )),
+              Container(
+                color:settingsData.nightMode?Colors.black.withOpacity(.2):Colors.transparent,
+                
+              ),
               Material(
                 color: Colors.transparent,
                 child: InkWell(

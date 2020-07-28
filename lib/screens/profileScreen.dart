@@ -9,6 +9,7 @@ import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/components/text/multiColorText.dart';
 import 'package:rallyreader/constants.dart';
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/data/userProfileData.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -26,14 +27,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     double width = MediaQuery.of(context).size.width;
     Data appData = Provider.of<Data>(context);
     UserData userData = Provider.of<UserData>(context);
-
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Scaffold(
       drawer: DrawerBuilder(widthT: width, heightT: height),
       key: scaffoldKey,
       body: Container(
         height: height,
         width: width,
-        color: Colors.orangeAccent[100].withOpacity(.3),
+        color: settingsData.bgColor,
         child: FutureBuilder(
             future: firestore
                 .collection('users')
@@ -149,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Text(
                                 'The universe is filled with mysteries, and humans are a part of that mystery. - J L Cooper',
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins())
+                                style: GoogleFonts.poppins(color: settingsData.blackToWhite))
                           ],
                         ),
                       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:rallyreader/components/imageContainers/bookImage.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/readScreen.dart';
 
 class BookScreen extends StatefulWidget {
@@ -23,6 +25,7 @@ class _BookScreenState extends State<BookScreen> {
   Widget build(BuildContext context) {
     double widthT = MediaQuery.of(context).size.width;
     double heightT = MediaQuery.of(context).size.height;
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Scaffold(
       body: Container(
         height: heightT,
@@ -32,7 +35,7 @@ class _BookScreenState extends State<BookScreen> {
             Container(
               height: heightT * .70,
               width: widthT,
-              color: Colors.orange[100],
+              color: settingsData.bgColor,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -103,12 +106,14 @@ class _BookScreenState extends State<BookScreen> {
                             child: Center(
                               child: Text(
                                 'Read More',
-                                style: TextStyle(color: Colors.orange[700]),
+                                style: TextStyle(
+                                  color: settingsData.blackToWhite,
+                                ),
                               ),
                             ),
                           ),
                           borderRadius: BorderRadius.circular(8),
-                          color: Colors.orange.withOpacity(.3)),
+                          color: settingsData.whiteToGrey),
                     ),
                   )
                 ],

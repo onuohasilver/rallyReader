@@ -36,7 +36,8 @@ class TopRowButton extends StatelessWidget {
               //TODO: Show Notifications as a Pop Up
               notification ??
                   IconButton(
-                    icon: Icon(Icons.person),
+                    icon: Icon(Icons.person, color: color ?? Colors.black,),
+
                     splashColor: Colors.white,
                     onPressed: () {
                       Navigator.pushNamed(

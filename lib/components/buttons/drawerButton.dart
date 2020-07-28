@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rallyreader/data/settings.dart';
 
 class DrawerButton extends StatelessWidget {
   const DrawerButton({
@@ -18,17 +20,18 @@ class DrawerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Material(
       color: Colors.transparent,
       child: InkWell(
         child: ListTile(
           leading: Icon(
             icon,
-            color: color ?? Colors.black,
+            color: color ?? Colors.pink[700],
           ),
           title: Text(
             label,
-            style: TextStyle(fontSize: heightT * 0.016),
+            style: TextStyle(fontSize: heightT * 0.016,color: settingsData.blackToWhite),
           ),
           enabled: true,
         ),

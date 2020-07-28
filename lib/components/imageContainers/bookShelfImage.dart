@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:provider/provider.dart';
+import 'package:rallyreader/data/settings.dart';
 
 class BookShelfImage extends StatefulWidget {
   final String path;
@@ -25,6 +27,7 @@ class _BookShelfImageState extends State<BookShelfImage>
 
   @override
   Widget build(BuildContext context) {
+     SettingsData settingsData = Provider.of<SettingsData>(context);
     return Stack(
       children: <Widget>[
         PDFView(

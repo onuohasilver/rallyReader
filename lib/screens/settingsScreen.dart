@@ -25,6 +25,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Data appData = Provider.of<Data>(context);
     UserData userData = Provider.of<UserData>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
+    // bool nightMode = settingsData.nightMode;
 
     return Scaffold(
       drawer: DrawerBuilder(widthT: width, heightT: height),
@@ -32,17 +33,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Container(
         height: height,
         width: width,
-        color: Colors.orangeAccent[100].withOpacity(.3),
+        color:
+           settingsData.bgColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: height * .05),
-              BackButton(onPressed: () {
-                Navigator.pop(context);
-              }),
-              PageTitle(heightT: height, title: 'Settings'),
+              Row(
+                children: <Widget>[
+                  BackButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    color: settingsData.blackToWhite
+                  ),
+                  PageTitle(
+                    heightT: height,
+                    title: 'Settings',
+                    color: settingsData.blackToWhite,
+                  ),
+                ],
+              ),
               SizedBox(height: height * .01),
               Expanded(
                 child: ListView(
@@ -50,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Material(
                       elevation: 14,
                       borderRadius: BorderRadius.circular(11),
-                      color: Colors.brown[800],
+                      color: settingsData.brownToGrey,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: height * .03, vertical: height * .03),
@@ -61,7 +74,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               children: <Widget>[
                                 Text("${userData.userName}",
                                     style: GoogleFonts.poppins(
-                                        color: Colors.white,
+                                        color:Colors.white,
                                         fontSize: height * .03)),
                                 Text("My Profile",
                                     style: GoogleFonts.poppins(
@@ -77,7 +90,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     SizedBox(height: height * .012),
-                    PageTitle(heightT: height * .7, title: 'Account'),
+                    PageTitle(
+                      heightT: height * .7,
+                      title: 'Account',
+                      color: settingsData.blackToWhite,
+                    ),
                     SizedBox(height: height * .012),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +127,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ],
                     ),
                     SizedBox(height: height * .012),
-                    PageTitle(heightT: height * .7, title: 'App Settings'),
+                    PageTitle(
+                      heightT: height * .7,
+                      title: 'App Settings',
+                      color: settingsData.blackToWhite,
+                    ),
                     SizedBox(height: height * .012),
                     ListTileButton(
                         label: "Night Mode",
@@ -119,8 +140,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         condition: settingsData.nightMode,
                         trigger: () => settingsData.setNightMode()),
                     SizedBox(height: height * .012),
-                    PageTitle(heightT: height * .7, title: 'Reader Settings'),
-                    SizedBox(height: height * .012),
+                    PageTitle(heightT: height * .7, title: 'Reader Settings', color: settingsData.blackToWhite)
+,                    SizedBox(height: height * .012),
                     ListTileButton(
                         label: "Allow Page Swipe",
                         width: width,
@@ -151,4 +172,3 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 }
-

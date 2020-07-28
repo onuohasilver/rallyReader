@@ -9,6 +9,7 @@ import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/components/thumbnails/circles.dart';
 
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/data/userProfileData.dart';
 import 'package:rallyreader/handlers/dbHandlers/firestoreFutures.dart';
 
@@ -28,6 +29,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 2));
     animation = Tween(begin: 0.0, end: 1.0).animate(animationController);
+    setState(() {});
     super.initState();
   }
 
@@ -37,6 +39,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
     double width = MediaQuery.of(context).size.width;
     Data appData = Provider.of<Data>(context);
     UserData userData = Provider.of<UserData>(context);
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     bool showingModal = appData.showingModal;
     Future<dynamic> namedCircles = firestore
         .collection('namedCollections')
@@ -63,14 +66,18 @@ class _BookCircleScreenState extends State<BookCircleScreen>
         child: Container(
           height: height,
           width: width,
-          color: Colors.orangeAccent[100].withOpacity(.3),
+          color: settingsData.bgColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TopRowButton(height: height, scaffoldKey: scaffoldKey),
-                PageTitle(heightT: height * .7, title: 'My Circles'),
+                TopRowButton(height: height, scaffoldKey: scaffoldKey ,color: settingsData.blackToWhite,),
+                PageTitle(
+                  heightT: height * .7,
+                  title: 'My Circles',
+                  color: settingsData.blackToWhite,
+                ),
                 Expanded(
                   child: GlowingOverscrollIndicator(
                     axisDirection: AxisDirection.down,
@@ -118,7 +125,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                                           .length,
                                       width: width,
                                       height: height,
-                                      color: Colors.brown[800]),
+                                      color: Colors.blue[800]),
                                 );
 
                                 //  previousCircles.contains(circles[indexCounter]['name'] )?usersCircles['row $rowIndex'].add('');
@@ -153,7 +160,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                             }
                           }
                           print(usersCircles);
-                          
+
                           List<Widget> userDisplayCircles = [];
                           for (int index = 0; index < userThresh; index++) {
                             userDisplayCircles.add(
@@ -167,14 +174,14 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                               ),
                             );
                           }
-                          
+
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(.1),
+                                    color: settingsData.opacityBlackToWhite,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: ListView(
@@ -186,11 +193,12 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                               PageTitle(
                                 heightT: height * .7,
                                 title: 'All Circles',
+                                color: settingsData.blackToWhite,
                               ),
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(.1),
+                                    color:settingsData.opacityBlackToWhite,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: ListView.builder(
