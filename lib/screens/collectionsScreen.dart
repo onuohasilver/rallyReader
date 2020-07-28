@@ -5,6 +5,7 @@ import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/components/thumbnails/collectionThumbnail.dart';
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/data/settings.dart';
 
 class Collections extends StatefulWidget {
   @override
@@ -18,20 +19,21 @@ class _CollectionsState extends State<Collections> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Data appData = Provider.of<Data>(context);
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Scaffold(
       drawer: DrawerBuilder(widthT: width, heightT: height),
       key: scaffoldKey,
       body: Container(
         height: height,
         width: width,
-        color: Colors.orangeAccent[100].withOpacity(.3),
+        color: settingsData.bgColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TopRowButton(scaffoldKey: scaffoldKey, height: height),
-              PageTitle(heightT: height, title: 'Collections'),
+              TopRowButton(scaffoldKey: scaffoldKey, height: height,color:settingsData.blackToWhite),
+              PageTitle(heightT: height, title: 'Collections',color:settingsData.blackToWhite),
               Expanded(
                 child: GridView.builder(
                   //TODO: Use animatedGridViewBuilder

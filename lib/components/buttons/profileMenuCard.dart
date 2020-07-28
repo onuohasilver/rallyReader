@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:rallyreader/data/settings.dart';
 
 class ProfileMenuCard extends StatelessWidget {
 ///creates a large container with a centered icon
@@ -19,6 +22,7 @@ class ProfileMenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -29,18 +33,18 @@ class ProfileMenuCard extends StatelessWidget {
             Material(
               elevation: 30,
               borderRadius: BorderRadius.circular(15),
-              color: Colors.brown.withOpacity(.6),
+              color: settingsData.opacityBrownToGrey,
               child: InkWell(
                 borderRadius: BorderRadius.circular(15),
                 onTap: () {},
-                child: Center(child: Icon(label, size: height * .1)),
+                child: Center(child: Icon(label, size: height * .1,color:settingsData.blackToWhite)),
               ),
             ),
             Positioned.fill(
               bottom:height*.02,
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: Text('Following'),
+                child: Text('Following',style: GoogleFonts.poppins(color:settingsData.blackToWhite))
               ),
             )
           ],

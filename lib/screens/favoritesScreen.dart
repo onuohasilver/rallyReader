@@ -5,6 +5,7 @@ import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/components/thumbnails/thumbnail.dart';
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Data appData = Provider.of<Data>(context);
+    SettingsData settingsData = Provider.of<SettingsData>(context);
 
     return Scaffold(
       drawer: DrawerBuilder(widthT: width, heightT: height),
@@ -27,14 +29,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       body: Container(
         height: height,
         width: width,
-        color: Colors.orangeAccent[100].withOpacity(.3),
+        color: settingsData.bgColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TopRowButton(height: height, scaffoldKey: scaffoldKey),
-              PageTitle(heightT: height, title: 'Favorite Books'),
+              TopRowButton(height: height, scaffoldKey: scaffoldKey,color:settingsData.blackToWhite),
+              PageTitle(heightT: height, title: 'Favorite Books',color:settingsData.blackToWhite),
               Expanded(
                 child: ListView.builder(
                   itemCount: appData.favorites.length,

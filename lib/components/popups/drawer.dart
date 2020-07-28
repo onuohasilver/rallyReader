@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/buttons/drawerButton.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/data/userProfileData.dart';
 
 class DrawerBuilder extends StatelessWidget {
@@ -16,13 +17,14 @@ class DrawerBuilder extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    UserData userData=Provider.of<UserData>(context);
+    UserData userData = Provider.of<UserData>(context);
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Drawer(
       elevation: 50,
       child: Container(
         height: heightT,
         width: widthT * .7,
-        color: Colors.white,
+        color: settingsData.whiteToBlack,
         child: Column(
           children: <Widget>[
             Container(
@@ -82,11 +84,10 @@ class DrawerBuilder extends StatelessWidget {
                       color: Colors.orange,
                     ),
                     DrawerButton(
-                      heightT: heightT,
-                      label: 'Profile',
-                      icon: Icons.person,
-                      routeName:'ProfileScreen'
-                    ),
+                        heightT: heightT,
+                        label: 'Profile',
+                        icon: Icons.person,
+                        routeName: 'ProfileScreen'),
                     DrawerButton(
                       heightT: heightT,
                       label: 'Book Circle',
@@ -114,12 +115,11 @@ class DrawerBuilder extends StatelessWidget {
                       routeName: 'CollectionScreen',
                     ),
                     DrawerButton(
-                      heightT: heightT,
-                      label: 'Favorites',
-                      icon: Icons.favorite,
-                      color: Colors.red,
-                      routeName:'FavoritesScreen'
-                    ),
+                        heightT: heightT,
+                        label: 'Favorites',
+                        icon: Icons.favorite,
+                        color: Colors.red,
+                        routeName: 'FavoritesScreen'),
                     Divider(),
                     Divider(),
                     DrawerButton(
@@ -127,6 +127,7 @@ class DrawerBuilder extends StatelessWidget {
                       label: 'Settings',
                       icon: Icons.settings,
                       color: Colors.grey,
+                      routeName: 'Settings',
                     ),
                     ListTile(
                       leading: Container(
@@ -136,7 +137,7 @@ class DrawerBuilder extends StatelessWidget {
                       ),
                       title: Text(
                         'About Rally Reader',
-                        style: TextStyle(fontSize: heightT * 0.018),
+                        style: TextStyle(fontSize: heightT * 0.018,color:settingsData.blackToWhite),
                       ),
                       enabled: true,
                       onTap: () {},

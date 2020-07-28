@@ -5,8 +5,7 @@ import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/components/thumbnails/thumbnail.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/collections/books.dart';
-import 'package:rallyreader/handlers/handlers.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -23,23 +22,23 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   void initState() {
     super.initState();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
-
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     double heightT = MediaQuery.of(context).size.height;
     double widthT = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.orangeAccent.withOpacity(.8),
       drawer: DrawerBuilder(widthT: widthT, heightT: heightT),
       key: scaffoldKey,
       body: Container(
         height: heightT,
         width: widthT,
-        color: Colors.white.withOpacity(.78),
+        color: settingsData.bgColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -49,11 +48,12 @@ class _LandingScreenState extends State<LandingScreen> {
               TopRowButton(
                 scaffoldKey: scaffoldKey,
                 height: heightT,
+                color:settingsData.blackToWhite
               ),
               PageTitle(
-                heightT: heightT,
-                title: 'Recent Books.',
-              ),
+                  heightT: heightT,
+                  title: 'Recent Books.',
+                  color: settingsData.blackToWhite),
               Container(
                 height: heightT * .12,
                 width: widthT,
@@ -61,11 +61,12 @@ class _LandingScreenState extends State<LandingScreen> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: ListView.builder(
+                  cacheExtent: 10.0,
                   itemCount: appData.filePath.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
-                      path:appData.filePath[index],
+                      path: appData.filePath[index],
                       heightT: heightT,
                       widthT: widthT,
                     );
@@ -73,20 +74,21 @@ class _LandingScreenState extends State<LandingScreen> {
                 ),
               ),
               PageTitle(
-                heightT: heightT * .7,
-                title: 'My  Books.',
-              ),
+                  heightT: heightT * .7,
+                  title: 'My  Books.',
+                  color: settingsData.blackToWhite),
               Expanded(
                 flex: 2,
                 child: Container(
                   child: ListView.builder(
                     itemCount: appData.filePath.length,
                     itemBuilder: (BuildContext context, int index) {
+                      String title = appData.filePath[index].split('/').last;
                       return ExpandedThumbnail(
                         heightT: heightT,
                         widthT: widthT,
-                        title: appData.filePath[index].split('/').last,
-                        path:appData.filePath[index],
+                        title: title,
+                        path: appData.filePath[index],
                         key: null,
                         scaffoldKey: scaffoldKey,
                         completion: 20.0,
@@ -97,13 +99,12 @@ class _LandingScreenState extends State<LandingScreen> {
                             MaterialPageRoute(
                               builder: (context) {
                                 return BookScreen(
-                                  title: 'book.title',
-                                  image: 'book.image',
-                                  path:appData.filePath[index]
-                                );
+                                    title: title,
+                                    image: 'book.image',
+                                    path: appData.filePath[index]);
                               },
                             ),
-                          );
+                          ).then((value) => setState(() => {}));
                         },
                       );
                     },

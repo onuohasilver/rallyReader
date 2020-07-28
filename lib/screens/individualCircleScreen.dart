@@ -8,6 +8,7 @@ import 'package:rallyreader/components/popups/messageBoard.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
 import 'package:rallyreader/components/thumbnails/thumbnail.dart';
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class IndividualCircleScreen extends StatefulWidget {
@@ -24,6 +25,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
     double width = MediaQuery.of(context).size.width;
     Firestore firestore = Firestore.instance;
     Data appData = Provider.of<Data>(context);
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     final String title = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
@@ -48,15 +50,15 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
             Container(
               height: height,
               width: width,
-              color: Colors.orangeAccent[100].withOpacity(.3),
+              color: settingsData.bgColor,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    TopRowButton(height: height, scaffoldKey: scaffoldKey),
-                    PageTitle(heightT: height, title: title),
+                    TopRowButton(height: height, scaffoldKey: scaffoldKey,color:settingsData.blackToWhite),
+                    PageTitle(heightT: height, title: title,color:settingsData.blackToWhite),
                     Expanded(
                       child: Container(
                         height: height * .1,
@@ -73,7 +75,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                             }),
                       ),
                     ),
-                    PageTitle(heightT: height * .7, title: 'Shared Books'),
+                    PageTitle(heightT: height * .7, title: 'Shared Books',color:settingsData.blackToWhite),
                     Container(
                       height: height * .5,
                       width: width,

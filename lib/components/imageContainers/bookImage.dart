@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
-import 'package:pdf_flutter/pdf_flutter.dart';
+import 'package:provider/provider.dart';
+
 import 'package:rallyreader/components/imageContainers/bookShelfImage.dart';
-import 'package:rallyreader/screens/readScreen.dart';
+import 'package:rallyreader/data/settings.dart';
 
 class BookImage extends StatefulWidget {
   const BookImage(
@@ -10,16 +10,13 @@ class BookImage extends StatefulWidget {
       @required this.widthT,
       @required this.path,
       @required this.shadow,
-      @required this.key,
-      this.onTap})
-      : super(key: key);
+      this.onTap});
 
   final double heightT;
   final double widthT;
   final String path;
   final bool shadow;
   final Function onTap;
-  final GlobalKey key;
 
   @override
   _BookImageState createState() => _BookImageState();
@@ -28,6 +25,7 @@ class BookImage extends StatefulWidget {
 class _BookImageState extends State<BookImage> {
   @override
   Widget build(BuildContext context) {
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
@@ -45,12 +43,15 @@ class _BookImageState extends State<BookImage> {
           width: widget.widthT * .22,
           child: Stack(
             children: [
-         
               Container(
-                  color: Colors.pinkAccent,
+                  color: Colors.orange[700],
                   child: BookShelfImage(
                     path: widget.path,
                   )),
+              Container(
+                color:settingsData.nightMode?Colors.black.withOpacity(.2):Colors.transparent,
+                
+              ),
               Material(
                 color: Colors.transparent,
                 child: InkWell(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
+import 'package:rallyreader/data/settings.dart';
 
 class MessageBoard extends StatelessWidget {
   const MessageBoard({
@@ -20,6 +22,7 @@ class MessageBoard extends StatelessWidget {
       minChildSize: 0.05,
       maxChildSize: 0.8,
       builder: (context, controller) {
+        SettingsData settingsData = Provider.of<SettingsData>(context);
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Container(
@@ -32,13 +35,13 @@ class MessageBoard extends StatelessWidget {
                 Container(
                   width: width,
                   decoration: BoxDecoration(
-                      color: Colors.brown[900],
+                      color: settingsData.brownToGrey,
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(10))),
                   child: PageTitle(
                       heightT: height * .7,
                       title: ' Message Board ',
-                      color: Colors.orange[50]),
+                      color:Colors.white),
                 ),
                 Expanded(
                   flex: 7,

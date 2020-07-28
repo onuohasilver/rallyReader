@@ -8,6 +8,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:provider/provider.dart';
+import 'package:rallyreader/data/settings.dart';
 
 class ReadScreen extends StatefulWidget {
   final String path;
@@ -31,6 +33,7 @@ class _ReadScreenState extends State<ReadScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Stack(
@@ -40,14 +43,14 @@ class _ReadScreenState extends State<ReadScreen> with WidgetsBindingObserver {
               height: height * .8,
               child: PDFView(
                 filePath: widget.path,
-                enableSwipe: true,
-                swipeHorizontal: true,
+                enableSwipe: settingsData.enableSwipe,
+                swipeHorizontal: settingsData.swipeHorizontal,
                 autoSpacing: true,
                 pageFling: true,
-                pageSnap: true,
+                pageSnap: settingsData.pageSnap,
                 defaultPage: currentPage,
                 fitPolicy: FitPolicy.WIDTH,
-                nightMode: false,
+                nightMode: settingsData.nightMode,
                 fitEachPage: true,
                 preventLinkNavigation:
                     false, // if set to true the link is handled in flutter

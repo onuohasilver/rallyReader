@@ -6,6 +6,7 @@ import 'package:rallyreader/components/imageContainers/bookImage.dart';
 import 'package:rallyreader/components/popups/addCollections.dart';
 import 'package:rallyreader/components/progressIndicator.dart';
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class ThumbNail extends StatelessWidget {
@@ -28,7 +29,6 @@ class ThumbNail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           BookImage(
-            key: key,
             shadow: false,
             heightT: heightT,
             widthT: widthT,
@@ -66,16 +66,16 @@ class ExpandedThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
+    SettingsData settingsData = Provider.of<SettingsData>(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            color: Colors.white.withOpacity(.7)),
+            color: settingsData.opacityWhiteToGrey),
         child: Row(
           children: <Widget>[
             BookImage(
-              key: key,
               shadow: false,
               heightT: heightT,
               widthT: widthT,
@@ -99,7 +99,8 @@ class ExpandedThumbnail extends StatelessWidget {
                         maxLines: 2,
                         style: GoogleFonts.hindMadurai(
                             fontSize: heightT * .018,
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.w600,
+                            color:settingsData.blackToWhite),
                       ),
                     ),
                     Padding(
