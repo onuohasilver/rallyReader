@@ -49,8 +49,12 @@ class SignUpButton extends StatelessWidget {
                     appData.progress();
                     signInWithGoogle().whenComplete(
                       (() {
-                        Navigator.pushReplacementNamed(context, 'SetProfile');
-                        appData.progress();
+                         appData.progress();
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Navigator.pushReplacementNamed(context, 'SetProfile');
+                        });
+
+                       
                       }),
                     );
                   },

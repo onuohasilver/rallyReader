@@ -46,6 +46,13 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
             parent: animationController));
     super.initState();
   }
+  @override
+  void dispose(){
+    animationController.dispose();
+    boxAnimationController.dispose();
+    super.dispose();
+
+  }
 
   @override
   Widget build(BuildContext context) {

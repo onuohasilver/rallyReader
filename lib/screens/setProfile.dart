@@ -37,7 +37,9 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
     double width = MediaQuery.of(context).size.width;
     UserData userData = Provider.of<UserData>(context);
     Data appData = Provider.of<Data>(context);
-    userData.setCurrentUserID(currentUserID);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      userData.setCurrentUserID(currentUserID);
+    });
 
     return Scaffold(
       body: ModalProgressHUD(

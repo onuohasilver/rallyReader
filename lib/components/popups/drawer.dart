@@ -23,7 +23,7 @@ class DrawerBuilder extends StatelessWidget {
       elevation: 50,
       child: Container(
         height: heightT,
-        width: widthT * .7,
+        width: widthT * .4,
         color: settingsData.whiteToBlack,
         child: Column(
           children: <Widget>[
@@ -73,7 +73,7 @@ class DrawerBuilder extends StatelessWidget {
               child: Divider(),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Container(
                 child: Column(
                   children: <Widget>[
@@ -137,7 +137,7 @@ class DrawerBuilder extends StatelessWidget {
                       ),
                       title: Text(
                         'About Rally Reader',
-                        style: TextStyle(fontSize: heightT * 0.018,color:settingsData.blackToWhite),
+                                              style: TextStyle(fontSize: heightT * 0.018,color:settingsData.blackToWhite),
                       ),
                       enabled: true,
                       onTap: () {},

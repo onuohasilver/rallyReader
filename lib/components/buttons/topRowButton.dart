@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+
 class TopRowButton extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final double height;
   final IconButton notification;
   final Color color;
+  final Widget widget;
   const TopRowButton(
       {Key key,
       @required this.scaffoldKey,
       @required this.height,
       this.color,
-      this.notification})
+      this.notification,
+      this.widget})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       child: Column(
         children: <Widget>[
           SizedBox(
@@ -34,10 +36,12 @@ class TopRowButton extends StatelessWidget {
                 },
               ),
               //TODO: Show Notifications as a Pop Up
-              notification ??
+              (notification ?? widget) ??
                   IconButton(
-                    icon: Icon(Icons.person, color: color ?? Colors.black,),
-
+                    icon: Icon(
+                      Icons.person,
+                      color: color ?? Colors.black,
+                    ),
                     splashColor: Colors.white,
                     onPressed: () {
                       Navigator.pushNamed(
