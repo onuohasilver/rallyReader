@@ -53,8 +53,7 @@ Future buildSignUpDialog(BuildContext context, double height, double width) {
                   controller: passwordConfirm,
                 ),
                 ColorFlatButton(
-                  widthT: width,
-                  heightT: height * .7,
+                  ratio: .7,
                   label: 'Create Account',
                   color: Colors.orange[900],
                   onTap: () {

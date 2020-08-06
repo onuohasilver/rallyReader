@@ -7,21 +7,18 @@ import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/data/userProfileData.dart';
 
 class DrawerBuilder extends StatelessWidget {
-  final heightT;
-  final widthT;
-
   const DrawerBuilder({
     Key key,
-    @required this.heightT,
-    @required this.widthT,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     UserData userData = Provider.of<UserData>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
+    double heightT = MediaQuery.of(context).size.height;
+    double widthT = MediaQuery.of(context).size.width;
     return SizedBox(
-      width:widthT*.7,
-          child: Drawer(
+      width: widthT * .7,
+      child: Drawer(
         elevation: 50,
         child: Container(
           height: heightT,
@@ -43,7 +40,7 @@ class DrawerBuilder extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: widthT*.03),
+                      padding: EdgeInsets.symmetric(horizontal: widthT * .03),
                       child: Text.rich(
                         TextSpan(
                           text: 'Hi!',
@@ -70,28 +67,25 @@ class DrawerBuilder extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding:
-                     EdgeInsets.symmetric(horizontal: widthT*.03, vertical: 4.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: widthT * .03, vertical: 4.0),
                 child: Divider(),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal:  widthT*.009),
+                padding: EdgeInsets.symmetric(horizontal: widthT * .009),
                 child: Container(
                   child: Column(
                     children: <Widget>[
                       DrawerButton(
-                        heightT: heightT,
                         label: 'Notifications',
                         icon: Icons.notifications,
                         color: Colors.orange,
                       ),
                       DrawerButton(
-                          heightT: heightT,
                           label: 'Profile',
                           icon: Icons.person,
                           routeName: 'ProfileScreen'),
                       DrawerButton(
-                        heightT: heightT,
                         label: 'Book Circle',
                         icon: Icons.supervised_user_circle,
                         color: Colors.green,
@@ -99,25 +93,21 @@ class DrawerBuilder extends StatelessWidget {
                       ),
                       Divider(),
                       DrawerButton(
-                        heightT: heightT,
                         label: 'Books',
                         icon: Icons.book,
                         color: Colors.blueAccent,
                       ),
                       DrawerButton(
-                        heightT: heightT,
                         label: 'Reading Plans',
                         icon: Icons.fiber_smart_record,
                         color: Colors.purple,
                       ),
                       DrawerButton(
-                        heightT: heightT,
                         label: 'Collections',
                         icon: Icons.library_books,
                         routeName: 'CollectionScreen',
                       ),
                       DrawerButton(
-                          heightT: heightT,
                           label: 'FavorXites',
                           icon: Icons.favorite,
                           color: Colors.red,
@@ -125,7 +115,6 @@ class DrawerBuilder extends StatelessWidget {
                       Divider(),
                       Divider(),
                       DrawerButton(
-                        heightT: heightT,
                         label: 'Settings',
                         icon: Icons.settings,
                         color: Colors.grey,
@@ -139,7 +128,9 @@ class DrawerBuilder extends StatelessWidget {
                         ),
                         title: Text(
                           'About Rally Reader',
-                                                style: TextStyle(fontSize: heightT * 0.018,color:settingsData.blackToWhite),
+                          style: TextStyle(
+                              fontSize: heightT * 0.018,
+                              color: settingsData.blackToWhite),
                         ),
                         enabled: true,
                         onTap: () {},

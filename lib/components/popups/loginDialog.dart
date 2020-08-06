@@ -45,8 +45,7 @@ Future buildShowDialog(BuildContext context, double height, double width) {
                   controller: password,
                 ),
                 ColorFlatButton(
-                  widthT: width,
-                  heightT: height * .7,
+                  ratio: .7,
                   label: 'Log In',
                   color: Colors.orange[900],
                   onTap: () {

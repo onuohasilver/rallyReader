@@ -16,6 +16,7 @@ Future previousCircles = firestore
     .document('Ecd6yjiIkQOmQRNvouDhxLrvnlf1')
     .get();
 
+///Upload files to Firebase storage and save the URL links in firebase database
 Future uploadFile(File file, String path, {String circle}) async {
   StorageReference storageReference =
       FirebaseStorage.instance.ref().child('books/$path');
@@ -24,14 +25,14 @@ Future uploadFile(File file, String path, {String circle}) async {
   await uploadTask.onComplete;
   print('File Uploaded');
   storageReference.getDownloadURL().then((fileURL) async {
-    List books=[];
+    List books = [];
     await firestore
         .collection('namedCollections')
         .document(
           circle,
         )
         .get()
-        .then((value) => value['books']);
+        .then((value) => books = value['books']);
     books.add(fileURL);
     firestore
         .collection('namedCollections')

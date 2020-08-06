@@ -4,25 +4,22 @@ import 'package:provider/provider.dart';
 import 'package:rallyreader/data/settings.dart';
 
 class ProfileMenuCard extends StatelessWidget {
-///creates a large container with a centered icon
-///[IconData] is provided as the [label] argument
+  ///creates a large container with a centered icon
+  ///[IconData] is provided as the [label] argument
 
   const ProfileMenuCard({
     Key key,
-    @required this.height,
-    @required this.width,
     this.label,
   }) : super(key: key);
-///MediaQuery height data
-  final double height;
-  ///MediaQuery width data
-  final double width;
+
   /// [IconData]
   final IconData label;
 
   @override
   Widget build(BuildContext context) {
     SettingsData settingsData = Provider.of<SettingsData>(context);
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -37,15 +34,18 @@ class ProfileMenuCard extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(15),
                 onTap: () {},
-                child: Center(child: Icon(label, size: height * .1,color:settingsData.blackToWhite)),
+                child: Center(
+                    child: Icon(label,
+                        size: height * .1, color: settingsData.blackToWhite)),
               ),
             ),
             Positioned.fill(
-              bottom:height*.02,
+              bottom: height * .02,
               child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text('Following',style: GoogleFonts.poppins(color:settingsData.blackToWhite))
-              ),
+                  alignment: Alignment.bottomCenter,
+                  child: Text('Following',
+                      style: GoogleFonts.poppins(
+                          color: settingsData.blackToWhite))),
             )
           ],
         ),

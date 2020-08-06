@@ -8,16 +8,16 @@ class SignUpButton extends StatelessWidget {
   const SignUpButton({
     Key key,
     @required this.boxAnimation,
-    @required this.width,
+  
     @required this.text,
-    @required this.height,
+  
+    
     this.color,
     this.onTap,
   }) : super(key: key);
 
   final Animation boxAnimation;
-  final double width;
-  final double height;
+
   final String text;
   final Color color;
   final Function onTap;
@@ -25,6 +25,8 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Data appData = Provider.of<Data>(context);
+     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Transform(
       transform: Matrix4.translationValues(boxAnimation.value * width, 0, 0),
       child: Padding(

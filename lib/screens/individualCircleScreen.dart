@@ -34,7 +34,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
     final String title = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: StreamBuilder(
         stream: firestore
@@ -64,7 +64,6 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     TopRowButton(
-                        height: height,
                         scaffoldKey: scaffoldKey,
                         widget: StreamBuilder(
                             stream: firestore
@@ -72,7 +71,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                                 .document(userData.currentUserId)
                                 .snapshots(),
                             builder: (context, snapshot) {
-                              if (!snapshot.hasData){
+                              if (!snapshot.hasData) {
                                 return Container();
                               }
                               List previousCircles = snapshot.data['circles'];
@@ -90,7 +89,10 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                                     circles.addAll(previousCircles);
                                     if (!circles.contains(title)) {
                                       circles.add(title);
-                                      members.add({'name':userData.userName,'userID':userData.currentUserId});
+                                      members.add({
+                                        'name': userData.userName,
+                                        'userID': userData.currentUserId
+                                      });
 
                                       firestore
                                           .collection('namedCollections')
@@ -102,13 +104,15 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                                           color: Colors.green);
                                     } else {
                                       circles.remove(title);
-                                      members.removeWhere((element) => element['userID']==userData.currentUserId);
+                                      members.removeWhere((element) =>
+                                          element['userID'] ==
+                                          userData.currentUserId);
                                       firestore
                                           .collection('namedCollections')
                                           .document(title)
                                           .setData({'members': members},
                                               merge: true);
-                                     
+
                                       showSnackBar(
                                           scaffoldKey, 'You left the Circle',
                                           color: Colors.red);
@@ -147,8 +151,6 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                             itemCount: members.length,
                             itemBuilder: (context, index) {
                               return UserCircleCard(
-                                height: height,
-                                width: width,
                                 name: members[index]['name'],
                               );
                             }),
@@ -175,11 +177,8 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
               right: width * .07,
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: FancyFab(
-                  onPressed: () {},
-                  icon: Icons.add,
-                  circle:title
-                ),
+                child:
+                    FancyFab(onPressed: () {}, icon: Icons.add, circle: title),
               ),
             ),
             Positioned.fill(
@@ -197,4 +196,3 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
     );
   }
 }
-

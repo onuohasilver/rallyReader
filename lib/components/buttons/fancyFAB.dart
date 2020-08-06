@@ -109,8 +109,6 @@ class _FancyFabState extends State<FancyFab>
                               return Stack(children: [
                                 ThumbNail(
                                   path: appData.filePath[index],
-                                  heightT: 1200,
-                                  widthT: 600,
                                   onTap: () {
                                     uploadFile(file,
                                         '${appData.filePath[index].split('/').last}/',

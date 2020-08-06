@@ -69,11 +69,7 @@ class _BookScreenState extends State<BookScreen> {
                       height: heightT * .54,
                       width: widthT * .7,
                       child: BookImage(
-                        path: widget.path,
-                        shadow: true,
-                        heightT: heightT + (heightT * .6),
-                        widthT: widthT + (widthT * .4),
-                      ),
+                          path: widget.path, shadow: true, ratio: [.6, .4]),
                     ),
                   ),
                   Text(

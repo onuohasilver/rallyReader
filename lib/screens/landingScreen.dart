@@ -33,7 +33,7 @@ class _LandingScreenState extends State<LandingScreen> {
     double widthT = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      drawer: DrawerBuilder(widthT: widthT, heightT: heightT),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: heightT,
@@ -46,10 +46,7 @@ class _LandingScreenState extends State<LandingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TopRowButton(
-                scaffoldKey: scaffoldKey,
-                height: heightT,
-                color:settingsData.blackToWhite
-              ),
+                  scaffoldKey: scaffoldKey, color: settingsData.blackToWhite),
               PageTitle(
                   heightT: heightT,
                   title: 'Recent Books.',
@@ -67,8 +64,6 @@ class _LandingScreenState extends State<LandingScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
                       path: appData.filePath[index],
-                      heightT: heightT,
-                      widthT: widthT,
                     );
                   },
                 ),
@@ -85,8 +80,6 @@ class _LandingScreenState extends State<LandingScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       String title = appData.filePath[index].split('/').last;
                       return ExpandedThumbnail(
-                        heightT: heightT,
-                        widthT: widthT,
                         title: title,
                         path: appData.filePath[index],
                         key: null,

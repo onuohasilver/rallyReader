@@ -21,7 +21,7 @@ class _CollectionsState extends State<Collections> {
     Data appData = Provider.of<Data>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: height,
@@ -32,8 +32,12 @@ class _CollectionsState extends State<Collections> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TopRowButton(scaffoldKey: scaffoldKey, height: height,color:settingsData.blackToWhite),
-              PageTitle(heightT: height, title: 'Collections',color:settingsData.blackToWhite),
+              TopRowButton(
+                  scaffoldKey: scaffoldKey, color: settingsData.blackToWhite),
+              PageTitle(
+                  heightT: height,
+                  title: 'Collections',
+                  color: settingsData.blackToWhite),
               Expanded(
                 child: GridView.builder(
                   //TODO: Use animatedGridViewBuilder
@@ -62,8 +66,8 @@ class _CollectionsState extends State<Collections> {
                           arguments: titles[index],
                         );
                       },
-                      onLongPress: (){
-                        ///TODO: Add long press popup that has 
+                      onLongPress: () {
+                        ///TODO: Add long press popup that has
                         /// TODshare option and  delete option
                       },
                     );

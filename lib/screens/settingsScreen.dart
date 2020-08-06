@@ -28,11 +28,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     // bool nightMode = settingsData.nightMode;
 
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: height,
-        width: width,
+      
         color:
            settingsData.bgColor,
         child: Padding(
@@ -100,26 +100,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         LongColorButton(
-                          height: height,
-                          width: width,
+                         
                           color: Colors.blue[800],
                           icon: Icons.text_format,
                           label: 'Change UserName',
                         ),
                         LongColorButton(
-                          height: height,
-                          width: width,
+                         
                           color: Colors.orange[800],
                           icon: Icons.vpn_key,
                           label: 'Change Password',
                         ),
                         LongColorButton(
-                          height: height,
-                          width: width,
+                         
                         ),
                         LongColorButton(
-                          height: height,
-                          width: width,
+                         
                           color: Colors.red[800],
                           icon: Icons.exit_to_app,
                           label: 'Sign Out',
@@ -136,7 +132,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ListTileButton(
                         label: "Night Mode",
                         icon: Icons.wb_sunny,
-                        width: width,
+                      
                         condition: settingsData.nightMode,
                         trigger: () => settingsData.setNightMode()),
                     SizedBox(height: height * .012),
@@ -144,20 +140,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
 ,                    SizedBox(height: height * .012),
                     ListTileButton(
                         label: "Allow Page Swipe",
-                        width: width,
+                      
                         icon: Icons.check_circle,
                         condition: settingsData.enableSwipe,
                         trigger: () => settingsData.enableSwiping()),
                     ListTileButton(
                       label: "Swipe Horizontal",
-                      width: width,
+                    
                       icon: Icons.check_circle,
                       condition: settingsData.swipeHorizontal,
                       trigger: () => settingsData.setSwipeDirection(),
                     ),
                     ListTileButton(
                       label: "Allow Page Snap",
-                      width: width,
+                    
                       icon: Icons.check_circle,
                       condition: settingsData.pageSnap,
                       trigger: () => settingsData.setPageSnap(),

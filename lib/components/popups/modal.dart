@@ -8,13 +8,13 @@ import 'package:rallyreader/data/userProfileData.dart';
 import 'package:rallyreader/handlers/dbHandlers/circleUpload.dart';
 
 class Modal extends StatelessWidget {
-  final TextEditingController textController=TextEditingController();
+  final TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    UserData userData=Provider.of<UserData>(context);
-    
+    UserData userData = Provider.of<UserData>(context);
+
     return BackdropFilter(
       filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
       child: Container(
@@ -43,16 +43,14 @@ class Modal extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height:height*.01),
+            SizedBox(height: height * .01),
             ColorFlatButton(
-              widthT: width,
-              heightT: height / 2,
+              ratio: .5,
               label: 'create circle',
               color: Colors.deepOrange,
-              onTap: (){
-                updateCircle(userData,textController.text);
+              onTap: () {
+                updateCircle(userData, textController.text);
                 Navigator.pop(context);
-                
               },
             )
           ],

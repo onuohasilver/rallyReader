@@ -49,7 +49,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
         firestore.collection('users').document(userData.currentUserId).get();
     animationController.forward();
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       floatingActionButton: MyFloatingActionButton(
         appData: appData,
@@ -71,7 +71,6 @@ class _BookCircleScreenState extends State<BookCircleScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 TopRowButton(
-                  height: height,
                   scaffoldKey: scaffoldKey,
                   color: settingsData.blackToWhite,
                 ),
@@ -179,7 +178,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                               ),
                             );
                           }
-                           
+
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[

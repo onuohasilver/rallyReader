@@ -54,8 +54,7 @@ addToCollection(
                               child: Text(collection), value: collection);
                         }).toList()),
                     ColorFlatButton(
-                        heightT: heightT / 2,
-                        widthT: widthT,
+                        ratio: .5,
                         label: 'Add to Collection',
                         onTap: () {
                           appData.createCollection(

@@ -6,16 +6,11 @@ import 'package:rallyreader/data/settings.dart';
 
 class BookImage extends StatefulWidget {
   const BookImage(
-      {@required this.heightT,
-      @required this.widthT,
-      @required this.path,
-      @required this.shadow,
-      this.onTap});
+      {@required this.path, @required this.shadow, this.onTap, this.ratio});
 
-  final double heightT;
-  final double widthT;
   final String path;
   final bool shadow;
+  final List<double> ratio;
   final Function onTap;
 
   @override
@@ -25,6 +20,8 @@ class BookImage extends StatefulWidget {
 class _BookImageState extends State<BookImage> {
   @override
   Widget build(BuildContext context) {
+    double heightT = MediaQuery.of(context).size.height;
+    double widthT = MediaQuery.of(context).size.width;
     SettingsData settingsData = Provider.of<SettingsData>(context);
     return Container(
       decoration: BoxDecoration(
@@ -39,8 +36,8 @@ class _BookImageState extends State<BookImage> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Container(
-          height: widget.heightT * .12,
-          width: widget.widthT * .22,
+          height: heightT * .12 + (heightT * widget.ratio[0] ?? 0),
+          width: widthT * .22 + (widthT * widget.ratio[1] ?? 0),
           child: Stack(
             children: [
               Container(
@@ -49,8 +46,9 @@ class _BookImageState extends State<BookImage> {
                     path: widget.path,
                   )),
               Container(
-                color:settingsData.nightMode?Colors.black.withOpacity(.2):Colors.transparent,
-                
+                color: settingsData.nightMode
+                    ? Colors.black.withOpacity(.2)
+                    : Colors.transparent,
               ),
               Material(
                 color: Colors.transparent,

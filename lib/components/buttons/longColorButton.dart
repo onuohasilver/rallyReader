@@ -4,21 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 class LongColorButton extends StatelessWidget {
   const LongColorButton({
     Key key,
-    @required this.height,
-    @required this.width,
+  
     this.icon,
     this.color,
     this.label,
   }) : super(key: key);
 
-  final double height;
-  final double width;
   final IconData icon;
   final Color color;
   final String label;
 
   @override
   Widget build(BuildContext context) {
+     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Container(

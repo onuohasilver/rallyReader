@@ -24,7 +24,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     SettingsData settingsData = Provider.of<SettingsData>(context);
 
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: height,
@@ -35,8 +35,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TopRowButton(height: height, scaffoldKey: scaffoldKey,color:settingsData.blackToWhite),
-              PageTitle(heightT: height, title: 'Favorite Books',color:settingsData.blackToWhite),
+              TopRowButton(
+                  scaffoldKey: scaffoldKey, color: settingsData.blackToWhite),
+              PageTitle(
+                  heightT: height,
+                  title: 'Favorite Books',
+                  color: settingsData.blackToWhite),
               Expanded(
                 child: ListView.builder(
                   itemCount: appData.favorites.length,
@@ -47,10 +51,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       color: Colors.transparent,
                       child: InkWell(
                         child: ExpandedThumbnail(
-                          heightT: height,
-                          widthT: width,
                           title: book,
-                         path:appData.filePath[index],
+                          path: appData.filePath[index],
                           key: null,
                           scaffoldKey: scaffoldKey,
                           completion: 23.0,
@@ -69,7 +71,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             );
                           },
                         ),
-                        onLongPress: (){
+                        onLongPress: () {
                           //TODO: Add deleting to long press pop UP
                           print('Long Press');
                         },

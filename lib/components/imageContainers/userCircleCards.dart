@@ -5,17 +5,17 @@ import 'package:rallyreader/screens/genericUserScreen.dart';
 class UserCircleCard extends StatelessWidget {
   const UserCircleCard({
     Key key,
-    @required this.height,
-    @required this.width,
+  
     @required this.name,
   }) : super(key: key);
 
-  final double height;
-  final double width;
+
   final String name;
 
   @override
   Widget build(BuildContext context) {
+     double height = MediaQuery.of(context).size.height;
+    double width= MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
       child: Container(

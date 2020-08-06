@@ -11,13 +11,10 @@ import 'package:rallyreader/screens/viewScreen.dart';
 
 class ThumbNail extends StatelessWidget {
   const ThumbNail({
-    @required this.heightT,
-    @required this.widthT,
-    @required this.path, this.onTap,
+    @required this.path,
+    this.onTap,
   });
 
-  final double heightT;
-  final double widthT;
   final Function onTap;
 
   final String path;
@@ -31,8 +28,6 @@ class ThumbNail extends StatelessWidget {
         children: <Widget>[
           BookImage(
             shadow: false,
-            heightT: heightT,
-            widthT: widthT,
             path: path,
             onTap: onTap,
           ),
@@ -44,9 +39,7 @@ class ThumbNail extends StatelessWidget {
 
 class ExpandedThumbnail extends StatelessWidget {
   const ExpandedThumbnail(
-      {@required this.heightT,
-      @required this.widthT,
-      @required this.title,
+      {@required this.title,
       @required this.path,
       @required this.completion,
       @required this.key,
@@ -55,8 +48,6 @@ class ExpandedThumbnail extends StatelessWidget {
       @required this.scaffoldKey})
       : super(key: key);
 
-  final double heightT;
-  final double widthT;
   final String title;
   final double completion;
   final String path;
@@ -69,11 +60,13 @@ class ExpandedThumbnail extends StatelessWidget {
   Widget build(BuildContext context) {
     final appData = Provider.of<Data>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
+    double heightT = MediaQuery.of(context).size.height;
+    double widthT = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
       child: Container(
-        height:heightT*.12,
-        width:widthT*.7,
+        height: heightT * .12,
+        width: widthT * .7,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
             color: settingsData.opacityWhiteToGrey),
@@ -81,14 +74,12 @@ class ExpandedThumbnail extends StatelessWidget {
           children: <Widget>[
             BookImage(
               shadow: false,
-              heightT: heightT,
-              widthT: widthT,
               path: path,
               onTap: onTap,
             ),
             Center(
               child: Padding(
-                padding: EdgeInsets.only(left: widthT*.05),
+                padding: EdgeInsets.only(left: widthT * .05),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +95,7 @@ class ExpandedThumbnail extends StatelessWidget {
                         style: GoogleFonts.hindMadurai(
                             fontSize: heightT * .018,
                             fontWeight: FontWeight.w600,
-                            color:settingsData.blackToWhite),
+                            color: settingsData.blackToWhite),
                       ),
                     ),
                     Padding(

@@ -24,7 +24,7 @@ class _IndividualCollectionScreenState
     SettingsData settingsData = Provider.of<SettingsData>(context);
     final String bookTitles = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: height,
@@ -35,15 +35,18 @@ class _IndividualCollectionScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TopRowButton(height: height, scaffoldKey: scaffoldKey,color:settingsData.blackToWhite),
-              PageTitle(heightT: height, title: bookTitles,color:settingsData.blackToWhite),
+              TopRowButton(
+                  scaffoldKey: scaffoldKey, color: settingsData.blackToWhite),
+              PageTitle(
+                  heightT: height,
+                  title: bookTitles,
+                  color: settingsData.blackToWhite),
               Expanded(
                 child: ListView.builder(
                   itemCount: appData.caches[bookTitles].length,
-                  itemBuilder: (context,index){
+                  itemBuilder: (context, index) {
                     return Text(appData.caches[bookTitles][index]);
                   },
-                  
                 ),
               )
             ],

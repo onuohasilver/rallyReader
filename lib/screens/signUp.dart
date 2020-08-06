@@ -46,12 +46,12 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
             parent: animationController));
     super.initState();
   }
+
   @override
-  void dispose(){
+  void dispose() {
     animationController.dispose();
     boxAnimationController.dispose();
     super.dispose();
-
   }
 
   @override
@@ -128,15 +128,11 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                       children: <Widget>[
                         SignUpButton(
                           boxAnimation: boxAnimation,
-                          width: width,
-                          height: height,
                           color: Colors.orange[900],
                           text: 'Sign up With Google',
                         ),
                         SignUpButton(
                           boxAnimation: delayedBoxAnimation,
-                          width: width,
-                          height: height,
                           text: 'Sign up With Email',
                           onTap: () {
                             buildSignUpDialog(context, height, width);

@@ -32,7 +32,7 @@ class _GenericUserScreenState extends State<GenericUserScreen> {
     UserData userData = Provider.of<UserData>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: height,
@@ -66,7 +66,6 @@ class _GenericUserScreenState extends State<GenericUserScreen> {
                               filter:
                                   ui.ImageFilter.blur(sigmaX: 4.0, sigmaY: 5.0),
                               child: TopRowButton(
-                                height: height,
                                 scaffoldKey: scaffoldKey,
                                 color: Colors.white,
                                 widget: StreamBuilder(
@@ -78,7 +77,7 @@ class _GenericUserScreenState extends State<GenericUserScreen> {
                                       if (!snapshot.hasData) {
                                         return Container();
                                       }
-                                      
+
                                       List following = [];
                                       following = snapshot.data['following'];
                                       bool criteria =
@@ -188,12 +187,8 @@ class _GenericUserScreenState extends State<GenericUserScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 ProfileMenuCard(
-                                    height: height,
-                                    width: width,
                                     label: Icons.supervised_user_circle),
                                 ProfileMenuCard(
-                                  height: height,
-                                  width: width,
                                   label: Icons.fiber_smart_record,
                                 ),
                               ],
@@ -202,14 +197,9 @@ class _GenericUserScreenState extends State<GenericUserScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 ProfileMenuCard(
-                                  height: height,
-                                  width: width,
                                   label: Icons.fiber_smart_record,
                                 ),
-                                ProfileMenuCard(
-                                    height: height,
-                                    width: width,
-                                    label: Icons.multiline_chart),
+                                ProfileMenuCard(label: Icons.multiline_chart),
                               ],
                             ),
                             SizedBox(height: height * .01),

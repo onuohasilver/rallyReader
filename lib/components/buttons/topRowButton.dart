@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 class TopRowButton extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final double height;
+
   final IconButton notification;
   final Color color;
   final Widget widget;
   const TopRowButton(
       {Key key,
       @required this.scaffoldKey,
-      @required this.height,
       this.color,
       this.notification,
       this.widget})
@@ -17,6 +16,8 @@ class TopRowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return Container(
       child: Column(
         children: <Widget>[

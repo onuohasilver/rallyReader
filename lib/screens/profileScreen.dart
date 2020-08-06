@@ -28,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     UserData userData = Provider.of<UserData>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: height,
@@ -64,7 +64,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               filter:
                                   ui.ImageFilter.blur(sigmaX: 4.0, sigmaY: 5.0),
                               child: TopRowButton(
-                                height: height,
                                 scaffoldKey: scaffoldKey,
                                 color: Colors.white,
                                 notification: IconButton(
@@ -121,12 +120,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 ProfileMenuCard(
-                                    height: height,
-                                    width: width,
                                     label: Icons.supervised_user_circle),
                                 ProfileMenuCard(
-                                  height: height,
-                                  width: width,
                                   label: Icons.fiber_smart_record,
                                 ),
                               ],
@@ -135,21 +130,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 ProfileMenuCard(
-                                  height: height,
-                                  width: width,
                                   label: Icons.fiber_smart_record,
                                 ),
-                                ProfileMenuCard(
-                                    height: height,
-                                    width: width,
-                                    label: Icons.multiline_chart),
+                                ProfileMenuCard(label: Icons.multiline_chart),
                               ],
                             ),
                             SizedBox(height: height * .01),
                             Text(
                                 'The universe is filled with mysteries, and humans are a part of that mystery. - J L Cooper',
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(color: settingsData.blackToWhite))
+                                style: GoogleFonts.poppins(
+                                    color: settingsData.blackToWhite))
                           ],
                         ),
                       ),
