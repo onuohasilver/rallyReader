@@ -70,6 +70,8 @@ class ExpandedThumbnail extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
       child: Container(
+        height:heightT*.12,
+        width:widthT*.7,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
             color: settingsData.opacityWhiteToGrey),
@@ -84,7 +86,7 @@ class ExpandedThumbnail extends StatelessWidget {
             ),
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 30),
+                padding: EdgeInsets.only(left: widthT*.05),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,

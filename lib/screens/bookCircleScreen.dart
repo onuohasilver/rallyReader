@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui' as ui;
@@ -41,12 +42,9 @@ class _BookCircleScreenState extends State<BookCircleScreen>
     UserData userData = Provider.of<UserData>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
     bool showingModal = appData.showingModal;
-    Future<dynamic> namedCircles = firestore
-        .collection('namedCollections')
-        .document(
-          'namedCircles',
-        )
-        .get();
+    Future<QuerySnapshot> namedCircles =
+        firestore.collection('namedCollections').getDocuments();
+
     Future<dynamic> previousCircles =
         firestore.collection('users').document(userData.currentUserId).get();
     animationController.forward();
@@ -72,7 +70,11 @@ class _BookCircleScreenState extends State<BookCircleScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TopRowButton(height: height, scaffoldKey: scaffoldKey ,color: settingsData.blackToWhite,),
+                TopRowButton(
+                  height: height,
+                  scaffoldKey: scaffoldKey,
+                  color: settingsData.blackToWhite,
+                ),
                 PageTitle(
                   heightT: height * .7,
                   title: 'My Circles',
@@ -86,7 +88,10 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                       future: Future.wait([namedCircles, previousCircles]),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List circles = snapshot.data[0]['circles'];
+                          List circles = [];
+                          snapshot.data[0].documents
+                              .forEach((value) => circles.add(value.data));
+
                           List previousUserCircles =
                               snapshot.data[1].data['circles'];
 
@@ -174,7 +179,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                               ),
                             );
                           }
-
+                           
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -198,7 +203,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color:settingsData.opacityBlackToWhite,
+                                    color: settingsData.opacityBlackToWhite,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: ListView.builder(

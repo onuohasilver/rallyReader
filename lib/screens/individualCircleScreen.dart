@@ -12,6 +12,7 @@ import 'package:rallyreader/components/thumbnails/thumbnail.dart';
 import 'package:rallyreader/data/data.dart';
 import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/data/userProfileData.dart';
+import 'package:rallyreader/handlers/dbHandlers/firestoreFutures.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class IndividualCircleScreen extends StatefulWidget {
@@ -37,20 +38,19 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
       body: StreamBuilder(
         stream: firestore
             .collection('namedCollections')
-            .document('namedCircles')
+            .document(title)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          List members;
+          List members = [];
           List messageBoard;
-          for (var circle in snapshot.data.data['circles']) {
-            circle['name'] == title ? members = circle['members'] : Container();
-            circle['name'] == title
-                ? messageBoard = circle['messageBoard']
-                : Container();
-          }
+          Map circle = snapshot.data.data;
+          members = circle['members'];
+
+          messageBoard = circle['messageBoard'];
+
           return Stack(children: [
             Container(
               height: height,
@@ -65,40 +65,72 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                     TopRowButton(
                         height: height,
                         scaffoldKey: scaffoldKey,
-                        widget: Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            splashColor: settingsData.blackToWhite,
-                            borderRadius: BorderRadius.circular(5),
-                            onTap: () async {
-                              List previousCircles = await firestore
-                                  .collection('users')
-                                  .document(userData.currentUserId)
-                                  .get()
-                                  .then(
-                                    (value) => value['circles'],
-                                  );
-                              List circles = [];
-                              circles.addAll(previousCircles);
-                              circles.add(title);
-                              firestore
-                                  .collection('users')
-                                  .document(userData.currentUserId)
-                                  .setData({'circles': circles}, merge: true);
-                               showSnackBar(scaffoldKey, 'Joined Successfully!');
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 8.0),
-                              child: Text(
-                                'Join',
-                                style: GoogleFonts.poppins(
-                                    fontSize: height * .024,
-                                    fontWeight: FontWeight.w500,
-                                    color: settingsData.blackToWhite),
-                              ),
-                            ),
-                          ),
-                        ),
+                        widget: StreamBuilder(
+                            stream: firestore
+                                .collection('users')
+                                .document(userData.currentUserId)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              List previousCircles = snapshot.data['circles'];
+                              String buttonLabel =
+                                  previousCircles.contains(title)
+                                      ? "Leave"
+                                      : "Join";
+                              return Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  splashColor: settingsData.blackToWhite,
+                                  borderRadius: BorderRadius.circular(5),
+                                  onTap: () async {
+                                    List circles = [];
+                                    circles.addAll(previousCircles);
+                                    if (!circles.contains(title)) {
+                                      circles.add(title);
+                                      members.add(userData.userName);
+
+                                      firestore
+                                          .collection('namedCollections')
+                                          .document(title)
+                                          .setData({'members': members},
+                                              merge: true);
+                                      showSnackBar(
+                                          scaffoldKey, 'You joined the Circle',
+                                          color: Colors.green);
+                                    } else {
+                                      circles.remove(title);
+                                      members.remove(userData.userName);
+                                      firestore
+                                          .collection('namedCollections')
+                                          .document(title)
+                                          .setData({'members': members},
+                                              merge: true);
+                                      showSnackBar(
+                                          scaffoldKey, 'You joined the Circle',
+                                          color: Colors.green);
+                                      showSnackBar(
+                                          scaffoldKey, 'You left the Circle',
+                                          color: Colors.red);
+                                    }
+
+                                    firestore
+                                        .collection('users')
+                                        .document(userData.currentUserId)
+                                        .setData({'circles': circles},
+                                            merge: true);
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      buttonLabel,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: height * .024,
+                                          fontWeight: FontWeight.w500,
+                                          color: settingsData.blackToWhite),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
                         color: settingsData.blackToWhite),
                     PageTitle(
                         heightT: height,
