@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/buttons/fancyFAB.dart';
 import 'package:rallyreader/components/buttons/topRowButton.dart';
+import 'package:rallyreader/components/imageContainers/userCircleCards.dart';
 import 'package:rallyreader/components/popups/drawer.dart';
 import 'package:rallyreader/components/popups/messageBoard.dart';
 import 'package:rallyreader/components/popups/snackbars.dart';
@@ -71,6 +72,9 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                                 .document(userData.currentUserId)
                                 .snapshots(),
                             builder: (context, snapshot) {
+                              if (!snapshot.hasData){
+                                return Container();
+                              }
                               List previousCircles = snapshot.data['circles'];
                               String buttonLabel =
                                   previousCircles.contains(title)
@@ -86,7 +90,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                                     circles.addAll(previousCircles);
                                     if (!circles.contains(title)) {
                                       circles.add(title);
-                                      members.add(userData.userName);
+                                      members.add({'name':userData.userName,'userID':userData.currentUserId});
 
                                       firestore
                                           .collection('namedCollections')
@@ -98,15 +102,13 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                                           color: Colors.green);
                                     } else {
                                       circles.remove(title);
-                                      members.remove(userData.userName);
+                                      members.removeWhere((element) => element['userID']==userData.currentUserId);
                                       firestore
                                           .collection('namedCollections')
                                           .document(title)
                                           .setData({'members': members},
                                               merge: true);
-                                      showSnackBar(
-                                          scaffoldKey, 'You joined the Circle',
-                                          color: Colors.green);
+                                     
                                       showSnackBar(
                                           scaffoldKey, 'You left the Circle',
                                           color: Colors.red);
@@ -147,7 +149,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                               return UserCircleCard(
                                 height: height,
                                 width: width,
-                                name: members[index],
+                                name: members[index]['name'],
                               );
                             }),
                       ),
@@ -195,36 +197,3 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
   }
 }
 
-class UserCircleCard extends StatelessWidget {
-  const UserCircleCard({
-    Key key,
-    @required this.height,
-    @required this.width,
-    @required this.name,
-  }) : super(key: key);
-
-  final double height;
-  final double width;
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0),
-      child: Container(
-        height: height * .1,
-        width: width * .2,
-        child: Material(
-          elevation: 7,
-          type: MaterialType.circle,
-          color: Colors.brown[900],
-          child: InkWell(
-            customBorder: CircleBorder(),
-            onTap: () {},
-            child: Center(child: Text(name)),
-          ),
-        ),
-      ),
-    );
-  }
-}
