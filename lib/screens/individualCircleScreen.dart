@@ -178,6 +178,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                 child: FancyFab(
                   onPressed: () {},
                   icon: Icons.add,
+                  circle:title
                 ),
               ),
             ),

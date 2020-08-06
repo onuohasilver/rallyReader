@@ -13,11 +13,12 @@ class ThumbNail extends StatelessWidget {
   const ThumbNail({
     @required this.heightT,
     @required this.widthT,
-    @required this.path,
+    @required this.path, this.onTap,
   });
 
   final double heightT;
   final double widthT;
+  final Function onTap;
 
   final String path;
 
@@ -33,6 +34,7 @@ class ThumbNail extends StatelessWidget {
             heightT: heightT,
             widthT: widthT,
             path: path,
+            onTap: onTap,
           ),
         ],
       ),

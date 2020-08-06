@@ -1,16 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rallyreader/components/thumbnails/thumbnail.dart';
 import 'dart:ui' as ui;
 
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/handlers/dbHandlers/firestoreFutures.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
   final String tooltip;
+  final String circle;
   final IconData icon;
 
-  FancyFab({this.onPressed, this.tooltip, this.icon});
+  FancyFab({this.onPressed, this.tooltip, this.icon, @required this.circle});
 
   @override
   _FancyFabState createState() => _FancyFabState();
@@ -100,11 +105,17 @@ class _FancyFabState extends State<FancyFab>
                             scrollDirection: Axis.horizontal,
                             itemCount: appData.filePath.length,
                             itemBuilder: (context, index) {
+                              File file = File(appData.filePath[index]);
                               return Stack(children: [
                                 ThumbNail(
-                                  path:appData.filePath[index],
+                                  path: appData.filePath[index],
                                   heightT: 1200,
                                   widthT: 600,
+                                  onTap: () {
+                                    uploadFile(file,
+                                        '${appData.filePath[index].split('/').last}/',
+                                        circle: widget.circle);
+                                  },
                                 ),
                                 Positioned.fill(
                                   child: Align(
@@ -115,7 +126,6 @@ class _FancyFabState extends State<FancyFab>
                                         color: Colors.transparent,
                                         child: Checkbox(
                                             value: true,
-                                            
                                             onChanged: (value) {
                                               print(value);
                                             }),
