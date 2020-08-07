@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
+
 import 'package:flutter/material.dart';
 
 import 'dart:async';

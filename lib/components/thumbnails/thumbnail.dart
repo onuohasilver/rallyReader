@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
+
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/imageContainers/bookImage.dart';
 import 'package:rallyreader/components/popups/addCollections.dart';

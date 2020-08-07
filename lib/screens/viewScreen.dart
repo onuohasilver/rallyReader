@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:rallyreader/components/imageContainers/bookImage.dart';
 import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/readScreen.dart';
+import 'package:rallyreader/screens/dummy.dart';
+import 'package:rallyreader/handlers/cachedPdf.dart';
 
 class BookScreen extends StatefulWidget {
   final String image;
@@ -88,12 +90,14 @@ class _BookScreenState extends State<BookScreen> {
                       height: heightT * .05,
                       child: Material(
                           child: InkWell(
-                            onTap: () {
+                            onTap: () async {
+                              // var pageImage = await generateImage(widget.path);
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
                                     return ReadScreen(path: widget.path);
+                                    // return Dummy(path: pageImage);
                                   },
                                 ),
                               );

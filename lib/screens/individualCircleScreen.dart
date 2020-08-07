@@ -49,7 +49,7 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
           List messageBoard;
           Map circle = snapshot.data.data;
           members = circle['members'];
-
+          List bookPaths = circle['books'];
           messageBoard = circle['messageBoard'];
 
           return Stack(children: [
@@ -161,11 +161,39 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                         title: 'Shared Books',
                         color: settingsData.blackToWhite),
                     Container(
-                      height: height * .5,
+                      height: height * .57,
                       width: width,
                       decoration: BoxDecoration(
-                          color: Colors.brown[100],
-                          borderRadius: BorderRadius.circular(10)),
+                        color: Colors.brown[100],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListView.builder(
+                        itemCount: bookPaths.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String title = 'aaaS';
+                          return ExpandedThumbnail(
+                            title: title,
+                            path: bookPaths[index],
+                            key: null,
+                            scaffoldKey: scaffoldKey,
+                            completion: 20.0,
+                            showMenu: true,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return BookScreen(
+                                        title: title,
+                                        image: 'book.image',
+                                        path: bookPaths[index]);
+                                  },
+                                ),
+                              ).then((value) => setState(() => {}));
+                            },
+                          );
+                        },
+                      ),
                     ),
                     Spacer()
                   ],

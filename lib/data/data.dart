@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
+
 import 'package:rallyreader/components/popups/snackbars.dart';
 
 class Data extends ChangeNotifier {
   List<String> filePath = [];
-  List<PdfController> controllers = [];
+  
   List pdfImages = [1, 2, 3];
   List favorites = [];
   List toRead = [];
@@ -17,10 +17,7 @@ class Data extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateControllers(controller) {
-    controllers.add(controller);
-    notifyListeners();
-  }
+ 
 
   void updatePdfImages(renderedObject) {
     pdfImages.add(renderedObject);

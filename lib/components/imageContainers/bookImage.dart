@@ -36,8 +36,8 @@ class _BookImageState extends State<BookImage> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Container(
-          height: heightT * .12 + (heightT * widget.ratio[0] ?? 0),
-          width: widthT * .22 + (widthT * widget.ratio[1] ?? 0),
+          height: heightT * .12,
+          width: widthT * .22,
           child: Stack(
             children: [
               Container(
