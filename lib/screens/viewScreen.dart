@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rallyreader/data/data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/imageContainers/bookImage.dart';
@@ -6,6 +7,8 @@ import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/readScreen.dart';
 import 'package:rallyreader/screens/dummy.dart';
 import 'package:rallyreader/handlers/cachedPdf.dart';
+import 'package:rallyreader/handlers/dbHandlers/sqlDB.dart';
+import 'package:rallyreader/handlers/bookModel.dart';
 
 class BookScreen extends StatefulWidget {
   final String image;
@@ -28,6 +31,7 @@ class _BookScreenState extends State<BookScreen> {
     double widthT = MediaQuery.of(context).size.width;
     double heightT = MediaQuery.of(context).size.height;
     SettingsData settingsData = Provider.of<SettingsData>(context);
+    Data appData = Provider.of<Data>(context);
     return Scaffold(
       body: Container(
         height: heightT,
@@ -91,13 +95,14 @@ class _BookScreenState extends State<BookScreen> {
                       child: Material(
                           child: InkWell(
                             onTap: () async {
-                              // var pageImage = await generateImage(widget.path);
+                             
+
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
                                     return ReadScreen(path: widget.path);
-                                    // return Dummy(path: pageImage);
+                                    // return Dummy();
                                   },
                                 ),
                               );

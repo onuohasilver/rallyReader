@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:rallyreader/components/popups/snackbars.dart';
+import 'package:rallyreader/handlers/bookModel.dart';
 
 class Data extends ChangeNotifier {
   List<String> filePath = [];
@@ -19,8 +20,8 @@ class Data extends ChangeNotifier {
 
  
 
-  void updatePdfImages(renderedObject) {
-    pdfImages.add(renderedObject);
+  void updateBooks(List<BookDetail> books) {
+    pdfImages=books;
   }
 
   void setFavorite(GlobalKey<ScaffoldState> key, String bookTitle) {

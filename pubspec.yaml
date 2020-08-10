@@ -26,6 +26,8 @@ dependencies:
   flutter_pdfview: ^1.0.3+1
   pdf_render: ^0.65.0
   path_provider: ^1.6.11
+  sqflite: ^1.2.0
+  shared_preferences: ^0.5.7+3
 dev_dependencies:
   flutter_test:
     sdk: flutter

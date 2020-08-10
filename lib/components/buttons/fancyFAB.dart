@@ -1,13 +1,18 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pdf_render/pdf_render.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rallyreader/components/thumbnails/thumbnail.dart';
 import 'dart:ui' as ui;
 
 import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/handlers/cachedPdf.dart';
 import 'package:rallyreader/handlers/dbHandlers/firestoreFutures.dart';
+import 'package:rallyreader/screens/dummy.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
@@ -109,10 +114,15 @@ class _FancyFabState extends State<FancyFab>
                               return Stack(children: [
                                 ThumbNail(
                                   path: appData.filePath[index],
-                                  onTap: () {
-                                    uploadFile(file,
-                                        '${appData.filePath[index].split('/').last}/',
-                                        circle: widget.circle);
+                                  onTap: () async{
+                                    // uploadFile(file,
+                                    //     '${appData.filePath[index]}/',
+                                    //     circle: widget.circle);
+                                    PdfPageImage image=await getImageFile(appData.filePath[index],'image.jpg');
+                                    Navigator.push(context,
+                                        CupertinoPageRoute(builder: (context) {
+                                      return Dummy(imageString: image);
+                                    }));
                                   },
                                 ),
                                 Positioned.fill(
