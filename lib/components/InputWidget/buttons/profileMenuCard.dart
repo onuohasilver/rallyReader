@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 
-
 class ProfileMenuCard extends StatelessWidget {
   ///creates a large container with a centered icon
   ///[IconData] is provided as the [label] argument

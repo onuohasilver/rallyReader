@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
 class TopRowButton extends StatelessWidget {
+  ///Scaffold key needed to trigger drawer opening
   final GlobalKey<ScaffoldState> scaffoldKey;
 
+  ///IconButton to replace the profile button
   final IconButton notification;
+
+  ///Color of the buttons
   final Color color;
+
+  ///Widget to be used if not IconButtons
   final Widget widget;
+
+  ///creates a stretch containing two icons
+  ///usually the drawer trigger button and any other button
   const TopRowButton(
       {Key key,
       @required this.scaffoldKey,

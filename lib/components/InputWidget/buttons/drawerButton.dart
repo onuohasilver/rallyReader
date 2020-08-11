@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 
 class DrawerButton extends StatelessWidget {
+  ///Creates a button similar to a [ListTile]
+  ///with a [label] and a leading [icon]
+  ///simply for navigating to specified [routeName]
   const DrawerButton({
     Key key,
     @required this.label,
@@ -13,9 +15,16 @@ class DrawerButton extends StatelessWidget {
     this.color,
   }) : super(key: key);
 
+  ///[String] text to be displayed on the button
   final String label;
+
+  /// the leading icon of the button <displayed before the label>
   final IconData icon;
+
+  /// the route to be navigated to as prespecified on the main script route generator
   final String routeName;
+
+  /// the color of the icon widget
   final Color color;
 
   @override

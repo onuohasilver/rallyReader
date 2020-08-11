@@ -27,7 +27,7 @@ class ThumbNail extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           BookImage(
             shadow: false,
@@ -45,17 +45,17 @@ class ExpandedThumbnail extends StatelessWidget {
       {@required this.title,
       @required this.path,
       @required this.completion,
-      @required this.key,
       @required this.showMenu,
+      @required this.readPath,
       this.onTap,
-      @required this.scaffoldKey})
-      : super(key: key);
+      @required this.scaffoldKey});
 
   final String title;
   final double completion;
   final PdfPageImage path;
+  final String readPath;
   final Function onTap;
-  final GlobalKey key;
+
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool showMenu;
 
@@ -153,9 +153,10 @@ class ExpandedThumbnail extends StatelessWidget {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {
                                       return BookScreen(
-                                        title: ' book.title',
-                                        image: "book.image",
-                                      );
+                                          title: ' book.title',
+                                         
+                                          path: path,
+                                          readPath: readPath);
                                     }));
                                   },
                                   itemBuilder: (context) {

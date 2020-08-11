@@ -173,7 +173,7 @@
 //                           return ExpandedThumbnail(
 //                             title: title,
 //                             path: bookPaths[index],
-//                             key: null,
+                          
 //                             scaffoldKey: scaffoldKey,
 //                             completion: 20.0,
 //                             showMenu: true,
@@ -184,8 +184,8 @@
 //                                   builder: (context) {
 //                                     return BookScreen(
 //                                         title: title,
-//                                         image: 'book.image',
-//                                         path: bookPaths[index]);
+//                                        path: appData. ,
+//                                         readPath: bookPaths[index]);
 //                                   },
 //                                 ),
 //                               ).then((value) => setState(() => {}));

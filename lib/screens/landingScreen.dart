@@ -86,7 +86,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       return ExpandedThumbnail(
                         title: title,
                         path: appData.bookMap[index].values.first,
-                        key: null,
+                        readPath: appData.filePath[index],
                         scaffoldKey: scaffoldKey,
                         completion: 20.0,
                         showMenu: true,
@@ -97,12 +97,12 @@ class _LandingScreenState extends State<LandingScreen> {
                               builder: (context) {
                                 return BookScreen(
                                     title: title,
-                                    image: 'book.image',
+                                    
                                     path: appData.bookMap[index].values.first,
                                     readPath: appData.filePath[index]);
                               },
                             ),
-                          ).then((value) => setState(() => {}));
+                          );
                         },
                       );
                     },

@@ -20,7 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+
     UserData userData = Provider.of<UserData>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
     // bool nightMode = settingsData.nightMode;
@@ -122,6 +122,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ListTileButton(
                         label: "Night Mode",
                         icon: Icons.wb_sunny,
+                        activeColor: Colors.yellow,
                         condition: settingsData.nightMode,
                         trigger: () => settingsData.setNightMode()),
                     SizedBox(height: height * .012),

@@ -8,14 +8,12 @@ import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 import 'package:rallyreader/screens/readScreen.dart';
 
 class BookScreen extends StatefulWidget {
-  final String image;
   final String title;
   final PdfPageImage path;
   final String readPath;
 
   const BookScreen({
     Key key,
-    @required this.image,
     @required this.title,
     @required this.path,
     @required this.readPath,

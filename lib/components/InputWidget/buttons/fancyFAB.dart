@@ -1,25 +1,25 @@
 import 'dart:io';
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-
-
 import 'dart:ui' as ui;
-
 import 'package:rallyreader/components/widgetContainers/thumbnails/thumbnail.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 
-
-
 class FancyFab extends StatefulWidget {
-  final Function() onPressed;
+  ///The function to be triggered when the button is pressed
+  final Function onPressed;
+
+  ///Text to display when the button is held down
   final String tooltip;
+
+  ///The circle Name needed for firestore updates
   final String circle;
+
+  /// The icon of the [FancyFab]
   final IconData icon;
 
+  ///Creates an animated [FloatingActionButton]
   FancyFab({this.onPressed, this.tooltip, this.icon, @required this.circle});
 
   @override
@@ -114,7 +114,7 @@ class _FancyFabState extends State<FancyFab>
                               return Stack(children: [
                                 ThumbNail(
                                   path: appData.filePath[index],
-                                  onTap: () async{
+                                  onTap: () async {
                                     // uploadFile(file,
                                     //     '${appData.filePath[index]}/',
                                     //     circle: widget.circle);

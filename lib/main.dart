@@ -39,7 +39,7 @@ void main() {
           'IndividualCollectionScreen': (context) =>
               IndividualCollectionScreen(),
           // 'IndividualCircleScreen': (context) => IndividualCircleScreen(),
-          // 'FavoritesScreen': (context) => FavoritesScreen(),
+          'FavoritesScreen': (context) => FavoritesScreen(),
           'ProfileScreen': (context) => ProfileScreen(),
           'SignUp': (context) => SignUp(),
           'BookCircleScreen': (context) => BookCircleScreen(),

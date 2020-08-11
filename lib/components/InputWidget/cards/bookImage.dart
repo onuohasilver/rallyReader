@@ -3,8 +3,6 @@ import 'package:pdf_render/pdf_render.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 
-
-
 import 'bookShelfImage.dart';
 
 class BookImage extends StatefulWidget {

@@ -1,14 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 import 'package:rallyreader/screens/popups/modal.dart';
 
 class MyFloatingActionButton extends StatefulWidget {
+  /// Appwide ProviderData
   final Data appData;
+
+  ///Creates a normal Floating ActionButton which has an extended
+  ///functionality of disappearing
+  ///when the showFab condition is not met
 
   const MyFloatingActionButton({Key key, this.appData}) : super(key: key);
   @override

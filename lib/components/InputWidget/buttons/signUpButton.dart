@@ -6,27 +6,32 @@ import 'package:rallyreader/handlers/signInHandlers/googleSignInHandler.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 
 class SignUpButton extends StatelessWidget {
+  ///Creates a dedicated SignUpButton that
+  ///takes animation arguments
   const SignUpButton({
     Key key,
     @required this.boxAnimation,
-  
     @required this.text,
-  
-    
     this.color,
     this.onTap,
   }) : super(key: key);
 
+  ///Animation<double>  directing the entrance of the widget
   final Animation boxAnimation;
 
+  ///label to be displayed on the button
   final String text;
+
+  ///Color of the button
   final Color color;
+
+  /// function to be triggered on button tap
   final Function onTap;
 
   @override
   Widget build(BuildContext context) {
     Data appData = Provider.of<Data>(context);
-     double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Transform(
       transform: Matrix4.translationValues(boxAnimation.value * width, 0, 0),
@@ -52,12 +57,10 @@ class SignUpButton extends StatelessWidget {
                     appData.progress();
                     signInWithGoogle().whenComplete(
                       (() {
-                         appData.progress();
+                        appData.progress();
                         WidgetsBinding.instance.addPostFrameCallback((_) {
                           Navigator.pushReplacementNamed(context, 'SetProfile');
                         });
-
-                       
                       }),
                     );
                   },
