@@ -3,12 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:pdf_render/pdf_render.dart';
 import 'package:provider/provider.dart';
+import 'package:rallyreader/handlers/cachedPdf.dart';
+import 'package:rallyreader/handlers/cachedPdf.dart';
 import 'package:rallyreader/handlers/dbHandlers/dataModels/sqlDB.dart';
 import 'package:rallyreader/handlers/handlers.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
-
 
 class SetProfileScreen extends StatefulWidget {
   @override
@@ -102,9 +104,11 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
                               userData.setUserName(userName.text);
                               getPermission.requestPermission;
                               fileNames = getPermission.getFileList;
+                              fileNames.forEach((file) async {
+                                PdfPageImage image = await generateImage(file);
+                                appData.updateBookImages({file: image});
+                              });
 
-                              ///TODO: Generate and save png files
-                            
                               appData.updateFiles(fileNames);
                               appData.progress();
                               Navigator.pushReplacementNamed(

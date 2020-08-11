@@ -38,8 +38,8 @@ void main() {
           'CollectionScreen': (context) => Collections(),
           'IndividualCollectionScreen': (context) =>
               IndividualCollectionScreen(),
-          'IndividualCircleScreen': (context) => IndividualCircleScreen(),
-          'FavoritesScreen': (context) => FavoritesScreen(),
+          // 'IndividualCircleScreen': (context) => IndividualCircleScreen(),
+          // 'FavoritesScreen': (context) => FavoritesScreen(),
           'ProfileScreen': (context) => ProfileScreen(),
           'SignUp': (context) => SignUp(),
           'BookCircleScreen': (context) => BookCircleScreen(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pdf_render/pdf_render.dart';
 import 'package:rallyreader/components/InputWidget/cards/bookImage.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -9,13 +10,15 @@ import 'package:rallyreader/screens/readScreen.dart';
 class BookScreen extends StatefulWidget {
   final String image;
   final String title;
-  final String path;
+  final PdfPageImage path;
+  final String readPath;
 
   const BookScreen({
     Key key,
     @required this.image,
     @required this.title,
-    this.path,
+    @required this.path,
+    @required this.readPath,
   }) : super(key: key);
   @override
   _BookScreenState createState() => _BookScreenState();
@@ -27,7 +30,7 @@ class _BookScreenState extends State<BookScreen> {
     double widthT = MediaQuery.of(context).size.width;
     double heightT = MediaQuery.of(context).size.height;
     SettingsData settingsData = Provider.of<SettingsData>(context);
-    
+
     return Scaffold(
       body: Container(
         height: heightT,
@@ -91,13 +94,11 @@ class _BookScreenState extends State<BookScreen> {
                       child: Material(
                           child: InkWell(
                             onTap: () async {
-                             
-
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return ReadScreen(path: widget.path);
+                                    return ReadScreen(path: widget.readPath);
                                     // return Dummy();
                                   },
                                 ),

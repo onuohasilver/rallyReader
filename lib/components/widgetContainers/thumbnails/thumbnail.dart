@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pdf_render/pdf_render.dart';
 
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/InputWidget/cards/bookImage.dart';
@@ -19,7 +20,7 @@ class ThumbNail extends StatelessWidget {
 
   final Function onTap;
 
-  final String path;
+  final PdfPageImage path;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class ExpandedThumbnail extends StatelessWidget {
 
   final String title;
   final double completion;
-  final String path;
+  final PdfPageImage path;
   final Function onTap;
   final GlobalKey key;
   final GlobalKey<ScaffoldState> scaffoldKey;

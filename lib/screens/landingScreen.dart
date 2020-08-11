@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rallyreader/components/InputWidget/buttons/topRowButton.dart';
 
-
 import 'package:rallyreader/components/text/pageTitles.dart';
 
 import 'package:rallyreader/components/widgetContainers/thumbnails/thumbnail.dart';
@@ -68,7 +67,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
-                      path: appData.filePath[index],
+                      path: appData.bookMap[index].values.first,
                     );
                   },
                 ),
@@ -86,7 +85,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       String title = appData.filePath[index].split('/').last;
                       return ExpandedThumbnail(
                         title: title,
-                        path: appData.filePath[index],
+                        path: appData.bookMap[index].values.first,
                         key: null,
                         scaffoldKey: scaffoldKey,
                         completion: 20.0,
@@ -99,7 +98,8 @@ class _LandingScreenState extends State<LandingScreen> {
                                 return BookScreen(
                                     title: title,
                                     image: 'book.image',
-                                    path: appData.filePath[index]);
+                                    path: appData.bookMap[index].values.first,
+                                    readPath: appData.filePath[index]);
                               },
                             ),
                           ).then((value) => setState(() => {}));

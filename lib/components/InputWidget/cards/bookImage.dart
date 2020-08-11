@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pdf_render/pdf_render.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 
@@ -10,7 +11,7 @@ class BookImage extends StatefulWidget {
   const BookImage(
       {@required this.path, @required this.shadow, this.onTap, this.ratio});
 
-  final String path;
+  final PdfPageImage path;
   final bool shadow;
   final List<double> ratio;
   final Function onTap;
