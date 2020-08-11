@@ -1,17 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'dart:ui' as ui;
-import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/floatingButton.dart';
-import 'package:rallyreader/components/buttons/topRowButton.dart';
-import 'package:rallyreader/components/popups/drawer.dart';
-import 'package:rallyreader/components/text/pageTitles.dart';
-import 'package:rallyreader/components/thumbnails/circles.dart';
 
-import 'package:rallyreader/data/data.dart';
-import 'package:rallyreader/data/settings.dart';
-import 'package:rallyreader/data/userProfileData.dart';
-import 'package:rallyreader/handlers/dbHandlers/firestoreFutures.dart';
+import 'package:provider/provider.dart';
+import 'package:rallyreader/components/InputWidget/buttons/floatingButton.dart';
+import 'package:rallyreader/components/InputWidget/buttons/topRowButton.dart';
+
+import 'package:rallyreader/components/text/pageTitles.dart';
+
+import 'package:rallyreader/components/widgetContainers/thumbnails/circles.dart';
+import 'package:rallyreader/handlers/dbHandlers/dataSources/circleUpload.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
+import 'package:rallyreader/screens/popups/drawer.dart';
 
 class BookCircleScreen extends StatefulWidget {
   @override
@@ -41,17 +42,14 @@ class _BookCircleScreenState extends State<BookCircleScreen>
     UserData userData = Provider.of<UserData>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
     bool showingModal = appData.showingModal;
-    Future<dynamic> namedCircles = firestore
-        .collection('namedCollections')
-        .document(
-          'namedCircles',
-        )
-        .get();
+    Future<QuerySnapshot> namedCircles =
+        firestore.collection('namedCollections').getDocuments();
+
     Future<dynamic> previousCircles =
         firestore.collection('users').document(userData.currentUserId).get();
     animationController.forward();
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       floatingActionButton: MyFloatingActionButton(
         appData: appData,
@@ -72,7 +70,10 @@ class _BookCircleScreenState extends State<BookCircleScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TopRowButton(height: height, scaffoldKey: scaffoldKey ,color: settingsData.blackToWhite,),
+                TopRowButton(
+                  scaffoldKey: scaffoldKey,
+                  color: settingsData.blackToWhite,
+                ),
                 PageTitle(
                   heightT: height * .7,
                   title: 'My Circles',
@@ -86,7 +87,10 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                       future: Future.wait([namedCircles, previousCircles]),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List circles = snapshot.data[0]['circles'];
+                          List circles = [];
+                          snapshot.data[0].documents
+                              .forEach((value) => circles.add(value.data));
+
                           List previousUserCircles =
                               snapshot.data[1].data['circles'];
 
@@ -198,7 +202,7 @@ class _BookCircleScreenState extends State<BookCircleScreen>
                               Expanded(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color:settingsData.opacityBlackToWhite,
+                                    color: settingsData.opacityBlackToWhite,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: ListView.builder(

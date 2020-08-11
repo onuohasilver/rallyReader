@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
+
 import 'package:flutter/material.dart';
 
 import 'dart:async';
@@ -9,7 +9,8 @@ import 'package:flutter/foundation.dart';
 
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/data/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+
 
 class ReadScreen extends StatefulWidget {
   final String path;

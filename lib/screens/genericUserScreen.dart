@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/InputWidget/buttons/profileMenuCard.dart';
 import 'package:rallyreader/components/InputWidget/buttons/topRowButton.dart';
+
 import 'package:rallyreader/components/text/multiColorText.dart';
 
 import 'package:rallyreader/core/constants.dart';
@@ -13,12 +14,16 @@ import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
 import 'package:rallyreader/screens/popups/drawer.dart';
 
-class ProfileScreen extends StatefulWidget {
+class GenericUserScreen extends StatefulWidget {
+  final name;
+  final userID;
+
+  const GenericUserScreen({Key key, this.name, this.userID}) : super(key: key);
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _GenericUserScreenState createState() => _GenericUserScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _GenericUserScreenState extends State<GenericUserScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   Firestore firestore = Firestore.instance;
 
@@ -36,10 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         width: width,
         color: settingsData.bgColor,
         child: FutureBuilder(
-            future: firestore
-                .collection('users')
-                .document(userData.currentUserId)
-                .get(),
+            future: firestore.collection('users').document(widget.userID).get(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(
@@ -47,6 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               }
               int circlesCount = snapshot.data.data['circles'].length;
+              int followerCount = snapshot.data.data['followers'].length;
 
               return Column(
                 children: <Widget>[
@@ -67,12 +70,77 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: TopRowButton(
                                 scaffoldKey: scaffoldKey,
                                 color: Colors.white,
-                                notification: IconButton(
-                                    icon: Icon(
-                                      Icons.notifications,
-                                      color: Colors.white,
-                                    ),
-                                    onPressed: () {}),
+                                widget: StreamBuilder(
+                                    stream: firestore
+                                        .collection('users')
+                                        .document(userData.currentUserId)
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return Container();
+                                      }
+
+                                      List following = [];
+                                      following = snapshot.data['following'];
+                                      bool criteria =
+                                          following.contains(widget.userID);
+                                      String buttonLabel =
+                                          criteria ? 'Unfollow' : 'Follow';
+                                      IconData buttonIcon =
+                                          criteria ? Icons.remove : Icons.add;
+                                      return Material(
+                                        color: Colors.white12,
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: InkWell(
+                                            onTap: () async {
+                                              List followers = [];
+
+                                              await firestore
+                                                  .collection('users')
+                                                  .document(widget.userID)
+                                                  .get()
+                                                  .then((value) => followers =
+                                                      value['followers']);
+                                              if (!criteria) {
+                                                followers.add(
+                                                    userData.currentUserId);
+                                                following.add(widget.userID);
+                                              } else {
+                                                followers.remove(
+                                                    userData.currentUserId);
+                                                following.remove(widget.userID);
+                                              }
+
+                                              firestore
+                                                  .collection('users')
+                                                  .document(
+                                                      userData.currentUserId)
+                                                  .setData(
+                                                      {'following': following},
+                                                      merge: true);
+                                              firestore
+                                                  .collection('users')
+                                                  .document(widget.userID)
+                                                  .setData(
+                                                      {'followers': followers},
+                                                      merge: true);
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 8.0, vertical: 3),
+                                              child: Row(children: [
+                                                Text(buttonLabel,
+                                                    style: GoogleFonts.poppins(
+                                                        color: Colors.white)),
+                                                Icon(
+                                                  buttonIcon,
+                                                  color:
+                                                      settingsData.whiteToBlack,
+                                                ),
+                                              ]),
+                                            )),
+                                      );
+                                    }),
                               ),
                             ),
                             SizedBox(height: height * .05),
@@ -92,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      ' ${userData.userName}',
+                                      ' ${widget.name}',
                                       style: GoogleFonts.poppins(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w700,
@@ -102,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     Row(
                                       children: <Widget>[
                                         MultiColorText(
-                                          leading: ' 27.5k',
+                                          leading: '$followerCount',
                                           trailing: ' followers',
                                         ),
                                         MultiColorText(

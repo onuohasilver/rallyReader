@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rallyreader/components/InputWidget/cards/bookImage.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/imageContainers/bookImage.dart';
-import 'package:rallyreader/data/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 import 'package:rallyreader/screens/readScreen.dart';
 
 class BookScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class _BookScreenState extends State<BookScreen> {
     double widthT = MediaQuery.of(context).size.width;
     double heightT = MediaQuery.of(context).size.height;
     SettingsData settingsData = Provider.of<SettingsData>(context);
+    
     return Scaffold(
       body: Container(
         height: heightT,
@@ -69,11 +71,7 @@ class _BookScreenState extends State<BookScreen> {
                       height: heightT * .54,
                       width: widthT * .7,
                       child: BookImage(
-                        path: widget.path,
-                        shadow: true,
-                        heightT: heightT + (heightT * .6),
-                        widthT: widthT + (widthT * .4),
-                      ),
+                          path: widget.path, shadow: true, ratio: [.6, .4]),
                     ),
                   ),
                   Text(
@@ -92,12 +90,15 @@ class _BookScreenState extends State<BookScreen> {
                       height: heightT * .05,
                       child: Material(
                           child: InkWell(
-                            onTap: () {
+                            onTap: () async {
+                             
+
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
                                     return ReadScreen(path: widget.path);
+                                    // return Dummy();
                                   },
                                 ),
                               );

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/banners.dart';
-import 'package:rallyreader/components/buttons/signUpButton.dart';
-import 'package:rallyreader/components/popups/loginDialog.dart';
-import 'package:rallyreader/components/popups/signUpDialog.dart';
-import 'package:rallyreader/constants.dart';
+import 'package:rallyreader/components/InputWidget/buttons/signUpButton.dart';
+import 'package:rallyreader/components/widgetContainers/banners.dart';
+import 'package:rallyreader/core/constants.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
+import 'package:rallyreader/screens/popups/loginDialog.dart';
 import 'dart:ui' as ui;
 
-import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/screens/popups/signUpDialog.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -45,6 +45,13 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
             curve: Interval(.7, 1.0, curve: Curves.bounceInOut),
             parent: animationController));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    boxAnimationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -121,15 +128,11 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                       children: <Widget>[
                         SignUpButton(
                           boxAnimation: boxAnimation,
-                          width: width,
-                          height: height,
                           color: Colors.orange[900],
                           text: 'Sign up With Google',
                         ),
                         SignUpButton(
                           boxAnimation: delayedBoxAnimation,
-                          width: width,
-                          height: height,
                           text: 'Sign up With Email',
                           onTap: () {
                             buildSignUpDialog(context, height, width);

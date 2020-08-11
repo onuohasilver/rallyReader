@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/topRowButton.dart';
-import 'package:rallyreader/components/popups/drawer.dart';
+import 'package:rallyreader/components/InputWidget/buttons/topRowButton.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
-import 'package:rallyreader/components/thumbnails/thumbnail.dart';
-import 'package:rallyreader/data/data.dart';
-import 'package:rallyreader/data/settings.dart';
+import 'package:rallyreader/components/widgetContainers/thumbnails/thumbnail.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+import 'package:rallyreader/screens/popups/drawer.dart';
+
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     SettingsData settingsData = Provider.of<SettingsData>(context);
 
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: height,
@@ -35,8 +36,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TopRowButton(height: height, scaffoldKey: scaffoldKey,color:settingsData.blackToWhite),
-              PageTitle(heightT: height, title: 'Favorite Books',color:settingsData.blackToWhite),
+              TopRowButton(
+                  scaffoldKey: scaffoldKey, color: settingsData.blackToWhite),
+              PageTitle(
+                  heightT: height,
+                  title: 'Favorite Books',
+                  color: settingsData.blackToWhite),
               Expanded(
                 child: ListView.builder(
                   itemCount: appData.favorites.length,
@@ -47,10 +52,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       color: Colors.transparent,
                       child: InkWell(
                         child: ExpandedThumbnail(
-                          heightT: height,
-                          widthT: width,
                           title: book,
-                         path:appData.filePath[index],
+                          path: appData.filePath[index],
                           key: null,
                           scaffoldKey: scaffoldKey,
                           completion: 23.0,
@@ -69,7 +72,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             );
                           },
                         ),
-                        onLongPress: (){
+                        onLongPress: () {
                           //TODO: Add deleting to long press pop UP
                           print('Long Press');
                         },

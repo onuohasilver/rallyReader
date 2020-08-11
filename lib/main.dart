@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/data/settings.dart';
 import 'package:rallyreader/screens/bookCircleScreen.dart';
 import 'package:rallyreader/screens/collectionsScreen.dart';
 import 'package:rallyreader/screens/individualCircleScreen.dart';
@@ -12,8 +11,11 @@ import 'package:rallyreader/screens/profileScreen.dart';
 import 'package:rallyreader/screens/setProfile.dart';
 import 'package:rallyreader/screens/settingsScreen.dart';
 import 'package:rallyreader/screens/signUp.dart';
-import 'data/data.dart';
-import 'data/userProfileData.dart';
+
+import 'handlers/stateHandlers/providers/data.dart';
+import 'handlers/stateHandlers/providers/settings.dart';
+import 'handlers/stateHandlers/providers/userProfileData.dart';
+
 
 void main() {
   runApp(

@@ -1,15 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/fancyFAB.dart';
-import 'package:rallyreader/components/buttons/topRowButton.dart';
-import 'package:rallyreader/components/popups/drawer.dart';
-import 'package:rallyreader/components/popups/messageBoard.dart';
+import 'package:rallyreader/components/InputWidget/buttons/fancyFAB.dart';
+import 'package:rallyreader/components/InputWidget/buttons/topRowButton.dart';
+import 'package:rallyreader/components/InputWidget/cards/userCircleCards.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
-import 'package:rallyreader/components/thumbnails/thumbnail.dart';
-import 'package:rallyreader/data/data.dart';
-import 'package:rallyreader/data/settings.dart';
+import 'package:rallyreader/components/widgetContainers/thumbnails/thumbnail.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
+import 'package:rallyreader/screens/popups/messageBoard.dart';
+import 'package:rallyreader/screens/popups/snackbars.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
+
+import 'popups/drawer.dart';
 
 class IndividualCircleScreen extends StatefulWidget {
   @override
@@ -24,28 +28,29 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     Firestore firestore = Firestore.instance;
-    Data appData = Provider.of<Data>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
+    UserData userData = Provider.of<UserData>(context);
     final String title = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      drawer: DrawerBuilder(widthT: width, heightT: height),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: StreamBuilder(
         stream: firestore
             .collection('namedCollections')
-            .document('namedCircles')
+            .document(title)
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          List members;
+          List members = [];
           List messageBoard;
-          for (var circle in snapshot.data.data['circles']) {
-            circle['name'] == title ? members = circle['members'] : Container();
-            circle['name'] == title ? messageBoard = circle['messageBoard'] : Container();
-          }
+          Map circle = snapshot.data.data;
+          members = circle['members'];
+          List bookPaths = circle['books'];
+          messageBoard = circle['messageBoard'];
+
           return Stack(children: [
             Container(
               height: height,
@@ -57,8 +62,85 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    TopRowButton(height: height, scaffoldKey: scaffoldKey,color:settingsData.blackToWhite),
-                    PageTitle(heightT: height, title: title,color:settingsData.blackToWhite),
+                    TopRowButton(
+                        scaffoldKey: scaffoldKey,
+                        widget: StreamBuilder(
+                            stream: firestore
+                                .collection('users')
+                                .document(userData.currentUserId)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Container();
+                              }
+                              List previousCircles = snapshot.data['circles'];
+                              String buttonLabel =
+                                  previousCircles.contains(title)
+                                      ? "Leave"
+                                      : "Join";
+                              return Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  splashColor: settingsData.blackToWhite,
+                                  borderRadius: BorderRadius.circular(5),
+                                  onTap: () async {
+                                    List circles = [];
+                                    circles.addAll(previousCircles);
+                                    if (!circles.contains(title)) {
+                                      circles.add(title);
+                                      members.add({
+                                        'name': userData.userName,
+                                        'userID': userData.currentUserId
+                                      });
+
+                                      firestore
+                                          .collection('namedCollections')
+                                          .document(title)
+                                          .setData({'members': members},
+                                              merge: true);
+                                      showSnackBar(
+                                          scaffoldKey, 'You joined the Circle',
+                                          color: Colors.green);
+                                    } else {
+                                      circles.remove(title);
+                                      members.removeWhere((element) =>
+                                          element['userID'] ==
+                                          userData.currentUserId);
+                                      firestore
+                                          .collection('namedCollections')
+                                          .document(title)
+                                          .setData({'members': members},
+                                              merge: true);
+
+                                      showSnackBar(
+                                          scaffoldKey, 'You left the Circle',
+                                          color: Colors.red);
+                                    }
+
+                                    firestore
+                                        .collection('users')
+                                        .document(userData.currentUserId)
+                                        .setData({'circles': circles},
+                                            merge: true);
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 8.0),
+                                    child: Text(
+                                      buttonLabel,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: height * .024,
+                                          fontWeight: FontWeight.w500,
+                                          color: settingsData.blackToWhite),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                        color: settingsData.blackToWhite),
+                    PageTitle(
+                        heightT: height,
+                        title: title,
+                        color: settingsData.blackToWhite),
                     Expanded(
                       child: Container(
                         height: height * .1,
@@ -68,20 +150,49 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
                             itemCount: members.length,
                             itemBuilder: (context, index) {
                               return UserCircleCard(
-                                height: height,
-                                width: width,
-                                name: members[index],
+                                name: members[index]['name'],
                               );
                             }),
                       ),
                     ),
-                    PageTitle(heightT: height * .7, title: 'Shared Books',color:settingsData.blackToWhite),
+                    PageTitle(
+                        heightT: height * .7,
+                        title: 'Shared Books',
+                        color: settingsData.blackToWhite),
                     Container(
-                      height: height * .5,
+                      height: height * .57,
                       width: width,
                       decoration: BoxDecoration(
-                          color: Colors.brown[100],
-                          borderRadius: BorderRadius.circular(10)),
+                        color: Colors.brown[100],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListView.builder(
+                        itemCount: bookPaths.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String title = 'aaaS';
+                          return ExpandedThumbnail(
+                            title: title,
+                            path: bookPaths[index],
+                            key: null,
+                            scaffoldKey: scaffoldKey,
+                            completion: 20.0,
+                            showMenu: true,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return BookScreen(
+                                        title: title,
+                                        image: 'book.image',
+                                        path: bookPaths[index]);
+                                  },
+                                ),
+                              ).then((value) => setState(() => {}));
+                            },
+                          );
+                        },
+                      ),
                     ),
                     Spacer()
                   ],
@@ -93,56 +204,21 @@ class _IndividualCircleScreenState extends State<IndividualCircleScreen> {
               right: width * .07,
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: FancyFab(
-                  onPressed: () {},
-                  icon: Icons.add,
-                ),
+                child:
+                    FancyFab(onPressed: () {}, icon: Icons.add, circle: title),
               ),
             ),
             Positioned.fill(
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  child: MessageBoard(width: width, height: height,messages:messageBoard),
+                  child: MessageBoard(
+                      width: width, height: height, messages: messageBoard),
                 ),
               ),
             ),
           ]);
         },
-      ),
-    );
-  }
-}
-
-class UserCircleCard extends StatelessWidget {
-  const UserCircleCard({
-    Key key,
-    @required this.height,
-    @required this.width,
-    @required this.name,
-  }) : super(key: key);
-
-  final double height;
-  final double width;
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0),
-      child: Container(
-        height: height * .1,
-        width: width * .2,
-        child: Material(
-          elevation: 7,
-          type: MaterialType.circle,
-          color: Colors.brown[900],
-          child: InkWell(
-            customBorder: CircleBorder(),
-            onTap: () {},
-            child: Center(child: Text(name)),
-          ),
-        ),
       ),
     );
   }

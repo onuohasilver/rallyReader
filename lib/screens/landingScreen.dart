@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:rallyreader/components/buttons/topRowButton.dart';
-import 'package:rallyreader/components/popups/drawer.dart';
+import 'package:rallyreader/components/InputWidget/buttons/topRowButton.dart';
+
+
 import 'package:rallyreader/components/text/pageTitles.dart';
-import 'package:rallyreader/components/thumbnails/thumbnail.dart';
-import 'package:rallyreader/data/data.dart';
+
+import 'package:rallyreader/components/widgetContainers/thumbnails/thumbnail.dart';
+
 import 'package:provider/provider.dart';
-import 'package:rallyreader/data/settings.dart';
+
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+import 'package:rallyreader/screens/popups/drawer.dart';
 import 'package:rallyreader/screens/viewScreen.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -33,7 +38,7 @@ class _LandingScreenState extends State<LandingScreen> {
     double widthT = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      drawer: DrawerBuilder(widthT: widthT, heightT: heightT),
+      drawer: DrawerBuilder(),
       key: scaffoldKey,
       body: Container(
         height: heightT,
@@ -46,10 +51,7 @@ class _LandingScreenState extends State<LandingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TopRowButton(
-                scaffoldKey: scaffoldKey,
-                height: heightT,
-                color:settingsData.blackToWhite
-              ),
+                  scaffoldKey: scaffoldKey, color: settingsData.blackToWhite),
               PageTitle(
                   heightT: heightT,
                   title: 'Recent Books.',
@@ -67,8 +69,6 @@ class _LandingScreenState extends State<LandingScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return ThumbNail(
                       path: appData.filePath[index],
-                      heightT: heightT,
-                      widthT: widthT,
                     );
                   },
                 ),
@@ -85,8 +85,6 @@ class _LandingScreenState extends State<LandingScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       String title = appData.filePath[index].split('/').last;
                       return ExpandedThumbnail(
-                        heightT: heightT,
-                        widthT: widthT,
                         title: title,
                         path: appData.filePath[index],
                         key: null,

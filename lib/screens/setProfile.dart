@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/data/data.dart';
-import 'package:rallyreader/data/userProfileData.dart';
+import 'package:rallyreader/handlers/dbHandlers/dataModels/sqlDB.dart';
 import 'package:rallyreader/handlers/handlers.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
+
 
 class SetProfileScreen extends StatefulWidget {
   @override
@@ -20,6 +22,8 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
   GetPermission getPermission = GetPermission();
   List<String> fileNames;
   TextEditingController userName = TextEditingController();
+  DataBase dataBase = DataBase.db;
+
   @override
   void initState() {
     getCurrentUser() async {
@@ -37,7 +41,9 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
     double width = MediaQuery.of(context).size.width;
     UserData userData = Provider.of<UserData>(context);
     Data appData = Provider.of<Data>(context);
-    userData.setCurrentUserID(currentUserID);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      userData.setCurrentUserID(currentUserID);
+    });
 
     return Scaffold(
       body: ModalProgressHUD(
@@ -84,7 +90,7 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
                         width: width * .3,
                         child: Center(
                           child: IconButton(
-                            onPressed: () {
+                            onPressed: () async {
                               appData.progress();
                               firestore
                                   .collection('users')
@@ -96,6 +102,9 @@ class _SetProfileScreenState extends State<SetProfileScreen> {
                               userData.setUserName(userName.text);
                               getPermission.requestPermission;
                               fileNames = getPermission.getFileList;
+
+                              ///TODO: Generate and save png files
+                            
                               appData.updateFiles(fileNames);
                               appData.progress();
                               Navigator.pushReplacementNamed(
