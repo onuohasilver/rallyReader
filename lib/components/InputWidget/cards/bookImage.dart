@@ -6,12 +6,21 @@ import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 import 'bookShelfImage.dart';
 
 class BookImage extends StatefulWidget {
-  const BookImage(
-      {@required this.path, @required this.shadow, this.onTap, this.ratio});
+  ///Creates an Image widget with the first page
+  ///of the given Pdf file
+  const BookImage({
+    @required this.path,
+    @required this.shadow,
+    this.onTap,
+  });
 
+  /// path of the pdfPageImage
   final PdfPageImage path;
+
+  /// show a shadow or not.
   final bool shadow;
-  final List<double> ratio;
+
+  /// function to be triggered on the image tap
   final Function onTap;
 
   @override

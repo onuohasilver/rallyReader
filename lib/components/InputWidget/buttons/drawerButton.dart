@@ -45,7 +45,7 @@ class DrawerButton extends StatelessWidget {
               icon,
               color: color ?? Colors.pink[700],
             ),
-            SizedBox(width: width * .05),
+            SizedBox(width: width * .14),
             Text(
               label,
               style: GoogleFonts.poppins(
