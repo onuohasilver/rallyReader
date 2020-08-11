@@ -1,9 +1,11 @@
-import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/popups/modal.dart';
-import 'package:rallyreader/data/data.dart';
-import 'package:rallyreader/data/settings.dart';
+
+
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+import 'package:rallyreader/screens/popups/modal.dart';
 
 class MyFloatingActionButton extends StatefulWidget {
   final Data appData;
@@ -20,13 +22,12 @@ class _MyFloatingActionButtonState extends State<MyFloatingActionButton> {
     SettingsData settingsData = Provider.of<SettingsData>(context);
     return showFab
         ? FloatingActionButton(
-            child: Icon(Icons.add,color:settingsData.whiteToGrey),
+            child: Icon(Icons.add, color: settingsData.whiteToGrey),
             backgroundColor: settingsData.blackToWhite,
             onPressed: () {
               widget.appData.showModal();
               var bottomSheetController = showBottomSheet(
-                  context: context,
-                  builder: (context) => Modal());
+                  context: context, builder: (context) => Modal());
               showFoatingActionButton(false);
 
               bottomSheetController.closed.then((value) {

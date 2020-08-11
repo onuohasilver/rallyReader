@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/colorFlatButton.dart';
-import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/components/InputWidget/buttons/colorFlatButton.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 
 addToCollection(
     BuildContext context, double heightT, double widthT, String bookTitle) {

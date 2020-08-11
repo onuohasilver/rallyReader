@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/data/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 
 class ListTileButton extends StatelessWidget {
   const ListTileButton({

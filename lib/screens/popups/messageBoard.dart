@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
-import 'package:rallyreader/data/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 
 class MessageBoard extends StatelessWidget {
   const MessageBoard({
@@ -41,7 +41,7 @@ class MessageBoard extends StatelessWidget {
                   child: PageTitle(
                       heightT: height * .7,
                       title: ' Message Board ',
-                      color:Colors.white),
+                      color: Colors.white),
                 ),
                 Expanded(
                   flex: 7,

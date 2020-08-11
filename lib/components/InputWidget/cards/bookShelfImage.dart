@@ -6,7 +6,8 @@ import 'package:flutter/foundation.dart';
 
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/data/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+
 
 class BookShelfImage extends StatefulWidget {
   final String path;

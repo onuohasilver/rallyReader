@@ -1,7 +1,6 @@
 name: rallyreader
 description: A new Flutter project.
 
-
 version: 1.0.0+1
 
 environment:
@@ -28,6 +27,7 @@ dependencies:
   path_provider: ^1.6.11
   sqflite: ^1.2.0
   shared_preferences: ^0.5.7+3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -36,15 +36,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/
-  
-
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

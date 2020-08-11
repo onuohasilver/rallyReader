@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path_provider/path_provider.dart';
 
-import '../cachedPdf.dart';
+
+
 
 Firestore firestore = Firestore.instance;
 Future circlesFuture = firestore
@@ -24,15 +24,15 @@ Future uploadFile(File file, String path, {String circle}) async {
   StorageReference storageReference =
       FirebaseStorage.instance.ref().child('books/${path.split('/').last}');
   Firestore firestore = Firestore.instance;
-  String imagePath = await generateImage(path);
-  File bookImage = File(imagePath);
+  // String imagePath = await generateImage(path);
+  // File bookImage = File(imagePath);
 
   StorageReference storageReferenceImages =
       FirebaseStorage.instance.ref().child('image/${path.split('/').last}');
   StorageUploadTask uploadBook = storageReference.putFile(file);
-  StorageUploadTask uploadImage = storageReferenceImages.putFile(bookImage);
+  // StorageUploadTask uploadImage = storageReferenceImages.putFile(bookImage);
   await uploadBook.onComplete;
-  await uploadImage.onComplete;
+  // await uploadImage.onComplete;
 
   print('File Uploaded');
   storageReference.getDownloadURL().then((fileURL) async {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/data/data.dart';
+
 import 'package:rallyreader/handlers/signInHandlers/googleSignInHandler.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({

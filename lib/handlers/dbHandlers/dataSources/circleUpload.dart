@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rallyreader/data/userProfileData.dart';
+
+import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
 
 Firestore firestore = Firestore.instance;
 /// update the circle information on firebase

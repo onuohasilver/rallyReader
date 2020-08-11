@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/listTileButton.dart';
-import 'package:rallyreader/components/buttons/longColorButton.dart';
-import 'package:rallyreader/components/buttons/topRowButton.dart';
-import 'package:rallyreader/components/popups/drawer.dart';
+import 'package:rallyreader/components/InputWidget/buttons/listTileButton.dart';
+import 'package:rallyreader/components/InputWidget/buttons/longColorButton.dart';
 import 'package:rallyreader/components/text/pageTitles.dart';
-import 'package:rallyreader/data/data.dart';
-import 'package:rallyreader/data/settings.dart';
-import 'package:rallyreader/data/userProfileData.dart';
+
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
+import 'package:rallyreader/screens/popups/drawer.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -22,7 +21,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    Data appData = Provider.of<Data>(context);
     UserData userData = Provider.of<UserData>(context);
     SettingsData settingsData = Provider.of<SettingsData>(context);
     // bool nightMode = settingsData.nightMode;
@@ -32,9 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       key: scaffoldKey,
       body: Container(
         height: height,
-      
-        color:
-           settingsData.bgColor,
+        color: settingsData.bgColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -44,11 +40,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Row(
                 children: <Widget>[
                   BackButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: settingsData.blackToWhite
-                  ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      color: settingsData.blackToWhite),
                   PageTitle(
                     heightT: height,
                     title: 'Settings',
@@ -74,7 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               children: <Widget>[
                                 Text("${userData.userName}",
                                     style: GoogleFonts.poppins(
-                                        color:Colors.white,
+                                        color: Colors.white,
                                         fontSize: height * .03)),
                                 Text("My Profile",
                                     style: GoogleFonts.poppins(
@@ -100,22 +95,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         LongColorButton(
-                         
                           color: Colors.blue[800],
                           icon: Icons.text_format,
                           label: 'Change UserName',
                         ),
                         LongColorButton(
-                         
                           color: Colors.orange[800],
                           icon: Icons.vpn_key,
                           label: 'Change Password',
                         ),
+                        LongColorButton(),
                         LongColorButton(
-                         
-                        ),
-                        LongColorButton(
-                         
                           color: Colors.red[800],
                           icon: Icons.exit_to_app,
                           label: 'Sign Out',
@@ -132,28 +122,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ListTileButton(
                         label: "Night Mode",
                         icon: Icons.wb_sunny,
-                      
                         condition: settingsData.nightMode,
                         trigger: () => settingsData.setNightMode()),
                     SizedBox(height: height * .012),
-                    PageTitle(heightT: height * .7, title: 'Reader Settings', color: settingsData.blackToWhite)
-,                    SizedBox(height: height * .012),
+                    PageTitle(
+                        heightT: height * .7,
+                        title: 'Reader Settings',
+                        color: settingsData.blackToWhite),
+                    SizedBox(height: height * .012),
                     ListTileButton(
                         label: "Allow Page Swipe",
-                      
                         icon: Icons.check_circle,
                         condition: settingsData.enableSwipe,
                         trigger: () => settingsData.enableSwiping()),
                     ListTileButton(
                       label: "Swipe Horizontal",
-                    
                       icon: Icons.check_circle,
                       condition: settingsData.swipeHorizontal,
                       trigger: () => settingsData.setSwipeDirection(),
                     ),
                     ListTileButton(
                       label: "Allow Page Snap",
-                    
                       icon: Icons.check_circle,
                       condition: settingsData.pageSnap,
                       trigger: () => settingsData.setPageSnap(),

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/drawerButton.dart';
-import 'package:rallyreader/data/settings.dart';
-import 'package:rallyreader/data/userProfileData.dart';
+import 'package:rallyreader/components/InputWidget/buttons/drawerButton.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
+
 
 class DrawerBuilder extends StatelessWidget {
   const DrawerBuilder({

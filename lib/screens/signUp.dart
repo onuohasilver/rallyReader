@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/banners.dart';
-import 'package:rallyreader/components/buttons/signUpButton.dart';
-import 'package:rallyreader/components/popups/loginDialog.dart';
-import 'package:rallyreader/components/popups/signUpDialog.dart';
-import 'package:rallyreader/constants.dart';
+import 'package:rallyreader/components/InputWidget/buttons/signUpButton.dart';
+import 'package:rallyreader/components/widgetContainers/banners.dart';
+import 'package:rallyreader/core/constants.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
+import 'package:rallyreader/screens/popups/loginDialog.dart';
 import 'dart:ui' as ui;
 
-import 'package:rallyreader/data/data.dart';
+import 'package:rallyreader/screens/popups/signUpDialog.dart';
 
 class SignUp extends StatefulWidget {
   @override

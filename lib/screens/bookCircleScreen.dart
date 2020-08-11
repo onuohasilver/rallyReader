@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'dart:ui' as ui;
-import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/floatingButton.dart';
-import 'package:rallyreader/components/buttons/topRowButton.dart';
-import 'package:rallyreader/components/popups/drawer.dart';
-import 'package:rallyreader/components/text/pageTitles.dart';
-import 'package:rallyreader/components/thumbnails/circles.dart';
 
-import 'package:rallyreader/data/data.dart';
-import 'package:rallyreader/data/settings.dart';
-import 'package:rallyreader/data/userProfileData.dart';
-import 'package:rallyreader/handlers/dbHandlers/firestoreFutures.dart';
+import 'package:provider/provider.dart';
+import 'package:rallyreader/components/InputWidget/buttons/floatingButton.dart';
+import 'package:rallyreader/components/InputWidget/buttons/topRowButton.dart';
+
+import 'package:rallyreader/components/text/pageTitles.dart';
+
+import 'package:rallyreader/components/widgetContainers/thumbnails/circles.dart';
+import 'package:rallyreader/handlers/dbHandlers/dataSources/circleUpload.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
+import 'package:rallyreader/screens/popups/drawer.dart';
 
 class BookCircleScreen extends StatefulWidget {
   @override

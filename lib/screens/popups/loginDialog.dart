@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rallyreader/components/buttons/colorFlatButton.dart';
+import 'package:rallyreader/components/InputWidget/buttons/colorFlatButton.dart';
+import 'package:rallyreader/components/InputWidget/textInput/textEntry.dart';
+
 import 'dart:ui' as ui;
 
-import 'package:rallyreader/components/textInput/textEntry.dart';
 import 'package:rallyreader/handlers/signInHandlers/emailSignInHandler.dart';
 
 Future buildShowDialog(BuildContext context, double height, double width) {

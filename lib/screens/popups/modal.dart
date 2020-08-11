@@ -3,9 +3,9 @@ import 'dart:ui' as ui;
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/components/buttons/colorFlatButton.dart';
-import 'package:rallyreader/data/userProfileData.dart';
-import 'package:rallyreader/handlers/dbHandlers/circleUpload.dart';
+import 'package:rallyreader/components/InputWidget/buttons/colorFlatButton.dart';
+import 'package:rallyreader/handlers/dbHandlers/dataSources/circleUpload.dart';
+import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
 
 class Modal extends StatelessWidget {
   final TextEditingController textController = TextEditingController();

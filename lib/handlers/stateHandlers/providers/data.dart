@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:rallyreader/components/popups/snackbars.dart';
 import 'package:rallyreader/handlers/bookModel.dart';
+import 'package:rallyreader/screens/popups/snackbars.dart';
 
 class Data extends ChangeNotifier {
   List<String> filePath = [];
