@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 import 'package:rallyreader/screens/popups/drawer.dart';
-import 'package:rallyreader/screens/viewScreen.dart';
+import 'package:rallyreader/screens/pages/books/viewScreen.dart';
 
 class LandingScreen extends StatefulWidget {
   final base64String;

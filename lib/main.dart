@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rallyreader/screens/bookCircleScreen.dart';
-import 'package:rallyreader/screens/collectionsScreen.dart';
-import 'package:rallyreader/screens/individualCircleScreen.dart';
-import 'package:rallyreader/screens/individualCollectionScreen.dart';
+import 'package:rallyreader/screens/pages/circles/bookCircleScreen.dart';
+import 'package:rallyreader/screens/pages/collections/collectionsScreen.dart';
+import 'package:rallyreader/screens/pages/circles/individualCircleScreen.dart';
+import 'package:rallyreader/screens/pages/collections/individualCollectionScreen.dart';
 
-import 'package:rallyreader/screens/landingScreen.dart';
-import 'package:rallyreader/screens/favoritesScreen.dart';
-import 'package:rallyreader/screens/profileScreen.dart';
-import 'package:rallyreader/screens/setProfile.dart';
-import 'package:rallyreader/screens/settingsScreen.dart';
-import 'package:rallyreader/screens/signUp.dart';
+import 'package:rallyreader/screens/pages/books/landingScreen.dart';
+import 'package:rallyreader/screens/pages/books/favoritesScreen.dart';
+import 'package:rallyreader/screens/pages/user/profileScreen.dart';
+import 'package:rallyreader/screens/pages/user/setProfile.dart';
+import 'package:rallyreader/screens/pages/generic/settingsScreen.dart';
+import 'package:rallyreader/screens/pages/user/signUp.dart';
 
 import 'handlers/stateHandlers/providers/data.dart';
 import 'handlers/stateHandlers/providers/settings.dart';

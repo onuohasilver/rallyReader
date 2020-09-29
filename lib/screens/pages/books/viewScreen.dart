@@ -4,7 +4,7 @@ import 'package:rallyreader/components/InputWidget/cards/bookImage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
-import 'package:rallyreader/screens/readScreen.dart';
+import 'package:rallyreader/screens/pages/books/readScreen.dart';
 
 class BookScreen extends StatefulWidget {
   final String image;

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rallyreader/screens/genericUserScreen.dart';
+import 'package:rallyreader/screens/pages/user/genericUserScreen.dart';
 
 class UserCircleCard extends StatelessWidget {
   const UserCircleCard({

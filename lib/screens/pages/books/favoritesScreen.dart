@@ -7,7 +7,7 @@ import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 import 'package:rallyreader/screens/popups/drawer.dart';
 
-import 'package:rallyreader/screens/viewScreen.dart';
+import 'package:rallyreader/screens/pages/books/viewScreen.dart';
 
 class FavoritesScreen extends StatefulWidget {
   @override

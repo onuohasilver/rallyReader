@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:rallyreader/screens/bookCircleScreen.dart';
-import 'package:rallyreader/screens/collectionsScreen.dart';
-import 'package:rallyreader/screens/favoritesScreen.dart';
-import 'package:rallyreader/screens/individualCircleScreen.dart';
-import 'package:rallyreader/screens/individualCollectionScreen.dart';
-import 'package:rallyreader/screens/landingScreen.dart';
-import 'package:rallyreader/screens/profileScreen.dart';
-import 'package:rallyreader/screens/setProfile.dart';
-import 'package:rallyreader/screens/settingsScreen.dart';
-import 'package:rallyreader/screens/signUp.dart'
+import 'package:rallyreader/screens/pages/circles/bookCircleScreen.dart';
+import 'package:rallyreader/screens/pages/collections/collectionsScreen.dart';
+import 'package:rallyreader/screens/pages/books/favoritesScreen.dart';
+import 'package:rallyreader/screens/pages/circles/individualCircleScreen.dart';
+import 'package:rallyreader/screens/pages/collections/individualCollectionScreen.dart';
+import 'package:rallyreader/screens/pages/books/landingScreen.dart';
+import 'package:rallyreader/screens/pages/user/profileScreen.dart';
+import 'package:rallyreader/screens/pages/user/setProfile.dart';
+import 'package:rallyreader/screens/pages/generic/settingsScreen.dart';
+import 'package:rallyreader/screens/pages/user/signUp.dart';
 
 class PagePath {
   static get landingPage => LandingScreen();
@@ -23,6 +23,6 @@ class PagePath {
   static get settingScreen => SettingsScreen();
 }
 
-navigateTo(Widget path,{argz}){
-  CupertinoPageRoute(builder:(context) =>path,settings: argz);
+navigateTo(Widget path, {argz}) {
+  CupertinoPageRoute(builder: (context) => path, settings: argz);
 }

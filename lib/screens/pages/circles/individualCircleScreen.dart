@@ -11,9 +11,9 @@ import 'package:rallyreader/handlers/stateHandlers/providers/settings.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/userProfileData.dart';
 import 'package:rallyreader/screens/popups/messageBoard.dart';
 import 'package:rallyreader/screens/popups/snackbars.dart';
-import 'package:rallyreader/screens/viewScreen.dart';
+import 'package:rallyreader/screens/pages/books/viewScreen.dart';
 
-import 'popups/drawer.dart';
+import '../../popups/drawer.dart';
 
 class IndividualCircleScreen extends StatefulWidget {
   @override
