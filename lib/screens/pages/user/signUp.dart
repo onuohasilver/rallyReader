@@ -4,6 +4,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:rallyreader/components/InputWidget/buttons/signUpButton.dart';
 import 'package:rallyreader/components/widgetContainers/banners.dart';
+import 'package:rallyreader/core/animations.dart';
 import 'package:rallyreader/core/constants.dart';
 import 'package:rallyreader/handlers/stateHandlers/providers/data.dart';
 import 'package:rallyreader/screens/popups/loginDialog.dart';
@@ -19,31 +20,14 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
   AnimationController animationController;
   AnimationController boxAnimationController;
-  Animation animation;
-  Animation boxAnimation;
-  Animation delayedBoxAnimation;
-  Animation delayedAnimation;
-  Animation secondDelayedAnimation;
+
   @override
   void initState() {
     animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 5));
     boxAnimationController =
         AnimationController(vsync: this, duration: Duration(seconds: 3));
-    animation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        curve: Curves.bounceInOut, parent: animationController));
-    boxAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        curve: Curves.bounceInOut, parent: boxAnimationController));
-    delayedBoxAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        curve: Interval(.5, 1.0, curve: Curves.bounceInOut),
-        parent: boxAnimationController));
-    delayedAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        curve: Interval(.5, 1.0, curve: Curves.bounceInOut),
-        parent: animationController));
-    secondDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(
-        CurvedAnimation(
-            curve: Interval(.7, 1.0, curve: Curves.bounceInOut),
-            parent: animationController));
+
     super.initState();
   }
 
@@ -85,7 +69,7 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                           children: <Widget>[
                             SignBox(
                               height: height * 1.5,
-                              animation: animation,
+                              animation: basicAnimationI(animationController),
                               width: width,
                               text: 'R\nE\nAD',
                               textRatio: .07,
@@ -93,11 +77,12 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                             GrowingCicle(
                               height: height,
                               width: width,
-                              animation: animation,
+                              animation: basicAnimationI(animationController),
                             ),
                             SignBox(
                               height: height * 2,
-                              animation: delayedAnimation,
+                              animation:
+                                  delayedAnimationI(boxAnimationController),
                               width: width * .9,
                               text: 'SHARE',
                               bgColor: Colors.orange[900],
@@ -106,11 +91,13 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                             GrowingCicle(
                               height: height * 1.3,
                               width: width * 1.5,
-                              animation: secondDelayedAnimation,
+                              animation:
+                                  delayedAnimationII(animationController),
                             ),
                             SignBox(
                               height: height * 2.5,
-                              animation: secondDelayedAnimation,
+                              animation:
+                                  delayedAnimationIII(animationController),
                               width: width * .9,
                               text: 'ENGAGE',
                               textRatio: .1,
@@ -127,12 +114,14 @@ class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         SignUpButton(
-                          boxAnimation: boxAnimation,
+                          boxAnimation:
+                              basicAnimationII(boxAnimationController),
                           color: Colors.orange[900],
                           text: 'Sign up With Google',
                         ),
                         SignUpButton(
-                          boxAnimation: delayedBoxAnimation,
+                          boxAnimation:
+                              delayedAnimationIII(boxAnimationController),
                           text: 'Sign up With Email',
                           onTap: () {
                             buildSignUpDialog(context, height, width);
